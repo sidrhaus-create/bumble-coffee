@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Bumble Coffee — газированный кофе без сахара</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./bumble.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#F7F2EC;-webkit-font-smoothing:antialiased}
+a{color:#14100E;text-decoration:none}
+a:hover{color:#14100E}
+@keyframes bmHdIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</helmet>
+
+<div style="position:relative;background:#F7F2EC;font-family:Unbounded,system-ui,sans-serif;color:#14100E">
+
+  <div id="top"></div>
+
+  <header data-hd style="position:fixed;left:0;right:0;top:0;z-index:60;background:rgba(247,242,236,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(20,16,14,.14)">
+    <div data-hd-inner style="display:flex;align-items:center;gap:2vw;padding:0 5.4%;height:74px">
+      <a data-hd-logo href="#top" aria-label="Bumble Coffee — наверх" style="display:flex;align-items:center;gap:14px;cursor:pointer">
+        <img src="assets/phoenix.svg" alt="BLACK PHOENIX" style="display:block;height:34px;width:auto"/>
+        <img data-hd-word src="assets/black-phoenix-wordmark.svg" alt="" style="display:block;width:132px;opacity:.85"/>
+      </a>
+
+      <nav data-hd-nav style="position:relative;margin-left:auto;display:flex;align-items:center;gap:2.1vw">
+        <span data-hd-ind data-accent style="position:absolute;left:0;bottom:4px;width:0;height:2px;background:#F23904;opacity:0;transition:left .46s cubic-bezier(.16,1,.3,1),width .46s cubic-bezier(.16,1,.3,1),opacity .3s ease;pointer-events:none"></span>
+        <a data-hd-item data-target="flavors" href="#flavors" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ВКУСЫ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
+        <a data-hd-item data-target="top" href="#top" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">О BUMBLE<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
+        <a data-hd-item data-target="inside" href="#inside" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ЧТО ВНУТРИ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
+        <a data-hd-item data-target="rhythm" href="#rhythm" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ТВОЙ РИТМ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
+        <a data-hd-item data-target="buy" href="#buy" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ГДЕ КУПИТЬ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
+        <a data-hd-item data-target="partners" href="#partners" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ПАРТНЁРАМ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
+      </nav>
+
+      <button data-hd-burger type="button" aria-label="Меню" style="margin-left:2.6vw;width:30px;height:30px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px;background:none;border:0;padding:0;cursor:pointer">
+        <i style="display:block;width:100%;height:2px;background:#14100E"></i>
+        <i style="display:block;width:78%;height:2px;background:#14100E"></i>
+        <i style="display:block;width:100%;height:2px;background:#14100E"></i>
+      </button>
+    </div>
+  </header>
+
+  <div data-ov style="position:fixed;inset:0;z-index:70;background:#F7F2EC;opacity:0;pointer-events:none;transition:opacity .42s ease;display:flex;flex-direction:column;padding:0 5.4% 3vh">
+    <div style="flex:none;height:74px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(20,16,14,.14)">
+      <span data-accenttext style="font-size:clamp(10px,.68vw,13px);font-weight:800;letter-spacing:.3em;color:#F23904">BUMBLE COFFEE</span>
+      <button data-ov-close type="button" aria-label="Закрыть" style="position:relative;width:30px;height:30px;background:none;border:0;padding:0;cursor:pointer">
+        <i style="position:absolute;left:0;top:14px;width:100%;height:2px;background:#14100E;transform:rotate(45deg)"></i>
+        <i style="position:absolute;left:0;top:14px;width:100%;height:2px;background:#14100E;transform:rotate(-45deg)"></i>
+      </button>
+    </div>
+
+    <nav data-ov-list style="flex:1 1 auto;min-height:0;overflow-y:auto;display:flex;flex-direction:column;justify-content:center;padding:2vh 0">
+      <a data-ov-item data-target="flavors" href="#flavors" style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0;border-bottom:1px solid rgba(20,16,14,.1)"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">01</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">ВКУСЫ</span></a>
+      <a data-ov-item data-target="top" href="#top" style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0;border-bottom:1px solid rgba(20,16,14,.1)"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">02</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">О BUMBLE</span></a>
+      <a data-ov-item data-target="inside" href="#inside" style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0;border-bottom:1px solid rgba(20,16,14,.1)"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">03</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">ЧТО ВНУТРИ</span></a>
+      <a data-ov-item data-target="rhythm" href="#rhythm" style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0;border-bottom:1px solid rgba(20,16,14,.1)"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">04</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">ТВОЙ РИТМ</span></a>
+      <a data-ov-item data-target="buy" href="#buy" style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0;border-bottom:1px solid rgba(20,16,14,.1)"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">05</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">ГДЕ КУПИТЬ</span></a>
+      <a data-ov-item data-target="partners" href="#partners" style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0;border-bottom:1px solid rgba(20,16,14,.1)"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">06</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">ПАРТНЁРАМ</span></a>
+      <div data-ov-head style="display:flex;align-items:baseline;gap:20px;flex:0 0 auto;min-height:clamp(44px,8.2vh,74px);padding:4px 0"><span style="font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:.4">07</span><span style="font-size:clamp(19px,min(3.4vw,5.4vh),64px);font-weight:800;letter-spacing:-.03em;line-height:1.1">КОНТАКТЫ</span></div>
+    </nav>
+
+    <div data-ov-contacts style="flex:none">
+      <div style="height:1px;background:rgba(20,16,14,.14)"></div>
+      <div style="margin-top:clamp(14px,2.2vh,26px);display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(16px,2.4vw,44px)">
+
+        <a data-ov-c href="mailto:hello@bumble.coffee" style="flex:1 1 148px;min-width:0;display:flex;align-items:center;gap:12px;padding:2px 0">
+          <span data-ov-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg data-ov-c-ic viewBox="0 0 24 24" style="display:block;width:56%;height:56%;transition:color .3s ease"><rect x="3.5" y="6" width="17" height="12" rx="1" style="fill:none;stroke:currentColor;stroke-width:1.4"/><path d="M4.4 7 12 13 19.6 7" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">ПОЧТА</span>
+            <span data-ov-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">hello@bumble.coffee</span>
+          </span>
+        </a>
+
+        <a data-ov-c href="https://instagram.com/bumblecoffee" target="_blank" rel="noopener" style="flex:1 1 148px;min-width:0;display:flex;align-items:center;gap:12px;padding:2px 0">
+          <span data-ov-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg data-ov-c-ic viewBox="0 0 24 24" style="display:block;width:56%;height:56%;transition:color .3s ease"><rect x="4" y="4" width="16" height="16" rx="4.6" style="fill:none;stroke:currentColor;stroke-width:1.4"/><circle cx="12" cy="12" r="3.9" style="fill:none;stroke:currentColor;stroke-width:1.4"/><circle cx="16.6" cy="7.5" r="1" style="fill:currentColor"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">INSTAGRAM</span>
+            <span data-ov-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">@bumblecoffee</span>
+          </span>
+        </a>
+
+        <a data-ov-c href="https://t.me/bumblecoffee" target="_blank" rel="noopener" style="flex:1 1 148px;min-width:0;display:flex;align-items:center;gap:12px;padding:2px 0">
+          <span data-ov-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg data-ov-c-ic viewBox="0 0 24 24" style="display:block;width:56%;height:56%;transition:color .3s ease"><path d="M20.5 4.6 3.6 11.2l4.9 1.7 1.5 5.2 2.7-3.1 4.3 3.2z" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round"/><path d="M8.5 12.9 20.5 4.6l-8.3 10.4" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">TELEGRAM</span>
+            <span data-ov-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">@bumblecoffee</span>
+          </span>
+        </a>
+
+        <a data-ov-c href="https://vk.com/bumblecoffee" target="_blank" rel="noopener" style="flex:1 1 148px;min-width:0;display:flex;align-items:center;gap:12px;padding:2px 0">
+          <span data-ov-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg data-ov-c-ic viewBox="0 0 24 24" style="display:block;width:56%;height:56%;transition:color .3s ease"><path d="M4 7.5 7.4 16.5 10.8 7.5" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round"/><path d="M13.8 7.5v9" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round"/><path d="M19.4 7.5 13.8 12.3 19.4 16.5" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">ВКОНТАКТЕ</span>
+            <span data-ov-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">vk.com/bumblecoffee</span>
+          </span>
+        </a>
+
+        <button data-ov-up type="button" aria-label="Наверх" style="flex:0 0 auto;margin-left:auto;display:flex;align-items:center;gap:12px;padding:2px 0;background:none;border:0;font-family:inherit;cursor:pointer">
+          <span style="font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em;color:rgba(20,16,14,.5);transition:color .3s ease">НАВЕРХ</span>
+          <span data-ov-up-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .34s cubic-bezier(.16,1,.3,1)">
+            <svg viewBox="0 0 24 24" style="display:block;width:52%;height:52%"><path d="M12 19V5.6M6.4 11.2 12 5.4l5.6 5.8" style="fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"/></svg>
+          </span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <div data-master-next data-screen-label="Hero → Inside → Rhythm → 05…08" style="position:relative;z-index:2">
+    <div id="flavors" data-sec="flavors"><dc-import name="Bumble Flavor Keys" hint-size="100%,2200px"></dc-import></div>
+
+    <div id="inside" data-sec="inside"><dc-import name="Bumble Inside" hint-size="100%,3600px"></dc-import></div>
+    <div id="robusta" data-sec="robusta"><dc-import name="Bumble Robusta" hint-size="100%,2200px"></dc-import></div>
+    <div id="rhythm" data-sec="rhythm"><dc-import name="Bumble Rhythm" hint-size="100%,2600px"></dc-import></div>
+
+    <div id="buy" data-sec="buy" style="border-top:1px solid rgba(20,16,14,.14)"><dc-import name="Bumble Buy" hint-size="100%,1100px"></dc-import></div>
+
+    <div id="partners" data-sec="partners" style="border-top:1px solid rgba(20,16,14,.14)"><dc-import name="Bumble Partners" hint-size="100%,900px"></dc-import></div>
+
+    <footer data-ft data-screen-label="Футер" style="position:relative;background:#F7F2EC;border-top:1px solid rgba(20,16,14,.16);padding:clamp(28px,4.4vh,52px) 5.4% clamp(16px,2.4vh,26px)">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:clamp(24px,3vw,64px)">
+
+        <div style="flex:0 1 auto;min-width:0">
+          <img src="assets/black-phoenix-wordmark.svg" alt="BLACK PHOENIX" style="display:block;width:clamp(104px,8vw,168px);opacity:.8"/>
+          <div data-ft-accent style="margin-top:clamp(10px,1.4vh,16px);font-size:clamp(9px,.62vw,12px);font-weight:800;letter-spacing:.3em;color:#F23904">BUMBLE COFFEE</div>
+          <div style="margin-top:clamp(10px,1.4vh,16px);font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;line-height:1.9;color:rgba(20,16,14,.5)">БОДРИТ КАК КОФЕ.<br/>ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div>
+        </div>
+
+        <nav style="flex:1 1 300px;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:clamp(6px,.9vh,12px) clamp(14px,1.8vw,32px)">
+          <a data-ft-link data-target="top" href="#top" style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;color:rgba(20,16,14,.62);transition:color .28s ease">О BUMBLE</a>
+          <a data-ft-link data-target="flavors" href="#flavors" style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;color:rgba(20,16,14,.62);transition:color .28s ease">ВКУСЫ</a>
+          <a data-ft-link data-target="inside" href="#inside" style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;color:rgba(20,16,14,.62);transition:color .28s ease">ЧТО ВНУТРИ</a>
+          <a data-ft-link data-target="rhythm" href="#rhythm" style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;color:rgba(20,16,14,.62);transition:color .28s ease">ТВОЙ РИТМ</a>
+          <a data-ft-link data-target="buy" href="#buy" style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;color:rgba(20,16,14,.62);transition:color .28s ease">ГДЕ КУПИТЬ</a>
+          <a data-ft-link data-target="partners" href="#partners" style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.22em;color:rgba(20,16,14,.62);transition:color .28s ease">ПАРТНЁРАМ</a>
+        </nav>
+
+        <button data-ft-up type="button" aria-label="Наверх" style="flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:2px 0;background:none;border:0;font-family:inherit;cursor:pointer">
+          <span data-ft-up-label style="font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em;color:rgba(20,16,14,.5);transition:color .3s ease">НАВЕРХ</span>
+          <span data-ft-up-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .34s cubic-bezier(.16,1,.3,1)">
+            <svg viewBox="0 0 24 24" style="display:block;width:52%;height:52%"><path d="M12 19V5.6M6.4 11.2 12 5.4l5.6 5.8" style="fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"/></svg>
+          </span>
+        </button>
+
+      </div>
+
+      <div data-ft-contacts style="margin-top:clamp(18px,2.6vh,30px);padding-top:clamp(14px,2vh,22px);border-top:1px solid rgba(20,16,14,.12);display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:clamp(12px,1.6vw,32px)">
+
+        <a data-ft-c href="mailto:hello@bumble.coffee" style="display:flex;align-items:center;gap:12px;min-height:44px;min-width:0">
+          <span data-ft-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg viewBox="0 0 24 24" style="display:block;width:56%;height:56%"><rect x="3.5" y="6" width="17" height="12" rx="1" style="fill:none;stroke:currentColor;stroke-width:1.4"/><path d="M4.4 7 12 13 19.6 7" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">ПОЧТА</span>
+            <span data-ft-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">hello@bumble.coffee</span>
+          </span>
+        </a>
+
+        <a data-ft-c href="https://instagram.com/bumblecoffee" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;min-height:44px;min-width:0">
+          <span data-ft-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg viewBox="0 0 24 24" style="display:block;width:56%;height:56%"><rect x="4" y="4" width="16" height="16" rx="4.6" style="fill:none;stroke:currentColor;stroke-width:1.4"/><circle cx="12" cy="12" r="3.9" style="fill:none;stroke:currentColor;stroke-width:1.4"/><circle cx="16.6" cy="7.5" r="1" style="fill:currentColor"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">INSTAGRAM</span>
+            <span data-ft-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">@bumblecoffee</span>
+          </span>
+        </a>
+
+        <a data-ft-c href="https://t.me/bumblecoffee" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;min-height:44px;min-width:0">
+          <span data-ft-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg viewBox="0 0 24 24" style="display:block;width:56%;height:56%"><path d="M20.5 4.6 3.6 11.2l4.9 1.7 1.5 5.2 2.7-3.1 4.3 3.2z" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round"/><path d="M8.5 12.9 20.5 4.6l-8.3 10.4" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">TELEGRAM</span>
+            <span data-ft-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">@bumblecoffee</span>
+          </span>
+        </a>
+
+        <a data-ft-c href="https://vk.com/bumblecoffee" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;min-height:44px;min-width:0">
+          <span data-ft-c-fr style="flex:none;display:flex;align-items:center;justify-content:center;width:clamp(30px,2.4vw,38px);height:clamp(30px,2.4vw,38px);border:1px solid rgba(20,16,14,.2);border-radius:2px;transition:border-color .3s ease,transform .3s cubic-bezier(.16,1,.3,1)">
+            <svg viewBox="0 0 24 24" style="display:block;width:56%;height:56%"><path d="M4 7.5 7.4 16.5 10.8 7.5" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round"/><path d="M13.8 7.5v9" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round"/><path d="M19.4 7.5 13.8 12.3 19.4 16.5" style="fill:none;stroke:currentColor;stroke-width:1.4;stroke-linejoin:round;stroke-linecap:round"/></svg>
+          </span>
+          <span style="min-width:0">
+            <span style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.24em">ВКОНТАКТЕ</span>
+            <span data-ft-c-val style="display:block;margin-top:4px;font-size:clamp(9px,.62vw,12px);font-weight:400;letter-spacing:.02em;color:rgba(20,16,14,.5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .3s ease">vk.com/bumblecoffee</span>
+          </span>
+        </a>
+
+      </div>
+
+      <div style="margin-top:clamp(14px,2.2vh,26px);padding-top:clamp(12px,1.8vh,18px);border-top:1px solid rgba(20,16,14,.12);font-size:clamp(8px,.56vw,11px);font-weight:700;letter-spacing:.26em;color:rgba(20,16,14,.38)">© 2026 BLACK PHOENIX · BUMBLE COFFEE</div>
+    </footer>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const IDS = ['flavors','inside','robusta','rhythm','buy','partners'];
+/* Why Robusta is a continuation of ЧТО ВНУТРИ — it keeps that nav item lit */
+const NAV_OF = { robusta: 'inside' };
+const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
+
+/* This page owns only the site chrome and the intro hand-off: the four approved
+   sections are imported untouched, screens 05-09 are structural anchors. */
+class Component extends DCLogic {
+  componentDidMount(){ this.mount(); }
+  componentDidUpdate(){ this.mount(); }
+
+  mount(){
+    const next = document.querySelector('[data-master-next]');
+    if (!next) return;
+    this.next = next;
+    this.hd = document.querySelector('[data-hd]');
+    this.hdNav = document.querySelector('[data-hd-nav]');
+    this.hdWord = document.querySelector('[data-hd-word]');
+    this.items = Array.from(document.querySelectorAll('[data-hd-item]'));
+    this.ov = document.querySelector('[data-ov]');
+    this.ovItems = Array.from(document.querySelectorAll('[data-ov-item]'));
+    this.ind = document.querySelector('[data-hd-ind]');
+    this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
+    this.layout();
+
+    if (this.wired){ this.apply(); return; }
+    this.wired = true;
+    this.onScroll = () => this.apply();
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', () => { this.layout(); this.apply(); this.moveIndicator(); });
+    document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
+
+    this.items.forEach(a => {
+      a.addEventListener('click', e => { e.preventDefault(); this.goTo(a.dataset.target); });
+      a.addEventListener('pointerenter', () => this.line(a, true));
+      a.addEventListener('pointerleave', () => this.line(a, false));
+    });
+    this.ovItems.forEach(a => {
+      a.addEventListener('click', e => { e.preventDefault(); this.overlay(false); this.goTo(a.dataset.target); });
+    });
+    document.querySelector('[data-hd-logo]').addEventListener('click', e => { e.preventDefault(); this.goTo('top'); });
+    document.querySelector('[data-hd-burger]').addEventListener('click', () => this.overlay(true));
+    document.querySelector('[data-ov-close]').addEventListener('click', () => this.overlay(false));
+    this.wireContacts();
+    this.wireFooter();
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') this.overlay(false); });
+    this.apply();
+  }
+
+  /* contact rows and the up-arrow: frame and value pick up the live flavour
+     accent on hover, the arrow nudges upward */
+  wireContacts(){
+    const hi = (fr, val, on) => {
+      if (fr){ fr.style.borderColor = on ? this.accent : 'rgba(20,16,14,.2)'; fr.style.color = on ? this.accent : '#14100E'; }
+      if (val) val.style.color = on ? this.accent : 'rgba(20,16,14,.5)';
+    };
+    Array.from(document.querySelectorAll('[data-ov-c]')).forEach(a => {
+      const fr = a.querySelector('[data-ov-c-fr]'), val = a.querySelector('[data-ov-c-val]');
+      a.addEventListener('pointerenter', () => { hi(fr, val, true); if (fr) fr.style.transform = 'translateY(-2px)'; });
+      a.addEventListener('pointerleave', () => { hi(fr, val, false); if (fr) fr.style.transform = 'translateY(0)'; });
+    });
+    const up = document.querySelector('[data-ov-up]');
+    if (!up) return;
+    const fr = up.querySelector('[data-ov-up-fr]'), lab = up.querySelector('span');
+    up.addEventListener('pointerenter', () => { if (fr){ fr.style.borderColor = this.accent; fr.style.color = this.accent; fr.style.transform = 'translateY(-3px)'; } if (lab) lab.style.color = this.accent; });
+    up.addEventListener('pointerleave', () => { if (fr){ fr.style.borderColor = 'rgba(20,16,14,.2)'; fr.style.color = '#14100E'; fr.style.transform = 'translateY(0)'; } if (lab) lab.style.color = 'rgba(20,16,14,.5)'; });
+    up.addEventListener('click', () => { this.overlay(false); this.goTo('top'); });
+  }
+
+  /* footer: compact closing signature, same anchor logic as the header nav */
+  wireFooter(){
+    Array.from(document.querySelectorAll('[data-ft-c]')).forEach(a => {
+      const fr = a.querySelector('[data-ft-c-fr]'), val = a.querySelector('[data-ft-c-val]');
+      a.addEventListener('pointerenter', () => { fr.style.borderColor = this.accent; fr.style.color = this.accent; fr.style.transform = 'translateY(-2px)'; val.style.color = this.accent; });
+      a.addEventListener('pointerleave', () => { fr.style.borderColor = 'rgba(20,16,14,.2)'; fr.style.color = '#14100E'; fr.style.transform = 'translateY(0)'; val.style.color = 'rgba(20,16,14,.5)'; });
+    });
+    Array.from(document.querySelectorAll('[data-ft-link]')).forEach(a => {
+      a.addEventListener('click', e => { e.preventDefault(); this.goTo(a.dataset.target); });
+      a.addEventListener('pointerenter', () => { a.style.color = this.accent; });
+      a.addEventListener('pointerleave', () => { a.style.color = 'rgba(20,16,14,.62)'; });
+    });
+    const up = document.querySelector('[data-ft-up]');
+    if (!up) return;
+    const fr = up.querySelector('[data-ft-up-fr]'), lab = up.querySelector('[data-ft-up-label]');
+    up.addEventListener('pointerenter', () => { fr.style.borderColor = this.accent; fr.style.color = this.accent; fr.style.transform = 'translateY(-3px)'; lab.style.color = this.accent; });
+    up.addEventListener('pointerleave', () => { fr.style.borderColor = 'rgba(20,16,14,.2)'; fr.style.color = '#14100E'; fr.style.transform = 'translateY(0)'; lab.style.color = 'rgba(20,16,14,.5)'; });
+    up.addEventListener('click', () => this.goTo('top'));
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.onScroll);
+  }
+
+  setFlavor(i){
+    const c = COLORS[i] || COLORS[0];
+    this.accent = c;
+    Array.from(document.querySelectorAll('[data-accent]')).forEach(el => { el.style.background = c; });
+    Array.from(document.querySelectorAll('[data-accenttext]')).forEach(el => { el.style.color = c; });
+    Array.from(document.querySelectorAll('[data-ft-accent]')).forEach(el => { el.style.color = c; });
+  }
+
+  layout(){
+    this.narrow = window.innerWidth < 1024;
+    this.hdNav.style.display = this.narrow ? 'none' : 'flex';
+    this.hdWord.style.display = window.innerWidth < 560 ? 'none' : 'block';
+    const burger = document.querySelector('[data-hd-burger]');
+    burger.style.marginLeft = this.narrow ? 'auto' : '2.6vw';
+    document.querySelector('[data-hd-inner]').style.height = this.narrow ? '64px' : '74px';
+    document.querySelector('[data-ov]').style.paddingTop = this.narrow ? '0' : '0';
+  }
+
+  headerH(){ return this.narrow ? 64 : 74; }
+
+  /* untransformed document position of a section */
+  posOf(id){
+    const el = document.getElementById(id);
+    if (!el) return null;
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  goTo(id){
+    if (id === 'top'){ window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    const pos = this.posOf(id);
+    if (pos === null) return;
+    let target = pos - this.headerH();
+    /* ВКУСЫ lands in the flavour half of the combined opening panel */
+    if (id === 'flavors'){
+      const sc = document.querySelector('[data-hero-scroll]');
+      const st = document.querySelector('[data-stage-d]');
+      if (sc && st) target += Math.max(0, sc.offsetHeight - st.offsetHeight) * 0.46;
+    }
+    window.scrollTo({ top: Math.max(0, Math.round(target)), behavior: 'smooth' });
+  }
+
+  line(a, on){
+    const ln = a.querySelector('[data-ln]');
+    if (ln) ln.style.transform = on && a.dataset.target !== this.activeId ? 'scaleX(1)' : 'scaleX(0)';
+  }
+
+  /* only the indicator moves — header geometry never changes */
+  moveIndicator(){
+    if (!this.ind) return;
+    const a = this.items.find(it => it.dataset.target === this.activeId);
+    if (!a || this.hdNav.style.display === 'none'){ this.ind.style.opacity = 0; return; }
+    const nb = this.hdNav.getBoundingClientRect(), ab = a.getBoundingClientRect();
+    this.ind.style.left = (ab.left - nb.left) + 'px';
+    this.ind.style.width = ab.width + 'px';
+    this.ind.style.opacity = 1;
+  }
+
+  overlay(on){
+    this.ovOpen = on;
+    this.ov.style.opacity = on ? 1 : 0;
+    this.ov.style.pointerEvents = on ? 'auto' : 'none';
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    this.apply();
+  }
+
+  apply(){
+    const probe = window.scrollY + this.headerH() + 12;
+    let active = null;
+    IDS.forEach(id => { const y = this.posOf(id); if (y !== null && y <= probe) active = id; });
+    if (!active) active = 'top';
+    /* the opening panel carries О BUMBLE first and ВКУСЫ after the morph */
+    if (active === 'flavors'){
+      const sc = document.querySelector('[data-hero-scroll]');
+      const st = document.querySelector('[data-stage-d]');
+      if (sc && st){
+        const span = Math.max(1, sc.offsetHeight - st.offsetHeight);
+        if ((this.headerH() - sc.getBoundingClientRect().top) / span < 0.34) active = 'top';
+      }
+    }
+    active = NAV_OF[active] || active;
+    if (active !== this.activeId){
+      this.activeId = active;
+      this.items.forEach(a => this.line(a, false));
+      this.moveIndicator();
+    }
+  }
+
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

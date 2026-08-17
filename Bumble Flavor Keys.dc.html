@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./bumble.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-400.woff2) format('woff2');font-weight:400;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-600.woff2) format('woff2');font-weight:600;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-600.woff2) format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-700.woff2) format('woff2');font-weight:700;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-800.woff2) format('woff2');font-weight:800;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-800.woff2) format('woff2');font-weight:800;font-display:swap}
+body{margin:0;background:#FAEED4;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:#81377B;text-decoration:none}
+a:hover{color:#F23904}
+[data-can]:focus-visible{outline:1px solid rgba(20,16,14,.4);outline-offset:8px}
+@keyframes canpress{
+ 0%{transform:translateY(0);animation-timing-function:cubic-bezier(.36,0,.9,.42)}
+ 15%{transform:translateY(calc(var(--d,54px) * var(--k,1)));animation-timing-function:cubic-bezier(.12,.72,.3,1)}
+ 43%{transform:translateY(calc(var(--d,54px) * var(--k,1) * -0.38));animation-timing-function:cubic-bezier(.42,0,.58,1)}
+ 69%{transform:translateY(calc(var(--d,54px) * var(--k,1) * 0.115));animation-timing-function:cubic-bezier(.3,0,.4,1)}
+ 100%{transform:translateY(0)}
+}
+@keyframes canshadow{
+ 0%{transform:scale(1,1);opacity:.42;animation-timing-function:cubic-bezier(.36,0,.9,.42)}
+ 15%{transform:scale(calc(1 - .17 * var(--k,1)),calc(1 - .38 * var(--k,1)));opacity:calc(.42 + .22 * var(--k,1));animation-timing-function:cubic-bezier(.12,.72,.3,1)}
+ 43%{transform:scale(calc(1 + .05 * var(--k,1)),calc(1 + .1 * var(--k,1)));opacity:calc(.42 - .1 * var(--k,1))}
+ 100%{transform:scale(1,1);opacity:.42}
+}
+</style>
+</helmet>
+
+<div style="font-family:Unbounded,system-ui,sans-serif;color:#14100E;background:#FAEED4">
+
+  <div data-hero-scroll style="position:relative;height:200vh">
+  <section data-screen-label="Hero · about + flavor keys" data-stage-d style="position:sticky;top:0;height:100vh;box-sizing:border-box;padding:38px 0 16px;overflow:hidden;display:flex;flex-direction:column;justify-content:center">
+    <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 66% at 50% 82%,rgba(246,181,75,.42),rgba(246,181,75,0) 68%)"></div>
+
+    <div data-hero-fit style="position:relative;width:100%;flex:0 0 auto;transform-origin:50% 0">
+
+    <div data-hero-zone style="position:relative;margin-top:4px;height:176px">
+      <div data-hero-intro style="position:absolute;left:clamp(20px,4vw,56px);right:clamp(20px,4vw,56px);bottom:0;display:flex;flex-direction:column;align-items:center;gap:clamp(12px,1.4vw,20px);will-change:transform,opacity">
+        <img src="assets/bumble-script.svg" alt="Bumble Coffee" style="display:block;width:min(520px,47vw);height:auto"/>
+        <span style="display:inline-block;color:rgba(20,16,14,.44);font-size:clamp(8.5px,.72vw,14px);font-weight:600;letter-spacing:.2em;line-height:1;white-space:nowrap">ГАЗИРОВАННЫЙ КОФЕ БЕЗ САХАРА</span>
+      </div>
+      <div data-hero-head style="position:absolute;left:0;right:0;bottom:0;text-align:center;opacity:0;will-change:transform,opacity">
+        <h2 style="margin:0;font-size:clamp(44px,6.1vw,96px);line-height:.94;font-weight:800;letter-spacing:-.035em">ЛОВИ СВОЙ ВКУС</h2>
+        <div style="margin-top:20px;font-size:10.5px;font-weight:600;letter-spacing:.3em;opacity:.48">НАВЕДИ ИЛИ НАЖМИ НА БАНКУ</div>
+      </div>
+    </div>
+
+    <div data-hero-gap style="position:relative;margin:30px clamp(20px,4vw,56px) 0">
+      <div style="display:flex;align-items:flex-end;justify-content:center;gap:clamp(8px,1.9vw,30px)">
+
+        <div data-can data-idx="0" tabindex="0" role="button" aria-label="Bumble Coffee Orange" style="position:relative;flex:1 1 0;min-width:0;max-width:240px;cursor:pointer;transition:opacity .55s ease">
+          <div data-shadow style="position:absolute;left:9%;right:9%;bottom:-3px;height:18px;border-radius:50%;background:rgba(20,16,14,.32);filter:blur(10px);opacity:.42;transform-origin:50% 100%"></div>
+          <div data-field style="position:absolute;left:-18%;right:-18%;bottom:5px;height:42%;background:rgba(242,57,4,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-lift style="position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1)">
+            <div data-mover style="position:relative;will-change:transform">
+              <img src="assets/cans/orange.png" alt="Bumble Coffee Orange" draggable="false" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none"/>
+            </div>
+          </div>
+        </div>
+
+        <div data-can data-idx="1" tabindex="0" role="button" aria-label="Bumble Coffee Cherry" style="position:relative;flex:1 1 0;min-width:0;max-width:240px;cursor:pointer;transition:opacity .55s ease">
+          <div data-shadow style="position:absolute;left:9%;right:9%;bottom:-3px;height:18px;border-radius:50%;background:rgba(20,16,14,.32);filter:blur(10px);opacity:.42;transform-origin:50% 100%"></div>
+          <div data-field style="position:absolute;left:-18%;right:-18%;bottom:5px;height:42%;background:rgba(187,13,10,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-lift style="position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1)">
+            <div data-mover style="position:relative;will-change:transform">
+              <img src="assets/cans/cherry.png" alt="Bumble Coffee Cherry" draggable="false" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none"/>
+            </div>
+          </div>
+        </div>
+
+        <div data-can data-idx="2" tabindex="0" role="button" aria-label="Bumble Coffee Pomegranate" style="position:relative;flex:1 1 0;min-width:0;max-width:240px;cursor:pointer;transition:opacity .55s ease">
+          <div data-shadow style="position:absolute;left:9%;right:9%;bottom:-3px;height:18px;border-radius:50%;background:rgba(20,16,14,.32);filter:blur(10px);opacity:.42;transform-origin:50% 100%"></div>
+          <div data-field style="position:absolute;left:-18%;right:-18%;bottom:5px;height:42%;background:rgba(162,29,17,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-lift style="position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1)">
+            <div data-mover style="position:relative;will-change:transform">
+              <img src="assets/cans/pomegranate.png" alt="Bumble Coffee Pomegranate" draggable="false" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none"/>
+            </div>
+          </div>
+        </div>
+
+        <div data-can data-idx="3" tabindex="0" role="button" aria-label="Bumble Coffee Raspberry" style="position:relative;flex:1 1 0;min-width:0;max-width:240px;cursor:pointer;transition:opacity .55s ease">
+          <div data-shadow style="position:absolute;left:9%;right:9%;bottom:-3px;height:18px;border-radius:50%;background:rgba(20,16,14,.32);filter:blur(10px);opacity:.42;transform-origin:50% 100%"></div>
+          <div data-field style="position:absolute;left:-18%;right:-18%;bottom:5px;height:42%;background:rgba(202,17,129,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-lift style="position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1)">
+            <div data-mover style="position:relative;will-change:transform">
+              <img src="assets/cans/raspberry.png" alt="Bumble Coffee Raspberry" draggable="false" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none"/>
+            </div>
+          </div>
+        </div>
+
+        <div data-can data-idx="4" tabindex="0" role="button" aria-label="Bumble Coffee Zero Cola" style="position:relative;flex:1 1 0;min-width:0;max-width:240px;cursor:pointer;transition:opacity .55s ease">
+          <div data-shadow style="position:absolute;left:9%;right:9%;bottom:-3px;height:18px;border-radius:50%;background:rgba(20,16,14,.32);filter:blur(10px);opacity:.42;transform-origin:50% 100%"></div>
+          <div data-field style="position:absolute;left:-18%;right:-18%;bottom:5px;height:42%;background:rgba(230,15,19,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-lift style="position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1)">
+            <div data-mover style="position:relative;will-change:transform">
+              <img src="assets/cans/zero-cola.png" alt="Bumble Coffee Zero Cola" draggable="false" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none"/>
+            </div>
+          </div>
+        </div>
+
+        <div data-can data-idx="5" tabindex="0" role="button" aria-label="Bumble Coffee Wild Berries" style="position:relative;flex:1 1 0;min-width:0;max-width:240px;cursor:pointer;transition:opacity .55s ease">
+          <div data-shadow style="position:absolute;left:9%;right:9%;bottom:-3px;height:18px;border-radius:50%;background:rgba(20,16,14,.32);filter:blur(10px);opacity:.42;transform-origin:50% 100%"></div>
+          <div data-field style="position:absolute;left:-18%;right:-18%;bottom:5px;height:42%;background:rgba(129,55,122,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-lift style="position:relative;transition:transform .6s cubic-bezier(.16,1,.3,1)">
+            <div data-mover style="position:relative;will-change:transform">
+              <img src="assets/cans/wild-berries.png" alt="Bumble Coffee Wild Berries" draggable="false" style="display:block;width:100%;height:auto;user-select:none;pointer-events:none"/>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div data-hero-foot style="position:relative;height:228px;margin-top:30px">
+
+      <div data-hero-tags style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:18px;will-change:transform,opacity">
+        <div style="font-size:clamp(13px,2.1vw,34px);font-weight:800;letter-spacing:-.028em;line-height:1.04;white-space:nowrap">БОДРИТ КАК КОФЕ. ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(8px,1.05vw,18px)">
+          <span style="display:inline-block;font-size:clamp(10px,.96vw,18px);font-weight:700;letter-spacing:.05em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:clamp(8px,.66vw,13px) clamp(12px,1.02vw,20px) clamp(7px,.6vw,12px);white-space:nowrap">0% САХАРА</span>
+          <span style="display:inline-block;font-size:clamp(10px,.96vw,18px);font-weight:700;letter-spacing:.05em;line-height:1;border:1px solid #F4C878;border-radius:3px;padding:clamp(8px,.66vw,13px) clamp(12px,1.02vw,20px) clamp(7px,.6vw,12px);white-space:nowrap">125 МГ КОФЕИНА</span>
+          <span style="display:inline-block;font-size:clamp(10px,.96vw,18px);font-weight:700;letter-spacing:.05em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:clamp(8px,.66vw,13px) clamp(12px,1.02vw,20px) clamp(7px,.6vw,12px);white-space:nowrap">ROBUSTA</span>
+          <span style="display:inline-block;font-size:clamp(10px,.96vw,18px);font-weight:700;letter-spacing:.05em;line-height:1;border:1px solid #F4C878;border-radius:3px;padding:clamp(8px,.66vw,13px) clamp(12px,1.02vw,20px) clamp(7px,.6vw,12px);white-space:nowrap">6 ВКУСОВ</span>
+        </div>
+      </div>
+
+      <div data-hero-flav style="position:absolute;left:0;right:0;top:0;height:100%;overflow:hidden;opacity:0;will-change:opacity">
+      <div style="height:1px;background:rgba(20,16,14,.18)"></div>
+
+      <div style="display:flex;justify-content:center;gap:clamp(8px,1.9vw,30px);margin-top:12px">
+        <div style="flex:1 1 0;min-width:0;max-width:240px;display:flex;flex-direction:column;gap:8px">
+          <div style="height:3px;display:flex;align-items:center"><div data-tick style="width:22px;height:1px;background:rgba(20,16,14,.18);transition:width .55s cubic-bezier(.16,1,.3,1),height .3s ease,background .35s ease"></div></div>
+          <div data-num style="font-size:10px;font-weight:600;letter-spacing:.2em;color:rgba(20,16,14,.45);transition:color .35s ease">01</div>
+        </div>
+        <div style="flex:1 1 0;min-width:0;max-width:240px;display:flex;flex-direction:column;gap:8px">
+          <div style="height:3px;display:flex;align-items:center"><div data-tick style="width:22px;height:1px;background:rgba(20,16,14,.18);transition:width .55s cubic-bezier(.16,1,.3,1),height .3s ease,background .35s ease"></div></div>
+          <div data-num style="font-size:10px;font-weight:600;letter-spacing:.2em;color:rgba(20,16,14,.45);transition:color .35s ease">02</div>
+        </div>
+        <div style="flex:1 1 0;min-width:0;max-width:240px;display:flex;flex-direction:column;gap:8px">
+          <div style="height:3px;display:flex;align-items:center"><div data-tick style="width:22px;height:1px;background:rgba(20,16,14,.18);transition:width .55s cubic-bezier(.16,1,.3,1),height .3s ease,background .35s ease"></div></div>
+          <div data-num style="font-size:10px;font-weight:600;letter-spacing:.2em;color:rgba(20,16,14,.45);transition:color .35s ease">03</div>
+        </div>
+        <div style="flex:1 1 0;min-width:0;max-width:240px;display:flex;flex-direction:column;gap:8px">
+          <div style="height:3px;display:flex;align-items:center"><div data-tick style="width:22px;height:1px;background:rgba(20,16,14,.18);transition:width .55s cubic-bezier(.16,1,.3,1),height .3s ease,background .35s ease"></div></div>
+          <div data-num style="font-size:10px;font-weight:600;letter-spacing:.2em;color:rgba(20,16,14,.45);transition:color .35s ease">04</div>
+        </div>
+        <div style="flex:1 1 0;min-width:0;max-width:240px;display:flex;flex-direction:column;gap:8px">
+          <div style="height:3px;display:flex;align-items:center"><div data-tick style="width:22px;height:1px;background:rgba(20,16,14,.18);transition:width .55s cubic-bezier(.16,1,.3,1),height .3s ease,background .35s ease"></div></div>
+          <div data-num style="font-size:10px;font-weight:600;letter-spacing:.2em;color:rgba(20,16,14,.45);transition:color .35s ease">05</div>
+        </div>
+        <div style="flex:1 1 0;min-width:0;max-width:240px;display:flex;flex-direction:column;gap:8px">
+          <div style="height:3px;display:flex;align-items:center"><div data-tick style="width:22px;height:1px;background:rgba(20,16,14,.18);transition:width .55s cubic-bezier(.16,1,.3,1),height .3s ease,background .35s ease"></div></div>
+          <div data-num style="font-size:10px;font-weight:600;letter-spacing:.2em;color:rgba(20,16,14,.45);transition:color .35s ease">06</div>
+        </div>
+      </div>
+
+      <div data-infowrap style="position:relative;height:196px;margin-top:28px">
+        <div data-info style="position:absolute;left:0;top:0;width:min(470px,100%);transition:transform .6s cubic-bezier(.16,1,.3,1)">
+          <div style="overflow:hidden"><div data-lineinner style="transform:translateY(120%);opacity:0"><div data-accentline style="width:58px;height:3px;background:#F23904"></div></div></div>
+          <div style="overflow:hidden;margin-top:16px"><div data-lineinner style="transform:translateY(120%);opacity:0"><span data-accentname style="font-size:12px;font-weight:600;letter-spacing:.34em;color:#F23904">{{ infoD.name }}</span></div></div>
+          <div style="overflow:hidden;margin-top:8px"><div data-lineinner style="transform:translateY(120%);opacity:0;font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.04">{{ infoD.ru }}</div></div>
+          <div style="overflow:hidden;margin-top:16px"><div data-lineinner style="transform:translateY(120%);opacity:.74;font-size:13px;font-weight:400;line-height:1.55">{{ infoD.d1 }}</div></div>
+          <div style="overflow:hidden;margin-top:2px"><div data-lineinner style="transform:translateY(120%);opacity:.74;font-size:13px;font-weight:400;line-height:1.55">{{ infoD.d2 }}</div></div>
+          <div style="overflow:hidden;margin-top:18px"><div data-lineinner style="transform:translateY(120%);opacity:0;font-size:10.5px;font-weight:600;letter-spacing:.22em">Zero Sugar · Coffee Boost</div></div>
+        </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  </div>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;pressDepth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:54,&quot;min&quot;:20,&quot;max&quot;:96,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Interaction&quot;},&quot;neighborResponse&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.32,&quot;min&quot;:0,&quot;max&quot;:0.6,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Interaction&quot;},&quot;calmOthers&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.58,&quot;min&quot;:0.25,&quot;max&quot;:1,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Interaction&quot;}}">
+const FL = [
+  { id:'orange', name:'ORANGE', ru:'АПЕЛЬСИН', color:'#F23904', d1:'Цитрусовая свежесть на кофейной базе.', d2:'Яркий, бодрый старт дня.' },
+  { id:'cherry', name:'CHERRY', ru:'ВИШНЯ', color:'#BB0D0A', d1:'Спелая вишня и кофе.', d2:'Насыщенный, чуть терпкий, глубокий вкус.' },
+  { id:'pomegranate', name:'POMEGRANATE', ru:'ГРАНАТ', color:'#A21D11', d1:'Гранатовая терпкость и кофе.', d2:'Сочно, ярко, с характером.' },
+  { id:'raspberry', name:'RASPBERRY', ru:'МАЛИНА', color:'#CA1181', d1:'Сочная малина и кофе.', d2:'Ягодный, свежий, лёгкий вкус.' },
+  { id:'zero-cola', name:'ZERO COLA', ru:'КОЛА', color:'#E60F13', d1:'Тот самый вкус колы.', d2:'«Кофе со вкусом колы» — и ноль сахара.' },
+  { id:'wild-berries', name:'WILD BERRIES', ru:'ЛЕСНЫЕ ЯГОДЫ', color:'#81377A', d1:'Микс лесных ягод и кофе.', d2:'Насыщенный, сочный, ягодный.' }
+];
+const EMPTY = { name:'', ru:'', d1:'', d2:'' };
+const OPACITY = { 3:0.74, 4:0.74 };
+
+class Component extends DCLogic {
+  state = { selD:null, selM:null, infoD:null, infoM:null };
+  sc = {};
+  timers = {};
+
+  componentDidMount(){ this.mount(); }
+  componentDidUpdate(){ this.mount(); }
+  componentWillUnmount(){ Object.keys(this.timers).forEach(k => clearTimeout(this.timers[k])); if (this.heroRaf) cancelAnimationFrame(this.heroRaf); if (this.heroPoll) clearInterval(this.heroPoll); }
+
+  mount(){
+    [['d', document.querySelector('[data-stage-d]')], ['m', document.querySelector('[data-stage-m]')]].forEach(pair => {
+      const k = pair[0], root = pair[1];
+      if (!root || this.sc[k]) return;
+      const cans = Array.from(root.querySelectorAll('[data-can]')).map(el => ({
+        el,
+        lift: el.querySelector('[data-lift]'),
+        mover: el.querySelector('[data-mover]'),
+        field: el.querySelector('[data-field]'),
+        shadow: el.querySelector('[data-shadow]')
+      }));
+      if (!cans.length) return;
+      this.sc[k] = {
+        root, cans,
+        ticks: Array.from(root.querySelectorAll('[data-tick]')),
+        nums: Array.from(root.querySelectorAll('[data-num]')),
+        info: root.querySelector('[data-info]'),
+        infoWrap: root.querySelector('[data-infowrap]'),
+        scale: k === 'd' ? 1 : 0.31,
+        tickW: k === 'd' ? 22 : 10
+      };
+      root.addEventListener('pointerdown', e => {
+        const t = e.target.closest('[data-can]');
+        if (t) this.select(k, +t.dataset.idx);
+      });
+      root.addEventListener('keydown', e => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const t = e.target.closest && e.target.closest('[data-can]');
+        if (t) { e.preventDefault(); this.select(k, +t.dataset.idx); }
+      });
+      if (k === 'd') {
+        this.wireExit(root);
+        root.addEventListener('pointerover', e => {
+          if (e.pointerType === 'touch') return;
+          const t = e.target.closest('[data-can]');
+          if (t === this.hover) return;
+          this.hover = t;
+          if (t) this.press(k, +t.dataset.idx, 1);
+        });
+        root.addEventListener('pointerleave', () => { this.hover = null; });
+      }
+    });
+  }
+
+  /* One CSS keyframe run per can: press → rebound → settle. */
+  hit(k, i, depth, intensity){
+    const c = this.sc[k] && this.sc[k].cans[i];
+    if (!c) return;
+    c.el.style.setProperty('--d', depth.toFixed(1) + 'px');
+    c.el.style.setProperty('--k', intensity.toFixed(3));
+    [[c.mover, 'canpress'], [c.shadow, 'canshadow']].forEach(pair => {
+      pair[0].style.animation = 'none';
+      void pair[0].offsetWidth;
+      pair[0].style.animation = pair[1] + ' .68s linear both';
+    });
+    clearTimeout(this.timers['clr' + k + i]);
+    this.timers['clr' + k + i] = setTimeout(() => {
+      c.mover.style.animation = 'none';
+      c.shadow.style.animation = 'none';
+    }, 700);
+  }
+
+  press(k, i, mult){
+    const s = this.sc[k];
+    if (!s) return;
+    const depth = (this.props.pressDepth ?? 54) * s.scale;
+    const nb = this.props.neighborResponse ?? 0.32;
+    this.hit(k, i, depth, mult);
+    [[-1, nb, 60], [1, nb, 60], [-2, nb * 0.22, 125], [2, nb * 0.22, 125]].forEach(n => {
+      const j = i + n[0];
+      if (j < 0 || j > 5) return;
+      clearTimeout(this.timers['n' + k + j]);
+      this.timers['n' + k + j] = setTimeout(() => this.hit(k, j, depth, mult * n[1]), n[2]);
+    });
+  }
+
+  select(k, i){
+    const sel = k === 'd' ? this.state.selD : this.state.selM;
+    this.press(k, i, 1.5);
+    if (sel === i) return;
+    const s = this.sc[k], f = FL[i], lift = k === 'd' ? 16 : 6;
+    s.cans.forEach((c, j) => {
+      c.field.style.background = this.rgba(f.color, 0.16);
+      c.field.style.transform = j === i ? 'scaleY(1)' : 'scaleY(0)';
+      c.lift.style.transform = j === i ? 'translateY(-' + lift + 'px)' : 'translateY(0)';
+      c.el.style.opacity = j === i ? 1 : (this.props.calmOthers ?? 0.58);
+    });
+    s.ticks.forEach((t, j) => {
+      t.style.background = j === i ? f.color : 'rgba(20,16,14,.18)';
+      t.style.width = j === i ? '100%' : s.tickW + 'px';
+      t.style.height = j === i ? '3px' : '1px';
+    });
+    s.nums.forEach((n, j) => { n.style.color = j === i ? f.color : 'rgba(20,16,14,.45)'; });
+    this.setState(k === 'd' ? { selD:i } : { selM:i });
+    this.broadcast(i);
+    if (k === 'd') this.moveInfo(k, i);
+    this.showInfo(k, i);
+  }
+
+  broadcast(i){
+    window.BUMBLE_FLAVOR = { index: i, id: FL[i].id, name: FL[i].name, ru: FL[i].ru, color: FL[i].color };
+    document.dispatchEvent(new CustomEvent('bumble:flavor', { detail: window.BUMBLE_FLAVOR }));
+  }
+
+  /* Hand-off to screen 03: released keys drop away, the chosen can stays. */
+  wireExit(root){
+    if (this.exitWired) return;
+    this.exitWired = true;
+    this.section = root;
+    this.glow = root.firstElementChild;
+    /* the exit lifts the whole headline zone; the morph owns what is inside it */
+    this.headline = root.querySelector('[data-hero-zone]');
+    const t0 = this.sc.d.ticks[0];
+    this.railRow = t0 ? t0.parentNode.parentNode.parentNode : null;
+
+    this.hero = document.querySelector('[data-hero-scroll]');
+    this.hFit = root.querySelector('[data-hero-fit]');
+    this.hIntro = root.querySelector('[data-hero-intro]');
+    this.hHead = root.querySelector('[data-hero-head]');
+    this.hTags = root.querySelector('[data-hero-tags]');
+    this.hFlav = root.querySelector('[data-hero-flav]');
+    this.hEye = root.querySelector('[data-hero-eyebrow]');
+    this.hZone = root.querySelector('[data-hero-zone]');
+    this.hFoot = root.querySelector('[data-hero-foot]');
+    this.hGap = root.querySelector('[data-hero-gap]');
+
+    /* one panel, two states: the about-Bumble opening morphs into the flavor
+       selector while the can lineup stays put as the anchor */
+    this.onExitScroll = () => {
+      const cl = x => Math.max(0, Math.min(1, x));
+      const hd = document.querySelector('[data-hd]');
+      const hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
+      const ch = root.clientHeight;
+      if (hdH !== this.hdH || ch !== this.stageH){
+        this.hdH = hdH; this.stageH = ch;
+        root.style.paddingTop = (hdH + 16) + 'px';
+        this.fit();
+      }
+      const sc = this.hero;
+      if (!sc) return;
+      const span = Math.max(1, sc.offsetHeight - root.offsetHeight);
+      const p = cl(-sc.getBoundingClientRect().top / span);
+      this.applyMorph(cl((p - 0.05) / 0.28));
+      this.applyExit(cl((p - 0.72) / 0.26));
+    };
+    this.onHeroResize = () => { this.fit(); this.onExitScroll(); };
+    /* the panel is sticky inside a host-owned scroller, so scroll events are not
+       guaranteed — sample the section's own rect every frame instead */
+    const tick = () => {
+      this.heroRaf = requestAnimationFrame(tick);
+      const sc = this.hero;
+      if (!sc) return;
+      const top = Math.round(sc.getBoundingClientRect().top);
+      if (top === this.lastHeroTop) return;
+      this.lastHeroTop = top;
+      this.onExitScroll();
+    };
+    this.heroRaf = requestAnimationFrame(tick);
+    this.heroPoll = setInterval(() => {
+      const sc = this.hero;
+      if (!sc) return;
+      const top = Math.round(sc.getBoundingClientRect().top);
+      if (top === this.lastHeroTop) return;
+      this.lastHeroTop = top;
+      this.onExitScroll();
+    }, 160);
+    window.addEventListener('scroll', this.onExitScroll, { passive: true });
+    window.addEventListener('resize', this.onHeroResize);
+    this.fit();
+    this.onExitScroll();
+    [60, 400, 1200, 2400].forEach(ms => setTimeout(() => { this.fit(); this.onExitScroll(); }, ms));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.fit());
+    window.addEventListener('load', () => this.fit());
+    if (window.ResizeObserver && this.section){
+      let raf = 0;
+      this.ro = new ResizeObserver(() => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => this.fit());
+      });
+      this.ro.observe(this.section);
+    }
+  }
+
+  /* the panel is a fixed viewport height — on short screens the whole
+     composition scales down instead of being clipped */
+  fit(){
+    const stage = this.section, el = this.hFit;
+    if (!stage || !el) return;
+    el.style.transform = 'none';
+    el.style.width = '';
+    el.style.marginLeft = '';
+    const cs = getComputedStyle(stage);
+    const avail = Math.min(stage.clientHeight, window.innerHeight) - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    if (!avail) return;
+    const cans = (this.sc.d && this.sc.d.cans) || [];
+    if (!cans.length) return;
+    const setW = w => cans.forEach(c => { c.el.style.maxWidth = w + 'px'; });
+
+    /* the composition is authored on a fixed 1440-wide canvas and fitted to the
+       panel on both axes at once, so proportions and the equal gaps above and
+       below the lineup survive every viewport */
+    const DESIGN_W = 1440;
+    const stageW = stage.clientWidth;
+    el.style.width = DESIGN_W + 'px';
+    el.style.marginLeft = Math.round((stageW - DESIGN_W) / 2) + 'px';
+    setW(240);
+
+    /* the two overlay states are inset:0 inside the foot, so their height is the
+       foot's own — measure their intrinsic content with the box collapsed */
+    if (this.hFoot){
+      this.hFoot.style.height = '0px';
+      const inner = e => (e ? e.scrollHeight : 0);
+      this.foot0 = Math.round(Math.max(inner(this.hTags), inner(this.hFlav), 120) + 8);
+      this.hFoot.style.height = this.foot0 + 'px';
+    }
+    if (this.hZone){
+      const hh = e => (e ? e.offsetHeight : 0);
+      this.zone0 = Math.round(Math.max(hh(this.hIntro), hh(this.hHead)) + 48);
+      this.hZone.style.height = this.zone0 + 'px';
+    }
+
+    const h = el.scrollHeight;
+    const s = Math.min(1, stageW / DESIGN_W, avail / h);
+    el.style.transformOrigin = '50% 50%';
+    el.style.transform = s < 1 ? 'scale(' + s.toFixed(4) + ')' : 'none';
+  }
+
+  applyMorph(t){
+    const io = x => 1 - Math.pow(1 - x, 2.2);
+    const a = io(t);
+    const out = Math.max(0, 1 - t * 1.55);
+    const set = (el, op, y) => { if (el){ el.style.opacity = op.toFixed(3); el.style.transform = 'translateY(' + y.toFixed(1) + 'px)'; } };
+    set(this.hIntro, out, -a * 44);
+    set(this.hTags, out, -a * 32);
+    set(this.hHead, Math.max(0, (t - 0.34) / 0.66), (1 - a) * 30);
+    set(this.hFlav, Math.max(0, (t - 0.38) / 0.62), (1 - a) * 24);
+    if (this.hEye) this.hEye.style.opacity = (0.5 * out).toFixed(3);
+    /* the two states trade the same 362px of vertical room, so the composition
+       keeps one constant height — the can lineup never rescales */
+    if (this.zone0 == null){ this.zone0 = 176; this.foot0 = 228; }
+    if (this.hZone) this.hZone.style.height = (this.zone0 - 48 * a).toFixed(1) + 'px';
+    if (this.hFoot) this.hFoot.style.height = (this.foot0 + 48 * a).toFixed(1) + 'px';
+    this.heroT = t;
+    const on = t > 0.55;
+    if (on !== this.heroOn){
+      this.heroOn = on;
+      const s = this.sc.d;
+      if (s) s.cans.forEach(c => { c.el.style.pointerEvents = on ? 'auto' : 'none'; });
+    }
+  }
+
+  applyExit(e){
+    const s = this.sc.d;
+    if (!s) return;
+    const sel = this.state.selD === null ? 0 : this.state.selD;
+    if (this.state.selD === null && e > 0.04 && !this.autoSent){ this.autoSent = true; this.broadcast(0); }
+    const ease = 1 - Math.pow(1 - e, 2.1);
+    s.cans.forEach((c, j) => {
+      if (j === sel){
+        c.el.style.transform = 'translateY(' + (-ease * 30).toFixed(1) + 'px)';
+        c.el.style.opacity = 1;
+        return;
+      }
+      const t = Math.max(0, Math.min(1, (e - Math.abs(j - sel) * 0.05) / 0.62));
+      c.el.style.transform = 'translateY(' + (t * t * 340).toFixed(1) + 'px)';
+      c.el.style.opacity = Math.max(0, 1 - t * 1.5).toFixed(3);
+      if (c.field) c.field.style.opacity = Math.max(0, 1 - t * 1.6).toFixed(3);
+    });
+    const lift = (el, mul) => {
+      if (!el) return;
+      el.style.transform = 'translateY(' + (-ease * 150 * mul).toFixed(1) + 'px)';
+      el.style.opacity = Math.max(0, 1 - e * 1.9).toFixed(3);
+    };
+    lift(this.headline, 1);
+    lift(this.railRow, 0.3);
+    lift(s.infoWrap, 0.38);
+    if (this.glow) this.glow.style.opacity = Math.max(0, 1 - e * 1.1).toFixed(3);
+  }
+
+  moveInfo(k, i){
+    const s = this.sc[k];
+    if (!s.infoWrap || !s.info) return;
+    const box = s.cans[i].el.getBoundingClientRect();
+    const wrap = s.infoWrap.getBoundingClientRect();
+    const w = s.info.offsetWidth || 470;
+    const cx = box.left + box.width / 2 - wrap.left;
+    s.info.style.transform = 'translateX(' + Math.round(Math.max(0, Math.min(wrap.width - w, cx - w * 0.42))) + 'px)';
+  }
+
+  setLines(k, ty, visible, mode){
+    Array.from(this.sc[k].info.querySelectorAll('[data-lineinner]')).forEach((el, n) => {
+      const d = (n * 0.055).toFixed(3) + 's';
+      if (mode === 'in') el.style.transition = 'transform .62s cubic-bezier(.16,1,.3,1) ' + d + ', opacity .42s ease ' + d;
+      else if (mode === 'out') el.style.transition = 'transform .3s cubic-bezier(.5,0,.75,0), opacity .26s ease';
+      else el.style.transition = 'none';
+      el.style.transform = 'translateY(' + ty + '%)';
+      el.style.opacity = visible ? (OPACITY[n] !== undefined ? OPACITY[n] : 1) : 0;
+    });
+  }
+
+  showInfo(k, i){
+    const had = k === 'd' ? this.state.infoD : this.state.infoM;
+    const enter = () => {
+      this.setState(k === 'd' ? { infoD: FL[i] } : { infoM: FL[i] }, () => {
+        const info = this.sc[k].info, c = FL[i].color;
+        Array.from(info.querySelectorAll('[data-accentline]')).forEach(el => { el.style.background = c; });
+        Array.from(info.querySelectorAll('[data-accentname]')).forEach(el => { el.style.color = c; });
+        this.setLines(k, 120, false, 'none');
+        void info.offsetHeight;
+        this.timers['in' + k] = setTimeout(() => this.setLines(k, 0, true, 'in'), 24);
+      });
+    };
+    clearTimeout(this.timers['seq' + k]);
+    clearTimeout(this.timers['in' + k]);
+    if (had) { this.setLines(k, -125, false, 'out'); this.timers['seq' + k] = setTimeout(enter, 290); }
+    else enter();
+  }
+
+  rgba(hex, a){
+    const n = parseInt(hex.slice(1), 16);
+    return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')';
+  }
+
+  renderVals(){
+    return {
+      infoD: this.state.infoD || EMPTY,
+      infoM: this.state.infoM || EMPTY,
+      calm: this.props.calmOthers ?? 0.58
+    };
+  }
+}
+</script>
+</body>
+</html>

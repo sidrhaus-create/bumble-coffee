@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./bumble.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-400.woff2) format('woff2');font-weight:400;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-700.woff2) format('woff2');font-weight:700;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-800.woff2) format('woff2');font-weight:800;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-800.woff2) format('woff2');font-weight:800;font-display:swap}
+body{margin:0;background:#FAEED4;-webkit-font-smoothing:antialiased}
+a{color:#14100E;text-decoration:none}
+a:hover{color:#81377B}
+@keyframes rbBurst{0%{opacity:0;transform:translate(calc(var(--dx,0px)*var(--k,1)),calc(var(--dy,0px)*var(--k,1))) scale(.13) rotate(var(--r0,0deg))}9%{opacity:1}62%{transform:translate(calc(var(--dx,0px)*-.05),calc(var(--dy,0px)*-.05)) scale(1.052) rotate(calc(var(--r0,0deg)*-.1))}100%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}}
+@keyframes rbSuck{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}100%{opacity:0;transform:translate(calc(var(--dx,0px)*.92),calc(var(--dy,0px)*.92)) scale(.12) rotate(var(--r0,0deg))}}
+@keyframes rbFloat1{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(.3cqw,-.62cqw) rotate(.4deg)}}
+@keyframes rbFloat2{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-.38cqw,-.9cqw) rotate(-.45deg)}}
+@keyframes rbFloat3{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(.5cqw,-1.15cqw) rotate(.55deg)}}
+@keyframes rbFloat4{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-.56cqw,-1.5cqw) rotate(-.62deg)}}
+@keyframes rbRing{0%{transform:translate(-50%,-50%) scale(.32);opacity:.7}62%{opacity:.16}100%{transform:translate(-50%,-50%) scale(var(--rs,8));opacity:0}}
+@keyframes rbPulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.5}70%{opacity:0}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
+@keyframes rbLidPop{0%{transform:scale(1) rotate(0deg)}16%{transform:scale(1.105) rotate(-3.2deg)}42%{transform:scale(.972) rotate(1.6deg)}70%{transform:scale(1.014) rotate(-.5deg)}100%{transform:scale(1) rotate(0deg)}}
+@keyframes rbLineUp{from{transform:translateY(115%)}to{transform:translateY(0)}}
+@keyframes rbSoftIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rbHint{0%,100%{opacity:.66}50%{opacity:1}}
+@keyframes rbDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.3}}
+@keyframes rbGrowX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
+</helmet>
+
+<div style="font-family:Unbounded,system-ui,sans-serif;color:#14100E;background:#FAEED4">
+  <div data-rb-scroll style="position:relative;height:175vh">
+    <div data-rb-sticky data-screen-label="05 · Why Robusta" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#FAEED4;display:flex;align-items:center;justify-content:center">
+
+      <div data-rb-stage style="position:relative;width:min(100vw,177.78vh);aspect-ratio:16 / 9;container-type:inline-size">
+
+        <div data-rb-index style="position:absolute;right:6%;top:13.2%;z-index:12;text-align:right;font-size:clamp(10px,.72cqw,14px);font-weight:700;letter-spacing:.3em;line-height:1.6">05 · ПОЧЕМУ РОБУСТА</div>
+
+        <div data-rb-note style="position:absolute;right:6%;top:17.6%;z-index:12;display:flex;align-items:center;justify-content:flex-end;gap:.5cqw;opacity:0;pointer-events:none">
+          <span data-rb-accent-bg style="display:block;width:6px;height:6px;border-radius:50%;background:#F6B54B"></span>
+          <button data-rb-reset type="button" style="padding:0;border:0;background:none;font-family:inherit;font-size:clamp(9px,.66cqw,13px);font-weight:700;letter-spacing:.2em;color:rgba(20,16,14,.52);border-bottom:1px solid rgba(20,16,14,.26);cursor:pointer;transition:color .25s ease,border-color .25s ease" style-hover="color:#14100E;border-color:#14100E">СОБРАТЬ ОБРАТНО</button>
+        </div>
+
+        <div data-rb-layer="flora" data-rb-burst=".17,1.45,-22,rbFloat1,.28" style="position:absolute;left:7.5%;top:58.43%;width:34.9%;z-index:3;will-change:transform">
+          <img data-rb-img src="assets/robusta/l1-flora.png" alt="Листья и ягоды кофе" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-layer="grounds" data-rb-burst=".12,1.34,17,rbFloat2,.46" style="position:absolute;left:37.34%;top:36.11%;width:22.14%;z-index:4;will-change:transform">
+          <img data-rb-img src="assets/robusta/l2-grounds.png" alt="Молотый кофе и капли" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-layer="beans" data-rb-burst=".04,1.24,-13,rbFloat3,.72" style="position:absolute;left:51.2%;top:20.65%;width:37.24%;z-index:5;will-change:transform">
+          <img data-rb-img src="assets/robusta/l3-beans.png" alt="Зёрна робусты" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-layer="splash" data-rb-burst="0,1.16,9,rbFloat4,1" style="position:absolute;left:46.41%;top:33.89%;width:42.24%;z-index:6;will-change:transform">
+          <img data-rb-img src="assets/robusta/l4-splash.png" alt="Всплеск кофе" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-copy style="position:absolute;left:7.5%;top:31.6%;width:30%;z-index:9;opacity:0;pointer-events:none">
+          <div style="display:flex;align-items:center;gap:.8cqw;overflow:hidden;padding-bottom:2px">
+            <div data-rb-line style="display:flex;align-items:center;gap:.8cqw;font-size:clamp(9px,.7cqw,13px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.55)">
+              <span data-rb-accent-bg style="display:block;width:2.4cqw;height:2px;background:#F6B54B"></span>
+              <span>ПОЧЕМУ ИМЕННО ОНА</span>
+            </div>
+          </div>
+          <div style="margin-top:.9cqw;overflow:hidden;padding-bottom:.1cqw">
+            <div data-rb-line style="font-size:clamp(19px,1.85cqw,36px);font-weight:800;line-height:1.12;letter-spacing:-.025em">Потому что Bumble —</div>
+          </div>
+          <div style="overflow:hidden;padding-bottom:.1cqw">
+            <div data-rb-line style="font-size:clamp(19px,1.85cqw,36px);font-weight:800;line-height:1.12;letter-spacing:-.025em">про движение.</div>
+          </div>
+          <div data-rb-soft style="margin-top:1.1cqw;font-size:clamp(11px,.84cqw,16px);font-weight:400;line-height:1.62;color:rgba(20,16,14,.72);text-wrap:pretty">Робуста даёт плотную кофейную основу, характер и больше природного кофеина.</div>
+          <div data-rb-soft style="margin-top:.7cqw;font-size:clamp(11px,.84cqw,16px);font-weight:400;line-height:1.62;color:rgba(20,16,14,.72);text-wrap:pretty">Мы соединяем её с фруктовым вкусом, газом и нулём сахара — чтобы сначала ты почувствовал вкус, а следом пришёл заряд.</div>
+        </div>
+
+        <div data-rb-hint style="position:absolute;left:7.5%;top:33.6%;width:30%;z-index:9;display:flex;align-items:center;gap:.75cqw;animation:rbHint 3.4s ease-in-out infinite">
+          <span data-rb-accent-bg style="display:block;width:8px;height:8px;border-radius:50%;background:#F6B54B;animation:rbDot 2.1s ease-in-out infinite"></span>
+          <span style="font-size:clamp(10px,.76cqw,15px);font-weight:700;letter-spacing:.2em">НАЖМИ И ОТКРОЙ БАНКУ — УЗНАЕШЬ</span>
+        </div>
+
+        <div data-rb-lock style="position:absolute;left:7.5%;top:12.778%;width:37.396%;z-index:10;will-change:transform">
+          <img src="assets/robusta/headline-base.png" alt="ПОЧЕМУ ROBUSTA?" style="display:block;width:100%;height:auto"/>
+          <div data-rb-lid role="button" tabindex="0" aria-label="Открыть банку" style="position:absolute;left:5.43%;top:-7%;width:33.7%;aspect-ratio:1;cursor:pointer;transform-origin:50% 50%;will-change:transform">
+            <span data-rb-pulse data-rb-accent-br style="position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:50%;border:2px solid #F6B54B;transform:translate(-50%,-50%);animation:rbPulse 2.6s cubic-bezier(.22,1,.36,1) infinite;pointer-events:none"></span>
+            <span data-rb-ring data-rb-accent-br style="position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:50%;border:2px solid #F6B54B;transform:translate(-50%,-50%) scale(.32);opacity:0;pointer-events:none"></span>
+            <span data-rb-ring style="position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:50%;border:1px solid rgba(20,16,14,.5);transform:translate(-50%,-50%) scale(.32);opacity:0;pointer-events:none"></span>
+            <img data-rb-lid-closed src="assets/robusta/lid-closed.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;transition:opacity .18s ease"/>
+            <img data-rb-lid-open src="assets/robusta/lid-open.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .18s ease"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;burstPower&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.4,&quot;max&quot;:1.8,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Взрыв&quot;},&quot;parallax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:1.6,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Взрыв&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F6B54B&quot;,&quot;options&quot;:[&quot;#F6B54B&quot;,&quot;#F23904&quot;,&quot;#81377B&quot;,&quot;#14100E&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Стиль&quot;},&quot;autoOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Поведение&quot;}}">
+class Component extends DCLogic {
+  componentDidMount(){
+    const stage = document.querySelector('[data-rb-stage]');
+    if (!stage) return;
+    this.stage = stage;
+    this.scroller = document.querySelector('[data-rb-scroll]');
+    this.lock = stage.querySelector('[data-rb-lock]');
+    this.lid = stage.querySelector('[data-rb-lid]');
+    this.lidClosed = stage.querySelector('[data-rb-lid-closed]');
+    this.lidOpen = stage.querySelector('[data-rb-lid-open]');
+    this.pulse = stage.querySelector('[data-rb-pulse]');
+    this.rings = Array.from(stage.querySelectorAll('[data-rb-ring]'));
+    this.copy = stage.querySelector('[data-rb-copy]');
+    this.hint = stage.querySelector('[data-rb-hint]');
+    this.note = stage.querySelector('[data-rb-note]');
+    this.lines = Array.from(stage.querySelectorAll('[data-rb-line]'));
+    this.softs = Array.from(stage.querySelectorAll('[data-rb-soft]'));
+
+    const homes = this.layerHomes || (this.layerHomes = {});
+    this.layers = Array.from(stage.querySelectorAll('[data-rb-layer]')).map(el => {
+      const v = el.dataset.rbBurst.split(',');
+      const name = el.dataset.rbLayer;
+      if (!homes[name]) homes[name] = { left: el.style.left, top: el.style.top, width: el.style.width };
+      return { el, img: el.querySelector('[data-rb-img]'), name,
+               delay: +v[0], dur: +v[1], rot: +v[2], float: v[3], depth: +v[4], home: homes[name] };
+    });
+
+    /* the poster coordinates are captured once — later remounts must not read
+       back a mobile/mid arrangement and mistake it for the desktop original */
+    if (!this.homeLock){
+      this.homeCopy = { left: this.copy.style.left, top: this.copy.style.top, width: this.copy.style.width };
+      this.homeLock = { left: this.lock.style.left, top: this.lock.style.top, width: this.lock.style.width };
+      this.homeHint = { left: this.hint.style.left, top: this.hint.style.top, width: this.hint.style.width };
+    }
+
+    this.opened = this.lidOpen.style.opacity === '1';
+    this.mx = 0; this.my = 0; this.tx = 0; this.ty = 0; this.p = 0;
+
+    this.teardown();
+    this.applyTheme();
+    this.layout();
+    {
+      this.wired = true;
+      /* scroll state is applied synchronously — rAF is throttled to zero in
+         backgrounded frames, and the section must never render mid-transition */
+      this.onScroll = () => { this.readScroll(); this.frame(); };
+      this.onResize = () => { this.layout(); this.fitCopy(); this.measureDirs(); this.readScroll(); this.frame(); };
+      this.onMove = e => {
+        const r = this.stage.getBoundingClientRect();
+        this.tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2));
+        this.ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2));
+        this.frame();
+      };
+      this.onLeave = () => { this.tx = 0; this.ty = 0; this.frame(); };
+      this.onKey = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.toggle(); } };
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+      window.addEventListener('resize', this.onResize);
+      this.stage.addEventListener('pointermove', this.onMove);
+      this.stage.addEventListener('pointerleave', this.onLeave);
+      this.onLidClick = () => this.open();
+      this.onResetClick = () => this.close();
+      this.lid.addEventListener('click', this.onLidClick);
+      this.lid.addEventListener('keydown', this.onKey);
+      this.resetBtn = this.stage.querySelector('[data-rb-reset]');
+      if (this.resetBtn) this.resetBtn.addEventListener('click', this.onResetClick);
+      this.tick = () => { this.frame(); this.raf = requestAnimationFrame(this.tick); };
+      this.raf = requestAnimationFrame(this.tick);
+    }
+    this.measureDirs();
+    this.readScroll();
+    this.frame();
+  }
+
+  componentWillUnmount(){
+    this.teardown();
+  }
+
+  /* the master site remounts imported sections on every re-render, so the
+     listeners have to be releasable and re-attachable, not one-shot */
+  teardown(){
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+    if (this.stage && this.onMove){
+      this.stage.removeEventListener('pointermove', this.onMove);
+      this.stage.removeEventListener('pointerleave', this.onLeave);
+    }
+    if (this.lid && this.onLidClick){
+      this.lid.removeEventListener('click', this.onLidClick);
+      this.lid.removeEventListener('keydown', this.onKey);
+    }
+    if (this.resetBtn && this.onResetClick) this.resetBtn.removeEventListener('click', this.onResetClick);
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = null;
+    this.wired = false;
+    this.mode = null;
+    this.lastVis = null;
+  }
+
+  componentDidUpdate(){ this.applyTheme(); }
+
+  applyTheme(){
+    if (!this.stage) return;
+    const c = this.props.accent || '#F6B54B';
+    this.stage.querySelectorAll('[data-rb-accent-bg]').forEach(el => { el.style.background = c; });
+    this.stage.querySelectorAll('[data-rb-accent-br]').forEach(el => { el.style.borderColor = c; });
+  }
+
+  /* mobile rearranges the poster into a portrait stack; desktop keeps the artwork grid */
+  layout(){
+    const narrow = window.innerWidth < 860 && window.innerWidth / window.innerHeight < 1.15;
+    /* between phone and full desktop the poster has no room for a text band under
+       the headline, so the art regroups to the right and the copy runs down the left */
+    const mid = !narrow && this.stage.getBoundingClientRect().width < 1180;
+    const mode = narrow ? 'n' : (mid ? 'm' : 'd');
+    if (mode === this.mode) return;
+    this.mode = mode;
+    this.narrow = narrow;
+    const st = this.stage.style;
+    if (mid){
+      st.width = 'min(100vw,177.78vh)';
+      st.height = 'auto';
+      st.aspectRatio = '16 / 9';
+      this.set(this.lock, { left: '6%', top: '11%', width: '38%' });
+      this.set(this.hint, { left: '6%', top: '33.5%', width: '40%' });
+      this.set(this.copy, { left: '6%', top: '32%', width: '36%' });
+      const m = { flora: ['34%', '72%', '34%'], grounds: ['44%', '30%', '20%'], beans: ['56%', '14%', '36%'], splash: ['50%', '40%', '42%'] };
+      this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
+    } else if (narrow){
+      st.width = '100vw';
+      st.aspectRatio = 'auto';
+      st.height = '100vh';
+      this.set(this.lock, { left: '6%', top: '7%', width: '88%' });
+      this.set(this.hint, { left: '6%', top: '22.5%', width: '84%' });
+      this.set(this.copy, { left: '6%', top: '21.5%', width: '88%' });
+      const m = { flora: ['-6%', '74%', '68%'], grounds: ['8%', '46%', '34%'], beans: ['44%', '44%', '56%'], splash: ['26%', '62%', '72%'] };
+      this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
+    } else {
+      st.width = 'min(100vw,177.78vh)';
+      st.height = 'auto';
+      st.aspectRatio = '16 / 9';
+      this.set(this.lock, this.homeLock);
+      this.set(this.hint, this.homeHint);
+      this.set(this.copy, this.homeCopy);
+      this.layers.forEach(L => this.set(L.el, L.home));
+    }
+  }
+
+  set(el, v){ if (!el) return; el.style.left = v.left; el.style.top = v.top; el.style.width = v.width; }
+
+  /* the copy lives in the clear band between headline and leaves — on shorter
+     stages it scales down rather than running into the artwork */
+  fitCopy(){
+    if (!this.copy) return;
+    this.copy.style.transform = '';
+    if (this.narrow) return;
+    const flora = this.layers.find(L => L.name === 'flora');
+    if (!flora) return;
+    const avail = flora.el.offsetTop - this.copy.offsetTop - 10;
+    const h = this.copy.scrollHeight;
+    if (h > avail && avail > 40){
+      this.copy.style.transformOrigin = 'left top';
+      this.copy.style.transform = 'scale(' + Math.max(0.82, avail / h).toFixed(3) + ')';
+    }
+  }
+
+  readScroll(){
+    const sc = this.scroller;
+    if (!sc) return;
+    const vh = window.innerHeight;
+    const r = sc.getBoundingClientRect();
+    const span = Math.max(1, sc.offsetHeight - vh);
+    const cl = t => Math.max(0, Math.min(1, t));
+    this.p = cl(-r.top / span);
+    /* the scene washes in as the previous section hands over, and clears again
+       before the next one takes the screen — no hard seam either side */
+    this.enter = cl((vh - r.top) / (vh * 0.8));
+    this.exit = cl((this.p - 0.78) / 0.22);
+    if (!this.opened && (this.props.autoOpen ?? true) && this.p > 0.45) this.open();
+  }
+
+  /* radial direction of every layer away from the can, for the exit drift */
+  measureDirs(){
+    if (!this.lid) return;
+    const lr = this.lid.getBoundingClientRect();
+    const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2;
+    this.layers.forEach(L => {
+      const r = L.el.getBoundingClientRect();
+      const vx = (r.left + r.width / 2) - cx, vy = (r.top + r.height / 2) - cy;
+      const n = Math.hypot(vx, vy) || 1;
+      L.ux = vx / n; L.uy = vy / n;
+    });
+  }
+
+  frame(){
+    this.mx += (this.tx - this.mx) * 0.07;
+    this.my += (this.ty - this.my) * 0.07;
+    const k = this.props.parallax ?? 1;
+    const ex = this.exit || 0, en = this.enter == null ? 1 : this.enter;
+    const sp = (this.p - 0.34);
+    const damp = 1 - ex * 0.65;
+    this.layers.forEach(L => {
+      const d = L.depth * k * damp;
+      const dx = this.mx * 13 * d + (L.ux || 0) * ex * ex * 96 * (0.4 + L.depth);
+      const dy = sp * -104 * d + this.my * 9 * d + (L.uy || 0) * ex * ex * 72 * (0.4 + L.depth);
+      L.el.style.transform = 'translate3d(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px,0)';
+    });
+    if (this.lock) this.lock.style.transform = 'translate3d(' + (this.mx * -4 * k).toFixed(2) + 'px,' + (sp * 26 * k * damp - ex * 40).toFixed(2) + 'px,0)';
+    /* the scene thins out but never empties before the panel leaves — a fully
+       cleared sticky tail reads as a blank viewport between sections */
+    const vis = (en * (1 - ex * 0.45)).toFixed(3);
+    if (vis !== this.lastVis){
+      this.lastVis = vis;
+      this.stage.style.opacity = vis;
+      this.stage.style.pointerEvents = +vis < 0.35 ? 'none' : '';
+    }
+  }
+
+  vectors(){
+    const lr = this.lid.getBoundingClientRect();
+    const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2;
+    this.layers.forEach(L => {
+      const r = L.img.getBoundingClientRect();
+      L.img.style.setProperty('--dx', (cx - (r.left + r.width / 2)).toFixed(1) + 'px');
+      L.img.style.setProperty('--dy', (cy - (r.top + r.height / 2)).toFixed(1) + 'px');
+      L.img.style.setProperty('--r0', L.rot + 'deg');
+      L.img.style.setProperty('--k', (this.props.burstPower ?? 1));
+    });
+  }
+
+  open(){
+    if (this.opened) return;
+    this.opened = true;
+    this.lidClosed.style.opacity = 0;
+    this.lidOpen.style.opacity = 1;
+    this.pulse.style.display = 'none';
+    this.lid.style.animation = 'none';
+    void this.lid.offsetWidth;
+    this.lid.style.animation = 'rbLidPop .78s cubic-bezier(.22,1.15,.36,1) both';
+    this.rings.forEach((r, i) => {
+      r.style.setProperty('--rs', i === 0 ? 7.5 : 12);
+      r.style.animation = 'none'; void r.offsetWidth;
+      r.style.animation = 'rbRing ' + (0.95 + i * 0.32) + 's cubic-bezier(.16,1,.3,1) ' + (i * 0.08) + 's both';
+    });
+
+    this.vectors();
+    this.layers.forEach(L => {
+      L.img.style.animation = 'none'; void L.img.offsetWidth;
+      L.img.style.animation = 'rbBurst ' + L.dur + 's cubic-bezier(.2,.9,.24,1) ' + L.delay + 's both';
+      L.img.onanimationend = () => {
+        L.img.style.animation = L.float + ' ' + (9 + L.depth * 4).toFixed(1) + 's ease-in-out infinite';
+        L.img.style.opacity = 1;
+      };
+    });
+
+    this.hint.style.animation = 'none';
+    this.hint.style.transition = 'opacity .34s ease, transform .34s ease';
+    this.hint.style.opacity = 0;
+    this.hint.style.transform = 'translateY(-10px)';
+    this.hint.style.pointerEvents = 'none';
+
+    this.fitCopy();
+    this.copy.style.opacity = 1;
+    this.lines.forEach((el, i) => {
+      el.style.animation = 'none'; void el.offsetWidth;
+      el.style.animation = 'rbLineUp .82s cubic-bezier(.16,1,.3,1) ' + (0.28 + i * 0.09) + 's both';
+    });
+    this.softs.forEach((el, i) => {
+      el.style.animation = 'none'; void el.offsetWidth;
+      el.style.animation = 'rbSoftIn .8s cubic-bezier(.16,1,.3,1) ' + (0.62 + i * 0.1) + 's both';
+    });
+
+    this.note.style.transition = 'opacity .5s ease .9s';
+    this.note.style.opacity = 1;
+    this.note.style.pointerEvents = 'auto';
+  }
+
+  close(){
+    if (!this.opened) return;
+    this.opened = false;
+    this.vectors();
+    this.layers.forEach(L => {
+      L.img.onanimationend = null;
+      L.img.style.animation = 'none'; void L.img.offsetWidth;
+      L.img.style.animation = 'rbSuck .62s cubic-bezier(.6,0,.85,.3) ' + (0.06 * (1 - L.depth)).toFixed(2) + 's both';
+    });
+    this.copy.style.transition = 'opacity .3s ease';
+    this.copy.style.opacity = 0;
+    this.note.style.transition = 'opacity .25s ease';
+    this.note.style.opacity = 0;
+    this.note.style.pointerEvents = 'none';
+    setTimeout(() => {
+      if (this.opened) return;
+      this.lidOpen.style.opacity = 0;
+      this.lidClosed.style.opacity = 1;
+      this.pulse.style.display = '';
+      this.lid.style.animation = 'rbLidPop .5s cubic-bezier(.22,1.15,.36,1) both';
+      this.hint.style.transition = '';
+      this.hint.style.opacity = '';
+      this.hint.style.transform = '';
+      this.hint.style.pointerEvents = '';
+      this.hint.style.animation = 'rbHint 3.4s ease-in-out infinite';
+      this.copy.style.transition = '';
+    }, 560);
+  }
+
+  toggle(){ this.opened ? this.close() : this.open(); }
+
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

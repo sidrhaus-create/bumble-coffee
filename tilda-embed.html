@@ -1,0 +1,33 @@
+<!-- Tilda T123 "HTML-код" block.
+     Replace the src below with the public URL of tilda-build/index.html.
+     Full-width block, page padding off, for an edge-to-edge result.
+
+     Same-origin hosting (e.g. site.ru + bumble.site.ru will NOT do — it must be the
+     same protocol+host, e.g. a /bumble/ folder on the domain Tilda publishes to)
+     lets the iframe grow to the site's full height and share the parent scroll.
+     Otherwise the iframe keeps its own 100vh viewport and scrolls internally —
+     all animations still behave, they just live inside the frame. -->
+<div style="position:relative;width:100%">
+  <iframe
+    id="bumbleSite"
+    src="https://YOUR-HOST/tilda-build/index.html"
+    title="Bumble Coffee"
+    loading="eager"
+    style="display:block;width:100%;height:100vh;border:0"
+  ></iframe>
+</div>
+<script>
+(function () {
+  var f = document.getElementById('bumbleSite');
+  function fit() {
+    var d;
+    try { d = f.contentDocument; } catch (e) { return; }   /* cross-origin: internal scroll */
+    if (!d || !d.body) return;
+    f.setAttribute('scrolling', 'no');
+    f.style.overflow = 'hidden';
+    f.style.height = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight) + 'px';
+  }
+  f.addEventListener('load', function () { fit(); setInterval(fit, 800); });
+  window.addEventListener('resize', fit);
+})();
+</script>
