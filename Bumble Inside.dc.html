@@ -72,14 +72,14 @@
       <img data-c5 src="assets/cans/wild-berries.png" alt="Bumble Coffee Wild Berries" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
     </div>
 
-    <div data-ph="0.9,1.06,44,0.5" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · FIZZ</div>
+    <div data-in-spec data-ph="0.9,1.06,44,0.5" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · FIZZ</div>
 
-    <div data-ph="0.93,1.08,70,0.75" style="position:absolute;left:5.4%;top:24%;z-index:6;font-weight:800;font-size:3.05vw;line-height:1.16;letter-spacing:-.03em;will-change:transform,opacity">
+    <div data-in-slogan data-ph="0.93,1.08,70,0.75" style="position:absolute;left:5.4%;top:24%;z-index:6;font-weight:800;font-size:3.05vw;line-height:1.16;letter-spacing:-.03em;will-change:transform,opacity">
       <div style="overflow:hidden"><div>БОДРИТ КАК КОФЕ.</div></div>
       <div style="overflow:hidden"><div>ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div></div>
     </div>
 
-    <div data-ph="0.16,1.1,30,0.4" style="position:absolute;right:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;color:#F7F3EC;will-change:transform,opacity">BUMBLE COFFEE</div>
+    <div data-in-spec data-ph="0.16,1.1,30,0.4" style="position:absolute;right:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;color:#F7F3EC;will-change:transform,opacity">BUMBLE COFFEE</div>
 
     </div>
   </div>
@@ -153,11 +153,29 @@ class Component extends DCLogic {
         delete el.dataset.vwOrig;
       }
     });
+    /* portrait closing screen: the statement takes the left column, the can
+       holds the right — an editorial split rather than a centred poster */
+    const slogan = stage.querySelector('[data-in-slogan]');
+    if (slogan){
+      slogan.style.width = m ? '44%' : '';
+      slogan.style.top = m ? '23%' : '24%';
+      slogan.style.fontSize = m ? '24px' : '3.05vw';
+      slogan.style.lineHeight = m ? '1.1' : '1.16';
+      if (m) delete slogan.dataset.vwOrig;
+    }
+    /* the two micro-lines stack on a phone instead of colliding on one baseline,
+       and stay tucked just under the product */
+    Array.from(stage.querySelectorAll('[data-in-spec]')).forEach((el, i) => {
+      el.style.bottom = m ? (i === 0 ? '7%' : '11.5%') : '12.5%';
+      el.style.letterSpacing = m ? '.16em' : '.3em';
+    });
+    if (this.band) this.band.style.height = m ? '46%' : '38%';
+    if (this.deep) this.deep.style.height = m ? '108svh' : '152vh';
     if (this.canWrap){
-      this.canWrap.style.height = m ? '42svh' : '62vh';
-      this.canWrap.style.width = m ? '16svh' : '23vh';
-      this.canWrap.style.left = m ? '68%' : '73%';
-      this.canWrap.style.top = m ? '56%' : '52%';
+      this.canWrap.style.height = m ? '44svh' : '62vh';
+      this.canWrap.style.width = m ? '17svh' : '23vh';
+      this.canWrap.style.left = m ? '74%' : '73%';
+      this.canWrap.style.top = m ? '54%' : '52%';
     }
     if (this.scroller) this.scroller.style.height = m ? '460svh' : '460vh';
     stage.style.height = m ? '100svh' : '100vh';
