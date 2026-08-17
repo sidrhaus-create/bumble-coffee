@@ -48,6 +48,8 @@ a:hover{color:#81377B}
           <button data-rb-reset type="button" style="padding:0;border:0;background:none;font-family:inherit;font-size:clamp(9px,.66cqw,13px);font-weight:700;letter-spacing:.2em;color:rgba(20,16,14,.52);border-bottom:1px solid rgba(20,16,14,.26);cursor:pointer;transition:color .25s ease,border-color .25s ease" style-hover="color:#14100E;border-color:#14100E">СОБРАТЬ ОБРАТНО</button>
         </div>
 
+        <div data-rb-art style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:3;pointer-events:none">
+
         <div data-rb-layer="flora" data-rb-burst=".17,1.45,-22,rbFloat1,.28" style="position:absolute;left:7.5%;top:58.43%;width:34.9%;z-index:3;will-change:transform">
           <img data-rb-img src="assets/robusta/l1-flora.png" alt="Листья и ягоды кофе" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
         </div>
@@ -63,6 +65,10 @@ a:hover{color:#81377B}
         <div data-rb-layer="splash" data-rb-burst="0,1.16,9,rbFloat4,1" style="position:absolute;left:46.41%;top:33.89%;width:42.24%;z-index:6;will-change:transform">
           <img data-rb-img src="assets/robusta/l4-splash.png" alt="Всплеск кофе" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
         </div>
+
+        </div>
+
+        <div data-rb-textslot style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:9">
 
         <div data-rb-copy style="position:absolute;left:7.5%;top:31.6%;width:30%;z-index:9;opacity:0;pointer-events:none">
           <div style="display:flex;align-items:center;gap:.8cqw;overflow:hidden;padding-bottom:2px">
@@ -83,7 +89,9 @@ a:hover{color:#81377B}
 
         <div data-rb-hint style="position:absolute;left:7.5%;top:33.6%;width:30%;z-index:9;display:flex;align-items:center;gap:.75cqw;animation:rbHint 3.4s ease-in-out infinite">
           <span data-rb-accent-bg style="display:block;width:8px;height:8px;border-radius:50%;background:#F6B54B;animation:rbDot 2.1s ease-in-out infinite"></span>
-          <span style="font-size:clamp(10px,.76cqw,15px);font-weight:700;letter-spacing:.2em">НАЖМИ И ОТКРОЙ БАНКУ — УЗНАЕШЬ</span>
+          <span data-rb-hint-text style="font-size:clamp(10px,.76cqw,15px);font-weight:700;letter-spacing:.2em">НАЖМИ И ОТКРОЙ БАНКУ — УЗНАЕШЬ</span>
+        </div>
+
         </div>
 
         <div data-rb-lock style="position:absolute;left:7.5%;top:12.778%;width:37.396%;z-index:10;will-change:transform">
@@ -117,6 +125,10 @@ class Component extends DCLogic {
     this.rings = Array.from(stage.querySelectorAll('[data-rb-ring]'));
     this.copy = stage.querySelector('[data-rb-copy]');
     this.hint = stage.querySelector('[data-rb-hint]');
+    this.sticky = document.querySelector('[data-rb-sticky]');
+    this.art = stage.querySelector('[data-rb-art]');
+    this.slot = stage.querySelector('[data-rb-textslot]');
+    this.index = stage.querySelector('[data-rb-index]');
     this.note = stage.querySelector('[data-rb-note]');
     this.lines = Array.from(stage.querySelectorAll('[data-rb-line]'));
     this.softs = Array.from(stage.querySelectorAll('[data-rb-soft]'));
@@ -212,14 +224,17 @@ class Component extends DCLogic {
 
   /* mobile rearranges the poster into a portrait stack; desktop keeps the artwork grid */
   layout(){
-    const narrow = window.innerWidth < 860 && window.innerWidth / window.innerHeight < 1.15;
+    const narrow = window.innerWidth <= 768 || (window.innerWidth < 860 && window.innerWidth / window.innerHeight < 1.15);
     /* between phone and full desktop the poster has no room for a text band under
        the headline, so the art regroups to the right and the copy runs down the left */
     const mid = !narrow && this.stage.getBoundingClientRect().width < 1180;
     const mode = narrow ? 'n' : (mid ? 'm' : 'd');
-    if (mode === this.mode) return;
+    if (mode === this.mode && mode !== 'n') return;
+    const fresh = mode !== this.mode;
     this.mode = mode;
     this.narrow = narrow;
+    if (narrow){ this.mobileFlow(); return; }
+    if (fresh) this.unflow();
     const st = this.stage.style;
     if (mid){
       st.width = 'min(100vw,177.78vh)';
@@ -229,15 +244,6 @@ class Component extends DCLogic {
       this.set(this.hint, { left: '6%', top: '33.5%', width: '40%' });
       this.set(this.copy, { left: '6%', top: '32%', width: '36%' });
       const m = { flora: ['34%', '72%', '34%'], grounds: ['44%', '30%', '20%'], beans: ['56%', '14%', '36%'], splash: ['50%', '40%', '42%'] };
-      this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
-    } else if (narrow){
-      st.width = '100vw';
-      st.aspectRatio = 'auto';
-      st.height = '100vh';
-      this.set(this.lock, { left: '6%', top: '7%', width: '88%' });
-      this.set(this.hint, { left: '6%', top: '22.5%', width: '84%' });
-      this.set(this.copy, { left: '6%', top: '21.5%', width: '88%' });
-      const m = { flora: ['-6%', '74%', '68%'], grounds: ['8%', '46%', '34%'], beans: ['44%', '44%', '56%'], splash: ['26%', '62%', '72%'] };
       this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
     } else {
       st.width = 'min(100vw,177.78vh)';
@@ -251,6 +257,133 @@ class Component extends DCLogic {
   }
 
   set(el, v){ if (!el) return; el.style.left = v.left; el.style.top = v.top; el.style.width = v.width; }
+
+  /* ── portrait mobile: a real vertical flow, not the poster rescaled ──
+     label → ПОЧЕМУ ROBUSTA? + lid → hint / revealed copy → art band.
+     Nothing is stacked on top of anything else; the ingredient layers own
+     their own band at the bottom and are clipped by the stage, so the
+     burst can never widen the document. */
+  mobileFlow(){
+    const st = this.stage.style;
+    const hd = document.querySelector('[data-hd]');
+    const hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
+    if (this.sticky){
+      this.sticky.style.height = '100svh';
+      this.sticky.style.alignItems = 'stretch';
+    }
+    st.width = '100%';
+    st.maxWidth = '100vw';
+    st.height = 'auto';
+    st.aspectRatio = 'auto';
+    st.display = 'flex';
+    st.flexDirection = 'column';
+    st.boxSizing = 'border-box';
+    st.overflow = 'hidden';
+    st.paddingTop = (hdH + 18) + 'px';
+    st.paddingBottom = 'calc(16px + env(safe-area-inset-bottom))';
+    st.paddingLeft = '5.4%';
+    st.paddingRight = '5.4%';
+
+    const flow = (el, order, extra) => {
+      if (!el) return;
+      el.style.position = 'relative';
+      el.style.left = 'auto';
+      el.style.right = 'auto';
+      el.style.top = 'auto';
+      el.style.width = '100%';
+      el.style.order = order;
+      el.style.flex = '0 0 auto';
+      if (extra) Object.keys(extra).forEach(k => { el.style[k] = extra[k]; });
+    };
+
+    flow(this.index, 1, { textAlign: 'left', fontSize: '10px', letterSpacing: '.28em' });
+    flow(this.lock, 2, { marginTop: '18px', zIndex: 10 });
+    flow(this.slot, 3, { marginTop: '20px', zIndex: 9 });
+    flow(this.note, 4, { marginTop: '10px', justifyContent: 'flex-start', alignItems: 'center', minHeight: '44px', zIndex: 12 });
+
+    /* hint and revealed copy trade the same slot, so opening the can never
+       shifts the layout under the reader's thumb */
+    [this.hint, this.copy].forEach(el => {
+      if (!el) return;
+      el.style.position = 'absolute';
+      el.style.left = '0';
+      el.style.right = '0';
+      el.style.top = '0';
+      el.style.width = '100%';
+    });
+    if (this.copy){
+      this.copy.style.transform = '';
+      Array.from(this.copy.querySelectorAll('[data-rb-line]')).forEach(el => {
+        if (el.style.fontWeight === '800') el.style.fontSize = '22px';
+      });
+      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = '13.5px'; });
+    }
+    this.sizeSlot();
+    requestAnimationFrame(() => this.sizeSlot());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.sizeSlot());
+
+    if (this.art){
+      this.art.style.position = 'relative';
+      this.art.style.left = 'auto';
+      this.art.style.top = 'auto';
+      this.art.style.width = '100%';
+      this.art.style.height = 'auto';
+      this.art.style.order = 5;
+      this.art.style.flex = '1 1 auto';
+      this.art.style.minHeight = '0';
+      this.art.style.marginTop = '12px';
+    }
+    const m = { flora: ['-4%', '34%', '58%'], grounds: ['54%', '2%', '30%'], beans: ['32%', '22%', '52%'], splash: ['12%', '42%', '66%'] };
+    this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
+    this.measureDirs();
+  }
+
+  /* the shared text slot is as tall as its tallest state, so the reveal
+     never pushes the art band or the reset link around */
+  sizeSlot(){
+    if (!this.narrow || !this.slot) return;
+    const h = Math.max(this.copy ? this.copy.scrollHeight : 0, this.hint ? this.hint.scrollHeight : 0, 60) + 10;
+    if (this.slot.style.height !== h + 'px') this.slot.style.height = h + 'px';
+  }
+
+  /* leaving mobile: hand every node back to the poster geometry */
+  unflow(){
+    if (this.sticky){
+      this.sticky.style.height = '100vh';
+      this.sticky.style.alignItems = 'center';
+    }
+    const st = this.stage.style;
+    st.display = '';
+    st.flexDirection = '';
+    st.boxSizing = '';
+    st.overflow = '';
+    st.paddingTop = '';
+    st.paddingBottom = '';
+    st.paddingLeft = '';
+    st.paddingRight = '';
+    st.maxWidth = '';
+    [this.index, this.lock, this.slot, this.note, this.art].forEach(el => {
+      if (!el) return;
+      el.style.position = 'absolute';
+      el.style.order = '';
+      el.style.flex = '';
+      el.style.marginTop = '';
+      el.style.minHeight = '';
+    });
+    if (this.index){ this.index.style.left = 'auto'; this.index.style.right = '6%'; this.index.style.top = '13.2%'; this.index.style.width = 'auto'; this.index.style.textAlign = 'right'; this.index.style.fontSize = ''; this.index.style.letterSpacing = ''; }
+    if (this.note){ this.note.style.left = 'auto'; this.note.style.right = '6%'; this.note.style.top = '17.6%'; this.note.style.width = 'auto'; this.note.style.justifyContent = 'flex-end'; }
+    [this.slot, this.art].forEach(el => {
+      if (!el) return;
+      el.style.left = '0';
+      el.style.top = '0';
+      el.style.width = '100%';
+      el.style.height = '100%';
+    });
+    if (this.copy){
+      Array.from(this.copy.querySelectorAll('[data-rb-line]')).forEach(el => { if (el.style.fontWeight === '800') el.style.fontSize = 'clamp(19px,1.85cqw,36px)'; });
+      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = 'clamp(11px,.84cqw,16px)'; });
+    }
+  }
 
   /* the copy lives in the clear band between headline and leaves — on shorter
      stages it scales down rather than running into the artwork */
@@ -303,13 +436,15 @@ class Component extends DCLogic {
     const ex = this.exit || 0, en = this.enter == null ? 1 : this.enter;
     const sp = (this.p - 0.34);
     const damp = 1 - ex * 0.65;
+    /* portrait has no room for the wide radial drift — the same motion, scaled */
+    const nk = this.narrow ? 0.38 : 1;
     this.layers.forEach(L => {
       const d = L.depth * k * damp;
-      const dx = this.mx * 13 * d + (L.ux || 0) * ex * ex * 96 * (0.4 + L.depth);
-      const dy = sp * -104 * d + this.my * 9 * d + (L.uy || 0) * ex * ex * 72 * (0.4 + L.depth);
+      const dx = (this.mx * 13 * d + (L.ux || 0) * ex * ex * 96 * (0.4 + L.depth)) * nk;
+      const dy = sp * -104 * d * (this.narrow ? 0.55 : 1) + this.my * 9 * d + (L.uy || 0) * ex * ex * 72 * (0.4 + L.depth) * nk;
       L.el.style.transform = 'translate3d(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px,0)';
     });
-    if (this.lock) this.lock.style.transform = 'translate3d(' + (this.mx * -4 * k).toFixed(2) + 'px,' + (sp * 26 * k * damp - ex * 40).toFixed(2) + 'px,0)';
+    if (this.lock) this.lock.style.transform = 'translate3d(' + (this.mx * -4 * k * nk).toFixed(2) + 'px,' + ((sp * 26 * k * damp - ex * 40) * (this.narrow ? 0.3 : 1)).toFixed(2) + 'px,0)';
     /* the scene thins out but never empties before the panel leaves — a fully
        cleared sticky tail reads as a blank viewport between sections */
     const vis = (en * (1 - ex * 0.45)).toFixed(3);
@@ -364,6 +499,7 @@ class Component extends DCLogic {
     this.hint.style.pointerEvents = 'none';
 
     this.fitCopy();
+    this.sizeSlot();
     this.copy.style.opacity = 1;
     this.lines.forEach((el, i) => {
       el.style.animation = 'none'; void el.offsetWidth;

@@ -21,6 +21,7 @@ body{margin:0;background:#FAEED4;-webkit-font-smoothing:antialiased;text-wrap:pr
 a{color:#81377B;text-decoration:none}
 a:hover{color:#F23904}
 [data-can]:focus-visible{outline:1px solid rgba(20,16,14,.4);outline-offset:8px}
+[data-m-rail]::-webkit-scrollbar{display:none}
 @keyframes canpress{
  0%{transform:translateY(0);animation-timing-function:cubic-bezier(.36,0,.9,.42)}
  15%{transform:translateY(calc(var(--d,54px) * var(--k,1)));animation-timing-function:cubic-bezier(.12,.72,.3,1)}
@@ -177,6 +178,106 @@ a:hover{color:#F23904}
       </div>
     </div>
     </div>
+
+    <div data-hero-m style="display:none;position:relative;width:100%;max-width:100vw;flex:1 1 auto;min-height:0;flex-direction:column;align-items:stretch;box-sizing:border-box">
+
+      <div data-m-zone style="position:relative;width:100%;flex:0 0 auto;height:104px;box-sizing:border-box;padding:0 18px">
+        <div data-m-intro style="position:absolute;left:18px;right:18px;bottom:0;display:flex;flex-direction:column;align-items:center;gap:11px;will-change:transform,opacity">
+          <img src="assets/bumble-script.svg" alt="Bumble Coffee" style="display:block;width:min(304px,68vw);height:auto"/>
+          <span style="display:block;font-size:10px;font-weight:600;letter-spacing:.16em;line-height:1.2;text-align:center;color:rgba(20,16,14,.44)">ГАЗИРОВАННЫЙ КОФЕ БЕЗ САХАРА</span>
+        </div>
+        <div data-m-head style="position:absolute;left:18px;right:18px;bottom:0;text-align:center;opacity:0;will-change:transform,opacity">
+          <h2 style="margin:0;font-size:34px;line-height:1;font-weight:800;letter-spacing:-.032em">ЛОВИ СВОЙ ВКУС</h2>
+          <div style="margin-top:12px;font-size:9.5px;font-weight:600;letter-spacing:.24em;opacity:.5">СВАЙПНИ ИЛИ НАЖМИ НА БАНКУ</div>
+        </div>
+      </div>
+
+      <div data-m-rail style="position:relative;flex:1 1 auto;min-height:0;width:100%;max-width:100vw;display:flex;align-items:flex-end;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;touch-action:pan-x;scrollbar-width:none;box-sizing:border-box;padding:8px 0 4px">
+        <div data-m-pad style="flex:0 0 21vw;height:1px"></div>
+
+        <div data-mcan data-idx="0" role="button" aria-label="Bumble Coffee Orange" style="position:relative;flex:0 0 58vw;height:100%;scroll-snap-align:center;display:flex;align-items:flex-end;justify-content:center;box-sizing:border-box;padding:0 2vw;cursor:pointer">
+          <div data-m-field style="position:absolute;left:6%;right:6%;bottom:2px;height:40%;background:rgba(242,57,4,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-m-shadow style="position:absolute;left:20%;right:20%;bottom:0;height:14px;border-radius:50%;background:rgba(20,16,14,.3);filter:blur(9px);opacity:.4"></div>
+          <div data-m-lift style="position:relative;height:100%;display:flex;align-items:flex-end;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s ease;will-change:transform">
+            <img src="assets/cans/orange.png" alt="Bumble Coffee Orange" draggable="false" style="display:block;height:100%;width:auto;max-width:100%;object-fit:contain;user-select:none;pointer-events:none"/>
+          </div>
+        </div>
+
+        <div data-mcan data-idx="1" role="button" aria-label="Bumble Coffee Cherry" style="position:relative;flex:0 0 58vw;height:100%;scroll-snap-align:center;display:flex;align-items:flex-end;justify-content:center;box-sizing:border-box;padding:0 2vw;cursor:pointer">
+          <div data-m-field style="position:absolute;left:6%;right:6%;bottom:2px;height:40%;background:rgba(187,13,10,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-m-shadow style="position:absolute;left:20%;right:20%;bottom:0;height:14px;border-radius:50%;background:rgba(20,16,14,.3);filter:blur(9px);opacity:.4"></div>
+          <div data-m-lift style="position:relative;height:100%;display:flex;align-items:flex-end;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s ease;will-change:transform">
+            <img src="assets/cans/cherry.png" alt="Bumble Coffee Cherry" draggable="false" style="display:block;height:100%;width:auto;max-width:100%;object-fit:contain;user-select:none;pointer-events:none"/>
+          </div>
+        </div>
+
+        <div data-mcan data-idx="2" role="button" aria-label="Bumble Coffee Pomegranate" style="position:relative;flex:0 0 58vw;height:100%;scroll-snap-align:center;display:flex;align-items:flex-end;justify-content:center;box-sizing:border-box;padding:0 2vw;cursor:pointer">
+          <div data-m-field style="position:absolute;left:6%;right:6%;bottom:2px;height:40%;background:rgba(162,29,17,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-m-shadow style="position:absolute;left:20%;right:20%;bottom:0;height:14px;border-radius:50%;background:rgba(20,16,14,.3);filter:blur(9px);opacity:.4"></div>
+          <div data-m-lift style="position:relative;height:100%;display:flex;align-items:flex-end;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s ease;will-change:transform">
+            <img src="assets/cans/pomegranate.png" alt="Bumble Coffee Pomegranate" draggable="false" style="display:block;height:100%;width:auto;max-width:100%;object-fit:contain;user-select:none;pointer-events:none"/>
+          </div>
+        </div>
+
+        <div data-mcan data-idx="3" role="button" aria-label="Bumble Coffee Raspberry" style="position:relative;flex:0 0 58vw;height:100%;scroll-snap-align:center;display:flex;align-items:flex-end;justify-content:center;box-sizing:border-box;padding:0 2vw;cursor:pointer">
+          <div data-m-field style="position:absolute;left:6%;right:6%;bottom:2px;height:40%;background:rgba(202,17,129,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-m-shadow style="position:absolute;left:20%;right:20%;bottom:0;height:14px;border-radius:50%;background:rgba(20,16,14,.3);filter:blur(9px);opacity:.4"></div>
+          <div data-m-lift style="position:relative;height:100%;display:flex;align-items:flex-end;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s ease;will-change:transform">
+            <img src="assets/cans/raspberry.png" alt="Bumble Coffee Raspberry" draggable="false" style="display:block;height:100%;width:auto;max-width:100%;object-fit:contain;user-select:none;pointer-events:none"/>
+          </div>
+        </div>
+
+        <div data-mcan data-idx="4" role="button" aria-label="Bumble Coffee Zero Cola" style="position:relative;flex:0 0 58vw;height:100%;scroll-snap-align:center;display:flex;align-items:flex-end;justify-content:center;box-sizing:border-box;padding:0 2vw;cursor:pointer">
+          <div data-m-field style="position:absolute;left:6%;right:6%;bottom:2px;height:40%;background:rgba(230,15,19,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-m-shadow style="position:absolute;left:20%;right:20%;bottom:0;height:14px;border-radius:50%;background:rgba(20,16,14,.3);filter:blur(9px);opacity:.4"></div>
+          <div data-m-lift style="position:relative;height:100%;display:flex;align-items:flex-end;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s ease;will-change:transform">
+            <img src="assets/cans/zero-cola.png" alt="Bumble Coffee Zero Cola" draggable="false" style="display:block;height:100%;width:auto;max-width:100%;object-fit:contain;user-select:none;pointer-events:none"/>
+          </div>
+        </div>
+
+        <div data-mcan data-idx="5" role="button" aria-label="Bumble Coffee Wild Berries" style="position:relative;flex:0 0 58vw;height:100%;scroll-snap-align:center;display:flex;align-items:flex-end;justify-content:center;box-sizing:border-box;padding:0 2vw;cursor:pointer">
+          <div data-m-field style="position:absolute;left:6%;right:6%;bottom:2px;height:40%;background:rgba(129,55,122,.16);transform:scaleY(0);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s ease"></div>
+          <div data-m-shadow style="position:absolute;left:20%;right:20%;bottom:0;height:14px;border-radius:50%;background:rgba(20,16,14,.3);filter:blur(9px);opacity:.4"></div>
+          <div data-m-lift style="position:relative;height:100%;display:flex;align-items:flex-end;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .5s ease;will-change:transform">
+            <img src="assets/cans/wild-berries.png" alt="Bumble Coffee Wild Berries" draggable="false" style="display:block;height:100%;width:auto;max-width:100%;object-fit:contain;user-select:none;pointer-events:none"/>
+          </div>
+        </div>
+
+        <div data-m-pad style="flex:0 0 21vw;height:1px"></div>
+      </div>
+
+      <div data-m-foot style="position:relative;width:100%;flex:0 0 auto;height:186px;box-sizing:border-box">
+
+        <div data-m-tags style="position:absolute;left:18px;right:18px;top:0;display:flex;flex-direction:column;align-items:center;gap:16px;will-change:transform,opacity">
+          <div style="font-size:17px;font-weight:800;letter-spacing:-.022em;line-height:1.22;text-align:center">БОДРИТ КАК КОФЕ.<br/>ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%">
+            <span style="display:flex;align-items:center;justify-content:center;min-height:44px;font-size:11.5px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:4px 6px;text-align:center">0% САХАРА</span>
+            <span style="display:flex;align-items:center;justify-content:center;min-height:44px;font-size:11.5px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #F4C878;border-radius:3px;padding:4px 6px;text-align:center">125 МГ КОФЕИНА</span>
+            <span style="display:flex;align-items:center;justify-content:center;min-height:44px;font-size:11.5px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:4px 6px;text-align:center">ROBUSTA</span>
+            <span style="display:flex;align-items:center;justify-content:center;min-height:44px;font-size:11.5px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #F4C878;border-radius:3px;padding:4px 6px;text-align:center">6 ВКУСОВ</span>
+          </div>
+        </div>
+
+        <div data-m-flav style="position:absolute;left:18px;right:18px;top:0;opacity:0;will-change:opacity">
+          <div style="display:flex;justify-content:center;gap:7px">
+            <span data-m-dot style="display:block;width:16px;height:2px;background:rgba(20,16,14,.2);transition:width .4s cubic-bezier(.16,1,.3,1),background .35s ease"></span>
+            <span data-m-dot style="display:block;width:16px;height:2px;background:rgba(20,16,14,.2);transition:width .4s cubic-bezier(.16,1,.3,1),background .35s ease"></span>
+            <span data-m-dot style="display:block;width:16px;height:2px;background:rgba(20,16,14,.2);transition:width .4s cubic-bezier(.16,1,.3,1),background .35s ease"></span>
+            <span data-m-dot style="display:block;width:16px;height:2px;background:rgba(20,16,14,.2);transition:width .4s cubic-bezier(.16,1,.3,1),background .35s ease"></span>
+            <span data-m-dot style="display:block;width:16px;height:2px;background:rgba(20,16,14,.2);transition:width .4s cubic-bezier(.16,1,.3,1),background .35s ease"></span>
+            <span data-m-dot style="display:block;width:16px;height:2px;background:rgba(20,16,14,.2);transition:width .4s cubic-bezier(.16,1,.3,1),background .35s ease"></span>
+          </div>
+          <div style="margin-top:18px;text-align:center">
+            <span data-m-name style="display:block;font-size:10px;font-weight:600;letter-spacing:.3em;color:#F23904">ORANGE</span>
+            <div data-m-ru style="margin-top:8px;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.04">АПЕЛЬСИН</div>
+            <div data-m-d1 style="margin-top:12px;font-size:13px;font-weight:400;line-height:1.5;opacity:.74">Цитрусовая свежесть на кофейной базе.</div>
+            <div style="margin-top:14px;font-size:9.5px;font-weight:600;letter-spacing:.2em">Zero Sugar · Coffee Boost</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </section>
   </div>
 
@@ -207,7 +308,9 @@ class Component extends DCLogic {
   mount(){
     [['d', document.querySelector('[data-stage-d]')], ['m', document.querySelector('[data-stage-m]')]].forEach(pair => {
       const k = pair[0], root = pair[1];
-      if (!root || this.sc[k]) return;
+      if (!root) return;
+      /* re-init when the master has handed us a fresh subtree */
+      if (this.sc[k] && this.sc[k].root === root && document.contains(root)) return;
       const cans = Array.from(root.querySelectorAll('[data-can]')).map(el => ({
         el,
         lift: el.querySelector('[data-lift]'),
@@ -225,6 +328,8 @@ class Component extends DCLogic {
         scale: k === 'd' ? 1 : 0.31,
         tickW: k === 'd' ? 22 : 10
       };
+      if (root.dataset.wired) { if (k === 'd') this.wireExit(root); return; }
+      root.dataset.wired = '1';
       root.addEventListener('pointerdown', e => {
         const t = e.target.closest('[data-can]');
         if (t) this.select(k, +t.dataset.idx);
@@ -246,6 +351,135 @@ class Component extends DCLogic {
         root.addEventListener('pointerleave', () => { this.hover = null; });
       }
     });
+    this.mountM();
+    this.layoutM();
+  }
+
+  /* ── mobile composition ─────────────────────────────────────────────
+     Phones get their own flow: script logo, a horizontally snapping
+     flavour rail (selected can dominant, neighbours peeking) and a
+     stacked slogan/badge block. The desktop lineup is display:none
+     below 769px and untouched above it. */
+  mountM(){
+    const root = document.querySelector('[data-hero-m]');
+    if (!root) return;
+    const railNow = root.querySelector('[data-m-rail]');
+    /* a remount hands us fresh nodes — rebuild rather than hold dead refs */
+    if (this.mm && this.mm.rail === railNow && railNow.dataset.wired) return;
+    const keep = this.selM2;
+    const items = Array.from(root.querySelectorAll('[data-mcan]')).map(el => ({
+      el,
+      lift: el.querySelector('[data-m-lift]'),
+      field: el.querySelector('[data-m-field]'),
+      shadow: el.querySelector('[data-m-shadow]')
+    }));
+    if (!items.length) return;
+    const m = this.mm = {
+      root, items,
+      rail: root.querySelector('[data-m-rail]'),
+      zone: root.querySelector('[data-m-zone]'),
+      intro: root.querySelector('[data-m-intro]'),
+      head: root.querySelector('[data-m-head]'),
+      foot: root.querySelector('[data-m-foot]'),
+      tags: root.querySelector('[data-m-tags]'),
+      flav: root.querySelector('[data-m-flav]'),
+      dots: Array.from(root.querySelectorAll('[data-m-dot]')),
+      name: root.querySelector('[data-m-name]'),
+      ru: root.querySelector('[data-m-ru]'),
+      d1: root.querySelector('[data-m-d1]')
+    };
+    this.selM2 = -1;
+    if (!m.rail.dataset.wired){
+      m.rail.dataset.wired = '1';
+      m.rail.addEventListener('scroll', () => {
+        if (m.raf) return;
+        m.raf = requestAnimationFrame(() => { m.raf = 0; this.railSync(); });
+      }, { passive: true });
+      items.forEach((it, i) => { it.el.addEventListener('click', () => this.centerM(i, true)); });
+    }
+    if (keep > 0) requestAnimationFrame(() => this.centerM(keep, false));
+    this.railSync(true);
+  }
+
+  /* after a remount the rail's inline can scaling and dots are gone —
+     re-assert them without touching the user's scroll position */
+  railFloor(){
+    const m = this.mm;
+    if (!m || !m.items.length) return;
+    if (!m.items[0].lift.style.transform || !m.dots[0].style.background) this.railSync(true);
+  }
+
+  centerM(i, smooth){
+    const m = this.mm;
+    if (!m || !m.rail.clientWidth) return;
+    const it = m.items[i].el;
+    const left = it.offsetLeft - (m.rail.clientWidth - it.offsetWidth) / 2;
+    m.rail.scrollTo({ left: Math.max(0, Math.round(left)), behavior: smooth ? 'smooth' : 'auto' });
+  }
+
+  /* the can nearest the rail centre is the selection — scale and opacity
+     fall off with distance so the active flavour always dominates */
+  railSync(force){
+    const m = this.mm;
+    if (!m || !m.rail.clientWidth) return;
+    const c = m.rail.scrollLeft + m.rail.clientWidth / 2;
+    let best = 0, bd = Infinity;
+    m.items.forEach((it, i) => {
+      const w = it.el.offsetWidth || 1;
+      const d = Math.abs(it.el.offsetLeft + w / 2 - c);
+      if (d < bd){ bd = d; best = i; }
+      const k = Math.max(0, 1 - d / (w * 1.05));
+      it.lift.style.transformOrigin = '50% 100%';
+      it.lift.style.transform = 'scale(' + (0.7 + 0.3 * k).toFixed(3) + ')';
+      it.lift.style.opacity = (0.42 + 0.58 * k).toFixed(3);
+      if (it.shadow) it.shadow.style.opacity = (0.1 + 0.3 * k).toFixed(3);
+    });
+    if (best !== this.selM2 || force) this.applyM(best);
+  }
+
+  applyM(i){
+    const m = this.mm, f = FL[i];
+    if (!m) return;
+    this.selM2 = i;
+    m.items.forEach((it, j) => {
+      it.field.style.background = this.rgba(f.color, 0.16);
+      it.field.style.transform = j === i ? 'scaleY(1)' : 'scaleY(0)';
+    });
+    m.dots.forEach((d, j) => {
+      d.style.background = j === i ? f.color : 'rgba(20,16,14,.2)';
+      d.style.width = j === i ? '30px' : '16px';
+    });
+    m.name.textContent = f.name;
+    m.name.style.color = f.color;
+    m.ru.textContent = f.ru;
+    m.d1.textContent = f.d1 + ' ' + f.d2;
+    this.broadcast(i);
+  }
+
+  /* one switch decides which composition is live — nothing about the
+     desktop lineup changes at or above 769px */
+  layoutM(){
+    const stage = this.section, sc = this.hero;
+    const was = this.isM;
+    this.isM = window.innerWidth <= 768;
+    if (this.hFit) this.hFit.style.display = this.isM ? 'none' : 'block';
+    if (this.mm) this.mm.root.style.display = this.isM ? 'flex' : 'none';
+    if (sc) sc.style.height = this.isM ? '200svh' : '200vh';
+    if (!stage) return;
+    if (this.isM){
+      stage.style.height = '100svh';
+      stage.style.paddingBottom = 'calc(10px + env(safe-area-inset-bottom))';
+      if (this.mm){
+        const short = window.innerHeight < 820;
+        this.mm.foot.style.height = short ? '168px' : '186px';
+        this.mm.zone.style.height = short ? '96px' : '104px';
+      }
+      if (was !== true) setTimeout(() => this.centerM(this.selM2 < 0 ? 0 : this.selM2, false), 20);
+    } else {
+      stage.style.height = '100vh';
+      stage.style.paddingBottom = '16px';
+    }
+    this.hdH = null;
   }
 
   /* One CSS keyframe run per can: press → rebound → settle. */
@@ -310,8 +544,6 @@ class Component extends DCLogic {
 
   /* Hand-off to screen 03: released keys drop away, the chosen can stays. */
   wireExit(root){
-    if (this.exitWired) return;
-    this.exitWired = true;
     this.section = root;
     this.glow = root.firstElementChild;
     /* the exit lifts the whole headline zone; the morph owns what is inside it */
@@ -329,6 +561,9 @@ class Component extends DCLogic {
     this.hZone = root.querySelector('[data-hero-zone]');
     this.hFoot = root.querySelector('[data-hero-foot]');
     this.hGap = root.querySelector('[data-hero-gap]');
+
+    if (this.exitWired){ this.layoutM(); this.fit(); this.onExitScroll(); return; }
+    this.exitWired = true;
 
     /* one panel, two states: the about-Bumble opening morphs into the flavor
        selector while the can lineup stays put as the anchor */
@@ -349,11 +584,14 @@ class Component extends DCLogic {
       this.applyMorph(cl((p - 0.05) / 0.28));
       this.applyExit(cl((p - 0.72) / 0.26));
     };
-    this.onHeroResize = () => { this.fit(); this.onExitScroll(); };
+    this.onHeroResize = () => { this.layoutM(); this.fit(); this.onExitScroll(); };
     /* the panel is sticky inside a host-owned scroller, so scroll events are not
        guaranteed — sample the section's own rect every frame instead */
     const tick = () => {
       this.heroRaf = requestAnimationFrame(tick);
+      /* self-healing: a remount detaches our nodes, so re-acquire them */
+      if (this.section && !document.contains(this.section)) this.mount();
+      if (this.isM){ this.mountM(); this.railFloor(); }
       const sc = this.hero;
       if (!sc) return;
       const top = Math.round(sc.getBoundingClientRect().top);
@@ -392,6 +630,7 @@ class Component extends DCLogic {
   fit(){
     const stage = this.section, el = this.hFit;
     if (!stage || !el) return;
+    if (this.isM) return;   /* mobile flows, it never scales */
     el.style.transform = 'none';
     el.style.width = '';
     el.style.marginLeft = '';
@@ -436,6 +675,17 @@ class Component extends DCLogic {
     const a = io(t);
     const out = Math.max(0, 1 - t * 1.55);
     const set = (el, op, y) => { if (el){ el.style.opacity = op.toFixed(3); el.style.transform = 'translateY(' + y.toFixed(1) + 'px)'; } };
+    if (this.isM && this.mm){
+      const m = this.mm;
+      set(m.intro, out, -a * 26);
+      set(m.tags, out, -a * 20);
+      set(m.head, Math.max(0, (t - 0.34) / 0.66), (1 - a) * 18);
+      set(m.flav, Math.max(0, (t - 0.38) / 0.62), (1 - a) * 14);
+      m.tags.style.pointerEvents = t > 0.5 ? 'none' : 'auto';
+      m.flav.style.pointerEvents = t > 0.5 ? 'auto' : 'none';
+      this.heroT = t;
+      return;
+    }
     set(this.hIntro, out, -a * 44);
     set(this.hTags, out, -a * 32);
     set(this.hHead, Math.max(0, (t - 0.34) / 0.66), (1 - a) * 30);
@@ -456,6 +706,28 @@ class Component extends DCLogic {
   }
 
   applyExit(e){
+    if (this.isM && this.mm){
+      const m = this.mm, ease = 1 - Math.pow(1 - e, 2.1);
+      const sel = this.selM2 < 0 ? 0 : this.selM2;
+      if (e > 0.04 && !this.autoSent){ this.autoSent = true; this.broadcast(sel); }
+      const fade = Math.max(0, 1 - e * 1.9).toFixed(3);
+      m.zone.style.transform = 'translateY(' + (-ease * 86).toFixed(1) + 'px)';
+      m.zone.style.opacity = fade;
+      m.foot.style.transform = 'translateY(' + (-ease * 38).toFixed(1) + 'px)';
+      m.foot.style.opacity = fade;
+      m.items.forEach((it, j) => {
+        if (j === sel){
+          it.el.style.transform = 'translateY(' + (-ease * 18).toFixed(1) + 'px)';
+          it.el.style.opacity = 1;
+          return;
+        }
+        const t = Math.max(0, Math.min(1, (e - Math.abs(j - sel) * 0.05) / 0.62));
+        it.el.style.transform = 'translateY(' + (t * t * 220).toFixed(1) + 'px)';
+        it.el.style.opacity = Math.max(0, 1 - t * 1.5).toFixed(3);
+      });
+      if (this.glow) this.glow.style.opacity = Math.max(0, 1 - e * 1.1).toFixed(3);
+      return;
+    }
     const s = this.sc.d;
     if (!s) return;
     const sel = this.state.selD === null ? 0 : this.state.selD;

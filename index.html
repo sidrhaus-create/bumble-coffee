@@ -10,7 +10,7 @@
 <x-dc>
 <helmet>
 <style>
-body{margin:0;background:#F7F2EC;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#F7F2EC;-webkit-font-smoothing:antialiased;max-width:100%;overflow-x:clip}
 a{color:#14100E;text-decoration:none}
 a:hover{color:#14100E}
 @keyframes bmHdIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
@@ -21,7 +21,7 @@ a:hover{color:#14100E}
 
   <div id="top"></div>
 
-  <header data-hd style="position:fixed;left:0;right:0;top:0;z-index:60;background:rgba(247,242,236,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(20,16,14,.14)">
+  <header data-hd style="position:fixed;left:0;right:0;top:0;z-index:60;padding-top:env(safe-area-inset-top);background:rgba(247,242,236,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(20,16,14,.14)">
     <div data-hd-inner style="display:flex;align-items:center;gap:2vw;padding:0 5.4%;height:74px">
       <a data-hd-logo href="#top" aria-label="Bumble Coffee — наверх" style="display:flex;align-items:center;gap:14px;cursor:pointer">
         <img src="assets/phoenix.svg" alt="BLACK PHOENIX" style="display:block;height:34px;width:auto"/>
@@ -46,7 +46,7 @@ a:hover{color:#14100E}
     </div>
   </header>
 
-  <div data-ov style="position:fixed;inset:0;z-index:70;background:#F7F2EC;opacity:0;pointer-events:none;transition:opacity .42s ease;display:flex;flex-direction:column;padding:0 5.4% 3vh">
+  <div data-ov style="position:fixed;inset:0;z-index:70;background:#F7F2EC;opacity:0;pointer-events:none;transition:opacity .42s ease;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 5.4% calc(3vh + env(safe-area-inset-bottom))">
     <div style="flex:none;height:74px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(20,16,14,.14)">
       <span data-accenttext style="font-size:clamp(10px,.68vw,13px);font-weight:800;letter-spacing:.3em;color:#F23904">BUMBLE COFFEE</span>
       <button data-ov-close type="button" aria-label="Закрыть" style="position:relative;width:30px;height:30px;background:none;border:0;padding:0;cursor:pointer">
@@ -202,7 +202,7 @@ a:hover{color:#14100E}
 
       </div>
 
-      <div style="margin-top:clamp(14px,2.2vh,26px);padding-top:clamp(12px,1.8vh,18px);border-top:1px solid rgba(20,16,14,.12);font-size:clamp(8px,.56vw,11px);font-weight:700;letter-spacing:.26em;color:rgba(20,16,14,.38)">© 2026 BLACK PHOENIX · BUMBLE COFFEE</div>
+      <div data-ft-copy style="margin-top:clamp(14px,2.2vh,26px);padding-top:clamp(12px,1.8vh,18px);border-top:1px solid rgba(20,16,14,.12);font-size:clamp(8px,.56vw,11px);font-weight:700;letter-spacing:.26em;color:rgba(20,16,14,.38)">© 2026 BLACK PHOENIX · BUMBLE COFFEE</div>
     </footer>
   </div>
 
@@ -234,28 +234,48 @@ class Component extends DCLogic {
     this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
     this.layout();
 
-    if (this.wired){ this.apply(); return; }
-    this.wired = true;
-    this.onScroll = () => this.apply();
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-    window.addEventListener('resize', () => { this.layout(); this.apply(); this.moveIndicator(); });
-    document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
+    /* window-level listeners are attached once; node-level listeners are marked
+       on the node itself, so a remounted header or menu is re-wired instead of
+       going dead — that is what a tap on a phone depends on */
+    if (!this.wired){
+      this.wired = true;
+      this.onScroll = () => this.apply();
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+      window.addEventListener('resize', () => { this.layout(); this.apply(); this.moveIndicator(); });
+      document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') this.overlay(false); });
+      if (window.MutationObserver){
+        this.mo = new MutationObserver(() => this.typeFloor());
+        this.mo.observe(document.body, { childList: true, subtree: true });
+      }
+      [300, 1200, 2600].forEach(ms => setTimeout(() => this.typeFloor(), ms));
+    }
 
-    this.items.forEach(a => {
-      a.addEventListener('click', e => { e.preventDefault(); this.goTo(a.dataset.target); });
-      a.addEventListener('pointerenter', () => this.line(a, true));
-      a.addEventListener('pointerleave', () => this.line(a, false));
-    });
-    this.ovItems.forEach(a => {
-      a.addEventListener('click', e => { e.preventDefault(); this.overlay(false); this.goTo(a.dataset.target); });
-    });
-    document.querySelector('[data-hd-logo]').addEventListener('click', e => { e.preventDefault(); this.goTo('top'); });
-    document.querySelector('[data-hd-burger]').addEventListener('click', () => this.overlay(true));
-    document.querySelector('[data-ov-close]').addEventListener('click', () => this.overlay(false));
+    this.items.forEach(a => this.once(a, el => {
+      el.addEventListener('click', e => { e.preventDefault(); this.goTo(el.dataset.target); });
+      el.addEventListener('pointerenter', () => this.line(el, true));
+      el.addEventListener('pointerleave', () => this.line(el, false));
+    }));
+    this.ovItems.forEach(a => this.once(a, el => {
+      el.addEventListener('click', e => { e.preventDefault(); this.overlay(false); this.goTo(el.dataset.target); });
+    }));
+    this.once(document.querySelector('[data-hd-logo]'), el => el.addEventListener('click', e => { e.preventDefault(); this.goTo('top'); }));
+    this.once(document.querySelector('[data-hd-burger]'), el => el.addEventListener('click', () => this.overlay(true)));
+    this.once(document.querySelector('[data-ov-close]'), el => el.addEventListener('click', () => this.overlay(false)));
     this.wireContacts();
     this.wireFooter();
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') this.overlay(false); });
+    /* an open menu survives a remount */
+    if (this.ovOpen && this.ov){
+      this.ov.style.opacity = 1;
+      this.ov.style.pointerEvents = 'auto';
+    }
     this.apply();
+  }
+
+  once(el, fn){
+    if (!el || el.dataset.wired) return;
+    el.dataset.wired = '1';
+    fn(el);
   }
 
   /* contact rows and the up-arrow: frame and value pick up the live flavour
@@ -266,12 +286,15 @@ class Component extends DCLogic {
       if (val) val.style.color = on ? this.accent : 'rgba(20,16,14,.5)';
     };
     Array.from(document.querySelectorAll('[data-ov-c]')).forEach(a => {
+      if (a.dataset.wired) return;
+      a.dataset.wired = '1';
       const fr = a.querySelector('[data-ov-c-fr]'), val = a.querySelector('[data-ov-c-val]');
       a.addEventListener('pointerenter', () => { hi(fr, val, true); if (fr) fr.style.transform = 'translateY(-2px)'; });
       a.addEventListener('pointerleave', () => { hi(fr, val, false); if (fr) fr.style.transform = 'translateY(0)'; });
     });
     const up = document.querySelector('[data-ov-up]');
-    if (!up) return;
+    if (!up || up.dataset.wired) return;
+    up.dataset.wired = '1';
     const fr = up.querySelector('[data-ov-up-fr]'), lab = up.querySelector('span');
     up.addEventListener('pointerenter', () => { if (fr){ fr.style.borderColor = this.accent; fr.style.color = this.accent; fr.style.transform = 'translateY(-3px)'; } if (lab) lab.style.color = this.accent; });
     up.addEventListener('pointerleave', () => { if (fr){ fr.style.borderColor = 'rgba(20,16,14,.2)'; fr.style.color = '#14100E'; fr.style.transform = 'translateY(0)'; } if (lab) lab.style.color = 'rgba(20,16,14,.5)'; });
@@ -281,17 +304,22 @@ class Component extends DCLogic {
   /* footer: compact closing signature, same anchor logic as the header nav */
   wireFooter(){
     Array.from(document.querySelectorAll('[data-ft-c]')).forEach(a => {
+      if (a.dataset.wired) return;
+      a.dataset.wired = '1';
       const fr = a.querySelector('[data-ft-c-fr]'), val = a.querySelector('[data-ft-c-val]');
       a.addEventListener('pointerenter', () => { fr.style.borderColor = this.accent; fr.style.color = this.accent; fr.style.transform = 'translateY(-2px)'; val.style.color = this.accent; });
       a.addEventListener('pointerleave', () => { fr.style.borderColor = 'rgba(20,16,14,.2)'; fr.style.color = '#14100E'; fr.style.transform = 'translateY(0)'; val.style.color = 'rgba(20,16,14,.5)'; });
     });
     Array.from(document.querySelectorAll('[data-ft-link]')).forEach(a => {
+      if (a.dataset.wired) return;
+      a.dataset.wired = '1';
       a.addEventListener('click', e => { e.preventDefault(); this.goTo(a.dataset.target); });
       a.addEventListener('pointerenter', () => { a.style.color = this.accent; });
       a.addEventListener('pointerleave', () => { a.style.color = 'rgba(20,16,14,.62)'; });
     });
     const up = document.querySelector('[data-ft-up]');
-    if (!up) return;
+    if (!up || up.dataset.wired) return;
+    up.dataset.wired = '1';
     const fr = up.querySelector('[data-ft-up-fr]'), lab = up.querySelector('[data-ft-up-label]');
     up.addEventListener('pointerenter', () => { fr.style.borderColor = this.accent; fr.style.color = this.accent; fr.style.transform = 'translateY(-3px)'; lab.style.color = this.accent; });
     up.addEventListener('pointerleave', () => { fr.style.borderColor = 'rgba(20,16,14,.2)'; fr.style.color = '#14100E'; fr.style.transform = 'translateY(0)'; lab.style.color = 'rgba(20,16,14,.5)'; });
@@ -312,15 +340,60 @@ class Component extends DCLogic {
 
   layout(){
     this.narrow = window.innerWidth < 1024;
+    this.mob = window.innerWidth <= 768;
     this.hdNav.style.display = this.narrow ? 'none' : 'flex';
     this.hdWord.style.display = window.innerWidth < 560 ? 'none' : 'block';
     const burger = document.querySelector('[data-hd-burger]');
     burger.style.marginLeft = this.narrow ? 'auto' : '2.6vw';
     document.querySelector('[data-hd-inner]').style.height = this.narrow ? '64px' : '74px';
-    document.querySelector('[data-ov]').style.paddingTop = this.narrow ? '0' : '0';
+    const ovHead = document.querySelector('[data-ov]').firstElementChild;
+    if (ovHead) ovHead.style.height = this.narrow ? '64px' : '74px';
+    this.footType();
   }
 
-  headerH(){ return this.narrow ? 64 : 74; }
+  /* phones: the footer's micro type is lifted off its desktop floor so it
+     stays readable on a real screen — desktop keeps its own scale */
+  footType(){
+    const m = this.mob;
+    const set = (sel, mv, dv) => Array.from(document.querySelectorAll(sel)).forEach(el => { el.style.fontSize = m ? mv : dv; });
+    set('[data-ft-link]', '11px', 'clamp(9px,.62vw,12px)');
+    set('[data-ft-c-val]', '11px', 'clamp(9px,.62vw,12px)');
+    set('[data-ov-c-val]', '11px', 'clamp(9px,.62vw,12px)');
+    set('[data-ft-accent]', '10px', 'clamp(9px,.62vw,12px)');
+    set('[data-ov-item] > span:first-child', '10px', 'clamp(9px,.6vw,12px)');
+    set('[data-ov-c] > span:last-child > span:first-child', '10px', 'clamp(9px,.6vw,11px)');
+    set('[data-ft-c] > span:last-child > span:first-child', '10px', 'clamp(9px,.6vw,11px)');
+    set('[data-ov-head] > span:first-child', '10px', 'clamp(9px,.6vw,12px)');
+    const cr = document.querySelector('[data-ft-copy]');
+    if (cr) cr.style.fontSize = m ? '9.5px' : 'clamp(8px,.56vw,11px)';
+    this.typeFloor();
+  }
+
+  /* a legibility floor for the whole site on phones: any text leaf that would
+     render under ~10px is lifted to 10px, and released again on desktop */
+  typeFloor(){
+    const now = Date.now();
+    if (this.floorAt && now - this.floorAt < 120) return;
+    this.floorAt = now;
+    const m = window.innerWidth <= 768;
+    Array.from(document.querySelectorAll('body *')).forEach(el => {
+      if (el.children.length || !(el.textContent || '').trim()) return;
+      if (m){
+        if (el.dataset.fsOrig !== undefined) return;
+        if (parseFloat(window.getComputedStyle(el).fontSize) >= 9.6) return;
+        el.dataset.fsOrig = el.style.fontSize || '';
+        el.style.fontSize = '10px';
+      } else if (el.dataset.fsOrig !== undefined){
+        el.style.fontSize = el.dataset.fsOrig;
+        delete el.dataset.fsOrig;
+      }
+    });
+  }
+
+  headerH(){
+    const hd = this.hd || document.querySelector('[data-hd]');
+    return hd ? Math.round(hd.getBoundingClientRect().height) : (this.narrow ? 64 : 74);
+  }
 
   /* untransformed document position of a section */
   posOf(id){

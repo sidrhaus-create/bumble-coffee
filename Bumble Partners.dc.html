@@ -126,7 +126,31 @@ const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/;
 
 class Component extends DCLogic {
-  componentDidMount(){ this.mount(); }
+  componentDidMount(){
+    this.mount();
+    if (!this.tuneWired){
+      this.tuneWired = true;
+      window.addEventListener('resize', () => this.mobileTune());
+    }
+  }
+
+  /* phones: 16px inputs (anything smaller makes iOS zoom on focus), 44px
+     touch rows, readable micro labels, and no watermark behind the form */
+  mobileTune(){
+    const root = this.root || document.querySelector('[data-pt]');
+    if (!root) return;
+    const m = window.innerWidth <= 768;
+    const phx = root.querySelector('[data-pt-phx]');
+    if (phx) phx.style.display = m ? 'none' : '';
+    Array.from(root.querySelectorAll('[data-pt-input]')).forEach(el => {
+      el.style.fontSize = m ? '16px' : 'clamp(15px,1.15vw,23px)';
+      el.style.minHeight = m ? '34px' : '';
+      el.style.paddingBottom = m ? '14px' : '12px';
+    });
+    Array.from(root.querySelectorAll('[data-pt-label]')).forEach(el => {
+      el.style.fontSize = m ? '10px' : 'clamp(9px,.6vw,11px)';
+    });
+  }
   componentDidUpdate(){ this.mount(); }
 
   mount(){
@@ -145,6 +169,7 @@ class Component extends DCLogic {
     this.btnText = root.querySelector('[data-pt-btn-text]');
     this.btnLabel = root.querySelector('[data-pt-btn-label]');
     this.btnArrow = root.querySelector('[data-pt-btn-arrow]');
+    this.mobileTune();
     this.fields = ['name','phone','email','subject'].map(n => ({
       name: n,
       el: root.querySelector('[name="' + n + '"]'),

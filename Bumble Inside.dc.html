@@ -108,13 +108,16 @@ class Component extends DCLogic {
     this.accents = Array.from(stage.querySelectorAll('[data-accent]'));
     this.clipLayer = stage.querySelector('[data-clip]');
 
+    this.flavor = undefined;   /* fresh DOM: re-apply the can and colours */
     this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
+    this.tuned = false;
+    this.mobileTune();
 
     if (!this.wired){
       this.wired = true;
       this.onScroll = () => this.apply();
       window.addEventListener('scroll', this.onScroll, { passive: true });
-      window.addEventListener('resize', this.onScroll);
+      window.addEventListener('resize', () => { this.mobileTune(); this.apply(); });
       document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
     }
     this.apply();
@@ -123,6 +126,41 @@ class Component extends DCLogic {
   componentWillUnmount(){
     window.removeEventListener('scroll', this.onScroll);
     window.removeEventListener('resize', this.onScroll);
+  }
+
+  /* the poster is authored in vw — on a phone the small labels would land at
+     3px, so every vw font size below the display sizes gets a px value and the
+     can is re-proportioned for portrait. Desktop values are restored verbatim. */
+  mobileTune(){
+    const m = window.innerWidth <= 768;
+    const stage = this.stage;
+    if (!stage) return;
+    if (m === this.mob && this.tuned) return;
+    this.mob = m;
+    this.tuned = true;
+    Array.from(stage.querySelectorAll('*')).forEach(el => {
+      const cur = el.getAttribute('style') || '';
+      if (m){
+        if (el.dataset.vwOrig !== undefined) return;
+        const mt = /font-size:\s*([\d.]+)vw/.exec(cur);
+        if (!mt) return;
+        const v = +mt[1];
+        if (v >= 8) return;                       /* display numerals scale fine */
+        el.dataset.vwOrig = mt[1] + 'vw';
+        el.style.fontSize = v >= 5 ? '34px' : (v >= 2 ? '19px' : '10px');
+      } else if (el.dataset.vwOrig !== undefined){
+        el.style.fontSize = el.dataset.vwOrig;
+        delete el.dataset.vwOrig;
+      }
+    });
+    if (this.canWrap){
+      this.canWrap.style.height = m ? '42svh' : '62vh';
+      this.canWrap.style.width = m ? '16svh' : '23vh';
+      this.canWrap.style.left = m ? '68%' : '73%';
+      this.canWrap.style.top = m ? '56%' : '52%';
+    }
+    if (this.scroller) this.scroller.style.height = m ? '460svh' : '460vh';
+    stage.style.height = m ? '100svh' : '100vh';
   }
 
   setFlavor(i){

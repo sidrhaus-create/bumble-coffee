@@ -219,6 +219,13 @@
       </div>
       <div data-swipehint style="position:absolute;left:0;right:0;bottom:5%;z-index:6;text-align:center;font-size:11px;font-weight:700;letter-spacing:.3em;opacity:0;transition:opacity .6s ease;pointer-events:none">СВАЙПНИ БАНКУ</div>
 
+      <div data-modes style="display:none;position:absolute;left:5.4%;right:5.4%;bottom:9%;z-index:7;grid-template-columns:repeat(4,1fr);gap:6px;opacity:0;transition:opacity .5s ease">
+        <button data-mode="0" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">WORK</button>
+        <button data-mode="1" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">STUDY</button>
+        <button data-mode="2" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">DRIVE</button>
+        <button data-mode="3" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">GYM</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -251,22 +258,50 @@ class Component extends DCLogic {
     this.arrowL = stage.querySelector('[data-arrow-l]');
     this.arrowR = stage.querySelector('[data-arrow-r]');
     this.swipeHint = stage.querySelector('[data-swipehint]');
+    this.modes = stage.querySelector('[data-modes]');
+    this.modeBtns = Array.from(stage.querySelectorAll('[data-mode]'));
     this.indices = Array.from(stage.querySelectorAll('[data-index]'));
-    this.active = null;
+    if (this.active === undefined || !stage.dataset.wired) this.active = null;
     this.p = 0;
 
+    this.flavor = undefined;   /* fresh DOM: re-apply the can and colours */
     this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
     this.layout();
 
-    if (!this.wired){
-      this.wired = true;
-      this.onScroll = () => this.apply();
-      window.addEventListener('scroll', this.onScroll, { passive: true });
-      window.addEventListener('resize', () => { this.layout(); this.apply(); });
-      document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
+    /* node-level listeners are marked on the stage: a remount re-wires the new
+       nodes instead of leaving the scene inert */
+    if (!stage.dataset.wired){
+      stage.dataset.wired = '1';
+      if (!this.wired){
+        this.wired = true;
+        this.onScroll = () => this.apply();
+        window.addEventListener('scroll', this.onScroll, { passive: true });
+        window.addEventListener('resize', () => { this.layout(); this.apply(); });
+        document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
+      }
       this.zones.forEach((z, i) => {
-        z.addEventListener('pointerenter', () => this.activate(i));
-        z.addEventListener('pointerdown', () => this.activate(i));
+        z.addEventListener('pointerenter', () => { if (!this.deck) this.activate(i); });
+        z.addEventListener('pointerdown', () => { if (!this.deck) this.activate(i); });
+      });
+      this.modeBtns.forEach((b, i) => b.addEventListener('click', e => {
+        e.preventDefault();
+        this.noteInteraction();
+        this.activate(i);
+      }));
+      /* phones switch mode with a horizontal swipe anywhere in the scene —
+         vertical gestures still scroll the page */
+      this.stage.addEventListener('pointerdown', e => {
+        if (!this.deck || (e.target.closest && e.target.closest('[data-mode]'))) return;
+        this.swX = e.clientX; this.swY = e.clientY; this.swOn = true;
+      });
+      this.stage.addEventListener('pointerup', e => {
+        if (!this.swOn) return;
+        this.swOn = false;
+        const dx = e.clientX - this.swX, dy = e.clientY - this.swY;
+        if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy)) return;
+        this.noteInteraction();
+        const cur = this.active === null ? 0 : this.active;
+        this.activate(Math.max(0, Math.min(3, cur + (dx < 0 ? 1 : -1))));
       });
       this.stage.addEventListener('pointermove', e => {
         const b = this.stage.getBoundingClientRect();
@@ -291,6 +326,7 @@ class Component extends DCLogic {
         const dx = this.dragBase + (e.clientX - this.dragX);
         this.dragMoved = Math.max(this.dragMoved || 0, Math.abs(e.clientX - this.dragX));
         this.canWrap.style.transform = this.canTransform(dx, this.lastDy || 0, this.lastScale || 1);
+        if (this.deck) return;
         const over = this.zones.findIndex(z => {
           const b = z.getBoundingClientRect();
           return this.vertical ? (e.clientY >= b.top && e.clientY <= b.bottom)
@@ -320,6 +356,14 @@ class Component extends DCLogic {
   /* the flavor marker mirrors the can's real horizontal position, frame by frame */
   tickMarker(){
     this.mRaf = requestAnimationFrame(() => this.tickMarker());
+    /* the deck keeps a live mode even after the master remounts the section */
+    if (this.deck){
+      const p = this.pNow();
+      if (p > 0.42 && p < 0.985){
+        if (this.active === null){ this.active = 0; this.applyZones(); }
+        else if (this.zones[this.active] && this.zones[this.active].style.opacity !== '1') this.applyZones();
+      }
+    }
     if (!this.rail || !this.canWrap || this.rail.style.opacity === '0') return;
     const b = this.canWrap.getBoundingClientRect(), st = this.stage.getBoundingClientRect();
     if (!st.width) return;
@@ -405,7 +449,10 @@ class Component extends DCLogic {
 
   /* portrait / narrow screens get stacked bands instead of columns */
   layout(){
+    this.deck = window.innerWidth <= 768;
     this.vertical = window.innerWidth < 900;
+    if (this.deck){ this.deckLayout(); return; }
+    if (this.wasDeck) this.undeck();
     /* the scene lives strictly below the site header — nothing may sit under the nav */
     const hd = document.querySelector('[data-hd]');
     this.hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
@@ -423,8 +470,95 @@ class Component extends DCLogic {
     this.applyZones();
   }
 
+  /* ── phones: one mode at a time ────────────────────────────────────
+     The four desktop columns become a deck — only the active mode is on
+     screen, the can stays big, and swipe or the mode chips switch it. */
+  deckLayout(){
+    this.wasDeck = true;
+    const hd = document.querySelector('[data-hd]');
+    this.hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
+    this.stage.style.top = this.hdH + 'px';
+    this.stage.style.height = 'calc(100svh - ' + this.hdH + 'px)';
+    if (this.scroller) this.scroller.style.height = '300svh';
+    this.vwFix(this.stage, true);
+    this.zonesWrap.style.display = 'block';
+    this.zonesWrap.style.flexDirection = '';
+    this.zones.forEach(z => {
+      z.style.position = 'absolute';
+      z.style.left = '0'; z.style.top = '0';
+      z.style.width = '100%'; z.style.height = '100%';
+      z.style.flex = 'none';
+      z.style.borderLeft = '0';
+      z.style.borderTop = '0';
+      z.style.background = 'transparent';
+      z.style.transition = 'opacity .5s ease';
+      const vt = z.querySelector('[data-vtitle]'); if (vt) vt.style.display = 'none';
+      const ix = z.querySelector('[data-index]'); if (ix){ ix.style.left = '5.4%'; ix.style.top = '2.4%'; }
+      const ht = z.querySelector('[data-htitle]'); if (ht){ ht.style.left = '5.4%'; ht.style.top = '5.6%'; ht.style.fontSize = '34px'; }
+      const il = z.querySelector('[data-illu]'); if (il){ il.style.left = '3%'; il.style.top = '21%'; il.style.height = '26%'; }
+      const cp = z.querySelector('[data-copy]');
+      if (cp){ cp.style.left = '5.4%'; cp.style.width = '89%'; cp.style.bottom = '25%'; }
+    });
+    this.canWrap.style.height = '36svh';
+    this.canWrap.style.width = '15svh';
+    this.canWrap.style.top = '50%';
+    if (this.rail) this.rail.style.display = 'none';
+    if (this.modes) this.modes.style.display = 'grid';
+    this.applyZones();
+  }
+
+  undeck(){
+    this.wasDeck = false;
+    this.vwFix(this.stage, false);
+    if (this.scroller) this.scroller.style.height = '260vh';
+    this.zonesWrap.style.display = 'flex';
+    this.zones.forEach(z => {
+      z.style.position = 'relative';
+      z.style.left = ''; z.style.top = '';
+      z.style.opacity = '';
+      z.style.pointerEvents = '';
+      z.style.transition = 'flex-basis .74s cubic-bezier(.16,1,.3,1),background .6s ease';
+      const vt = z.querySelector('[data-vtitle]'); if (vt) vt.style.display = '';
+      const ix = z.querySelector('[data-index]'); if (ix){ ix.style.left = '9%'; ix.style.top = 'clamp(24px,3.4%,40px)'; }
+      const ht = z.querySelector('[data-htitle]'); if (ht){ ht.style.left = '8%'; ht.style.top = 'calc(clamp(24px,3.4%,40px) + 5.2%)'; ht.style.fontSize = '6.4vw'; }
+      const il = z.querySelector('[data-illu]'); if (il){ il.style.left = '8%'; il.style.top = '24%'; il.style.height = '39%'; }
+      const cp = z.querySelector('[data-copy]'); if (cp){ cp.style.left = '8%'; cp.style.width = '54%'; cp.style.bottom = '11%'; }
+    });
+    this.canWrap.style.height = '52vh';
+    this.canWrap.style.width = '20vh';
+    this.canWrap.style.top = '56%';
+    if (this.rail) this.rail.style.display = '';
+    if (this.modes){ this.modes.style.display = 'none'; this.modes.style.opacity = 0; }
+  }
+
+  /* the desktop scene is sized in vw — on a phone those become unreadable,
+     so every vw font size is swapped for a px value and swapped back on resize */
+  vwFix(root, on){
+    Array.from(root.querySelectorAll('*')).forEach(el => {
+      if (on){
+        if (el.dataset.vwOrig !== undefined) return;
+        const m = /font-size:\s*([\d.]+)vw/.exec(el.getAttribute('style') || '');
+        if (!m) return;
+        el.dataset.vwOrig = m[1] + 'vw';
+        el.style.fontSize = Math.max(10, Math.min(44, Math.round(+m[1] / 100 * 1440 * 0.62))) + 'px';
+      } else if (el.dataset.vwOrig !== undefined){
+        el.style.fontSize = el.dataset.vwOrig;
+        delete el.dataset.vwOrig;
+      }
+    });
+  }
+
+  /* progress measured on demand — a fresh remount must not act on a stale value */
+  pNow(){
+    const sc = this.scroller;
+    if (!sc) return 0;
+    const stageH = this.stage.offsetHeight || window.innerHeight;
+    return Math.max(0, Math.min(1, ((this.hdH || 0) - sc.getBoundingClientRect().top) / Math.max(1, sc.offsetHeight - stageH)));
+  }
+
   activate(i){
-    if (this.p < 0.38 || this.p > 0.985) return;
+    const p = this.pNow();
+    if (p < 0.38 || p > 0.985) return;
     if (this.active === i) return;
     this.engaged = true;
     this.pauseDemo();
@@ -436,10 +570,15 @@ class Component extends DCLogic {
     const a = this.active;
     const WIDE = this.props.zoneWidth ?? 58, NARROW = (100 - WIDE) / 3;
     this.zones.forEach((z, i) => {
-      const w = a === null ? 25 : (i === a ? WIDE : NARROW);
-      z.style.flex = '0 0 ' + w + '%';
-      z.style.background = i === a ? '#F7F3EC' : 'transparent';
       const on = i === a;
+      if (this.deck){
+        z.style.opacity = on ? 1 : 0;
+        z.style.pointerEvents = on ? 'auto' : 'none';
+      } else {
+        const w = a === null ? 25 : (i === a ? WIDE : NARROW);
+        z.style.flex = '0 0 ' + w + '%';
+        z.style.background = on ? '#F7F3EC' : 'transparent';
+      }
       z.querySelector('[data-vtitle]').style.opacity = on ? 0 : (a === null ? 1 : 0.5);
       z.querySelector('[data-htitle]').style.opacity = on ? 1 : 0;
       z.querySelector('[data-index]').style.opacity = on ? 0.75 : 0.45;
@@ -454,6 +593,14 @@ class Component extends DCLogic {
       }
       Array.from(z.querySelectorAll('[data-line]')).forEach(l => { l.style.transform = on ? 'translateY(0)' : 'translateY(115%)'; });
     });
+    if (this.deck && this.modeBtns){
+      this.modeBtns.forEach((b, i) => {
+        const on = i === a;
+        b.style.background = on ? '#14100E' : 'transparent';
+        b.style.color = on ? '#FAEED4' : '#14100E';
+        b.style.borderColor = on ? '#14100E' : 'rgba(20,16,14,.22)';
+      });
+    }
     this.apply();
   }
 
@@ -523,6 +670,24 @@ class Component extends DCLogic {
       dy = (r.top + r.height * 0.62) - (s.top + s.height * 0.56);
       dx = this.stage.offsetWidth * 0.24;
       scale *= 0.78;
+    }
+    if (this.deck){
+      /* the can holds the right half of the screen at full size; copy and
+         chips own the bottom, the scene illustration the left */
+      dx = this.stage.offsetWidth * 0.2;
+      dy = -this.stage.offsetHeight * 0.03;
+      scale = 0.92 + 0.08 * enter;
+      /* the master remounts sections on re-render, so the deck re-seeds itself
+         whenever it finds no active mode inside the interactive window */
+      if (this.active === null && p > 0.42){
+        this.active = 0;
+        if (!this.seedT) this.seedT = setTimeout(() => { this.seedT = null; this.applyZones(); }, 0);
+      }
+      if (this.modes){
+        const on = p > 0.38;
+        this.modes.style.opacity = on ? 1 : 0;
+        this.modes.style.pointerEvents = on ? 'auto' : 'none';
+      }
     }
     this.enterT = enter;
     this.lastDx = dx; this.lastDy = dy - p * 18; this.lastScale = scale;
