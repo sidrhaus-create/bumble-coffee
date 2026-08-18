@@ -30,13 +30,7 @@
     <div data-ph="0,0.13,60,0.9" style="position:absolute;left:5.4%;top:14%;z-index:4;will-change:transform,opacity">
       <div style="overflow:hidden"><div style="font-size:6.2vw;font-weight:800;line-height:.98;letter-spacing:-.035em">ЧТО ВНУТРИ</div></div>
       <div style="overflow:hidden"><div style="font-size:6.2vw;font-weight:800;line-height:.98;letter-spacing:-.035em">BUMBLE?</div></div>
-    </div>
-
-    <div data-ph="0,0.12,40,0.7" style="position:absolute;right:5.4%;top:17.5%;z-index:4;text-align:right;font-size:.78vw;font-weight:700;letter-spacing:.28em;line-height:2.4;will-change:transform,opacity">
-      <div>КОФЕ.</div>
-      <div>ГАЗ.</div>
-      <div>НОЛЬ САХАРА.</div>
-      <div>СОК.</div>
+      <div data-in-words style="margin-top:26px;max-width:64vw;font-size:.78vw;font-weight:700;letter-spacing:.28em;line-height:1.7">КОФЕ · ГАЗ · НОЛЬ САХАРА · СОК</div>
     </div>
 
     <div data-in-big data-m-fs="44" data-ph="0.15,0.35,90,1.25" style="position:absolute;left:-1.5vw;top:31%;z-index:3;white-space:nowrap;font-size:10.5vw;font-weight:800;letter-spacing:-.045em;line-height:.86;will-change:transform,opacity">ROBUSTA</div>
@@ -169,6 +163,16 @@ class Component extends DCLogic {
       if (m) delete slogan.dataset.vwOrig;
     }
     this.bigType(m);
+    /* the descriptor rides directly under the headline in both layouts —
+       one line on desktop, wrapping to at most two on a phone */
+    const words = stage.querySelector('[data-in-words]');
+    if (words){
+      words.style.marginTop = m ? '18px' : '26px';
+      words.style.fontSize = m ? '11px' : '.78vw';
+      words.style.letterSpacing = m ? '.13em' : '.28em';
+      words.style.lineHeight = m ? '1.75' : '1.7';
+      words.style.maxWidth = m ? '80vw' : '64vw';
+    }
     /* the two micro-lines stack on a phone instead of colliding on one baseline,
        and stay tucked just under the product */
     Array.from(stage.querySelectorAll('[data-in-spec]')).forEach((el, i) => {

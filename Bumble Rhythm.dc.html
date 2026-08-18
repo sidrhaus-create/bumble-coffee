@@ -550,13 +550,31 @@ class Component extends DCLogic {
       const ht = z.querySelector('[data-htitle]'); if (ht){ ht.style.left = '5.4%'; ht.style.top = '5.6%'; ht.style.fontSize = '34px'; }
       const il = z.querySelector('[data-illu]'); if (il){ il.style.left = '3%'; il.style.top = '21%'; il.style.height = '26%'; }
       const cp = z.querySelector('[data-copy]');
-      if (cp){ cp.style.left = '5.4%'; cp.style.width = '89%'; cp.style.bottom = '25%'; }
+      if (cp){ cp.style.left = '5.4%'; cp.style.width = '89%'; cp.style.bottom = '19%'; }
     });
     this.canWrap.style.height = '36svh';
     this.canWrap.style.width = '15svh';
     this.canWrap.style.top = '50%';
     if (this.rail) this.rail.style.display = 'none';
-    if (this.modes) this.modes.style.display = 'grid';
+    /* the four modes read as ONE horizontal control on a phone: a single
+       segmented bar with hairline dividers instead of four loose chips */
+    if (this.modes){
+      const s = this.modes.style;
+      s.display = 'grid';
+      s.gridTemplateColumns = 'repeat(4,1fr)';
+      s.gap = '0';
+      s.border = '1px solid rgba(20,16,14,.22)';
+      s.borderRadius = '4px';
+      s.overflow = 'hidden';
+      s.bottom = 'calc(8% + env(safe-area-inset-bottom))';
+      this.modeBtns.forEach((b, i) => {
+        b.style.border = '0';
+        b.style.borderLeft = i ? '1px solid rgba(20,16,14,.18)' : '0';
+        b.style.borderRadius = '0';
+        b.style.minHeight = '48px';
+        b.style.fontSize = '11px';
+      });
+    }
     this.applyZones();
   }
 
@@ -577,6 +595,21 @@ class Component extends DCLogic {
       const il = z.querySelector('[data-illu]'); if (il){ il.style.left = '8%'; il.style.top = '24%'; il.style.height = '39%'; }
       const cp = z.querySelector('[data-copy]'); if (cp){ cp.style.left = '8%'; cp.style.width = '54%'; cp.style.bottom = '11%'; }
     });
+    if (this.modes){
+      const s = this.modes.style;
+      s.gap = '6px';
+      s.border = '0';
+      s.borderRadius = '';
+      s.overflow = '';
+      s.bottom = '9%';
+      this.modeBtns.forEach(b => {
+        b.style.border = '1px solid rgba(20,16,14,.22)';
+        b.style.borderLeft = '';
+        b.style.borderRadius = '3px';
+        b.style.minHeight = '44px';
+        b.style.fontSize = '10.5px';
+      });
+    }
     this.canWrap.style.height = '52vh';
     this.canWrap.style.width = '20vh';
     this.canWrap.style.top = '56%';
@@ -652,7 +685,6 @@ class Component extends DCLogic {
         const on = i === a;
         b.style.background = on ? '#14100E' : 'transparent';
         b.style.color = on ? '#FAEED4' : '#14100E';
-        b.style.borderColor = on ? '#14100E' : 'rgba(20,16,14,.22)';
       });
     }
     this.apply();
