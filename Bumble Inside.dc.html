@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./bumble.js"></script>
+<script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -27,12 +27,12 @@
 
     <img data-deep src="assets/phoenix.svg" alt="" style="position:absolute;left:52%;top:50%;height:152vh;width:auto;opacity:.055;z-index:2;transform:translate(-50%,-50%)"/>
 
-    <div data-ph="0.02,0.13,60,0.9" style="position:absolute;left:5.4%;top:14%;z-index:4;will-change:transform,opacity">
+    <div data-ph="0,0.13,60,0.9" style="position:absolute;left:5.4%;top:14%;z-index:4;will-change:transform,opacity">
       <div style="overflow:hidden"><div style="font-size:6.2vw;font-weight:800;line-height:.98;letter-spacing:-.035em">ЧТО ВНУТРИ</div></div>
       <div style="overflow:hidden"><div style="font-size:6.2vw;font-weight:800;line-height:.98;letter-spacing:-.035em">BUMBLE?</div></div>
     </div>
 
-    <div data-ph="0.03,0.12,40,0.7" style="position:absolute;right:5.4%;top:17.5%;z-index:4;text-align:right;font-size:.78vw;font-weight:700;letter-spacing:.28em;line-height:2.4;will-change:transform,opacity">
+    <div data-ph="0,0.12,40,0.7" style="position:absolute;right:5.4%;top:17.5%;z-index:4;text-align:right;font-size:.78vw;font-weight:700;letter-spacing:.28em;line-height:2.4;will-change:transform,opacity">
       <div>КОФЕ.</div>
       <div>ГАЗ.</div>
       <div>НОЛЬ САХАРА.</div>
@@ -72,14 +72,14 @@
       <img data-c5 src="assets/cans/wild-berries.png" alt="Bumble Coffee Wild Berries" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
     </div>
 
-    <div data-in-spec data-ph="0.9,1.06,44,0.5" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · SPARKLING</div>
+    <div data-in-spec data-ph="0.9,1.06,30,0.4" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;line-height:1;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · SPARKLING</div>
 
     <div data-in-slogan data-ph="0.93,1.08,70,0.75" style="position:absolute;left:5.4%;top:24%;z-index:6;font-weight:800;font-size:3.05vw;line-height:1.16;letter-spacing:-.03em;will-change:transform,opacity">
       <div style="overflow:hidden"><div>БОДРИТ КАК КОФЕ.</div></div>
       <div style="overflow:hidden"><div>ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div></div>
     </div>
 
-    <div data-in-spec data-ph="0.16,1.1,30,0.4" style="position:absolute;right:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;color:#F7F3EC;will-change:transform,opacity">BUMBLE COFFEE</div>
+    <div data-in-spec data-ph="0.16,1.1,30,0.4" style="position:absolute;right:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;line-height:1;margin-right:-.3em;color:#F7F3EC;will-change:transform,opacity">BUMBLE COFFEE</div>
 
     </div>
   </div>
@@ -103,7 +103,9 @@ class Component extends DCLogic {
     this.cans = [0,1,2,3,4,5].map(i => stage.querySelector('[data-c' + i + ']'));
     this.phases = Array.from(stage.querySelectorAll('[data-ph]')).map(el => {
       const v = el.dataset.ph.split(',').map(Number);
-      return { el, a: v[0], b: v[1], rise: v[2], depth: v[3] };
+      /* the band's ticker lines are pinned: no parallax drift, so left and
+         right hold exactly the same baseline */
+      return { el, a: v[0], b: v[1], rise: v[2], depth: v[3], pin: el.hasAttribute('data-in-spec') };
     });
     this.accents = Array.from(stage.querySelectorAll('[data-accent]'));
     this.clipLayer = stage.querySelector('[data-clip]');
@@ -166,8 +168,9 @@ class Component extends DCLogic {
     /* the two micro-lines stack on a phone instead of colliding on one baseline,
        and stay tucked just under the product */
     Array.from(stage.querySelectorAll('[data-in-spec]')).forEach((el, i) => {
-      el.style.bottom = m ? (i === 0 ? '7%' : '11.5%') : '12.5%';
+      el.style.bottom = m ? (i === 0 ? '30px' : '58px') : '12.5%';
       el.style.letterSpacing = m ? '.16em' : '.3em';
+      if (i === 1) el.style.marginRight = m ? '-.16em' : '-.3em';
     });
     if (this.band) this.band.style.height = m ? '46%' : '38%';
     if (this.deep) this.deep.style.height = m ? '108svh' : '152vh';
@@ -177,7 +180,7 @@ class Component extends DCLogic {
       this.canWrap.style.left = m ? '74%' : '73%';
       this.canWrap.style.top = m ? '54%' : '52%';
     }
-    if (this.scroller) this.scroller.style.height = m ? '460svh' : '460vh';
+    if (this.scroller) this.scroller.style.height = m ? '392svh' : '460vh';
     stage.style.height = m ? '100svh' : '100vh';
   }
 
@@ -199,22 +202,30 @@ class Component extends DCLogic {
     const cl = t => Math.max(0, Math.min(1, t));
 
     /* the two horizontal worlds open up as the section takes over */
-    this.band.style.transform = 'scaleY(' + io(cl(p / 0.12)).toFixed(3) + ')';
+    /* the entrance is driven by the section's approach, not by its own track:
+       the band and the can are already in place by the time it owns the screen,
+       so the outgoing panel never hands over to a blank stretch */
+    const ent = cl((vh - rect.top) / (vh * 0.78));
+    const entE = io(ent);
+    this.band.style.transform = 'scaleY(' + entE.toFixed(3) + ')';
 
     /* deep layer: slowest of all */
     this.deep.style.transform = 'translate(-50%,' + (-50 - p * 5).toFixed(2) + '%) scale(' + (1 + p * 0.06).toFixed(3) + ')';
 
     /* selected can: enters from below, then moves less than everything else */
-    const inT = io(cl(p / 0.09));
+    /* on a phone the can is in place almost immediately, so the screen is
+       never empty while the previous section has already let go */
+    const inT = entE;
     const sc2 = 0.62 + 0.38 * inT;
     const drift = -p * 26 - (p > 0.9 ? 0 : 0);
     this.canWrap.style.transform = 'translate(-50%,' + (-50 + (1 - inT) * 46).toFixed(2) + '%) translateY(' + drift.toFixed(1) + 'px) scale(' + sc2.toFixed(3) + ')';
 
     this.phases.forEach(ph => {
-      const tIn = cl((p - ph.a) / 0.055);
+      const tIn = ph.a === 0 ? ent : cl((p - ph.a) / 0.055);
       const tOut = cl((p - (ph.b - 0.055)) / 0.055);
       const o = io(tIn) * (1 - tOut);
-      const y = (1 - io(tIn)) * ph.rise - tOut * tOut * ph.rise * 1.5 - (p - ph.a) * 40 * ph.depth * (o > 0 ? 1 : 0);
+      const drift = ph.pin ? 0 : (p - ph.a) * 40 * ph.depth * (o > 0 ? 1 : 0);
+      const y = (1 - io(tIn)) * ph.rise - tOut * tOut * ph.rise * 1.5 - drift;
       ph.el.style.opacity = o.toFixed(3);
       ph.el.style.transform = 'translateY(' + y.toFixed(1) + 'px)';
     });
