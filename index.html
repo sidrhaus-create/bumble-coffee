@@ -4,11 +4,25 @@
 <meta charset="utf-8">
 <title>Bumble Coffee — газированный кофе без сахара</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" as="image" href="assets/phoenix.svg"/>
+<link rel="preload" as="image" href="assets/cans/orange.webp" fetchpriority="high"/>
+<link rel="preload" as="image" href="assets/cans/cherry.webp"/>
+<link rel="preload" as="image" href="assets/cans/pomegranate.webp"/>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-latin-800.woff2" crossorigin="anonymous"/>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-cyrillic-800.woff2" crossorigin="anonymous"/>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-cyrillic-700.woff2" crossorigin="anonymous"/>
 <script src="./bumble.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
+<link rel="preload" as="image" href="assets/phoenix.svg"/>
+<link rel="preload" as="image" href="assets/cans/orange.webp" fetchpriority="high"/>
+<link rel="preload" as="image" href="assets/cans/cherry.webp"/>
+<link rel="preload" as="image" href="assets/cans/pomegranate.webp"/>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-latin-800.woff2" crossorigin="anonymous"/>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-cyrillic-800.woff2" crossorigin="anonymous"/>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-cyrillic-700.woff2" crossorigin="anonymous"/>
 <style>
 body{margin:0;background:#F7F2EC;-webkit-font-smoothing:antialiased;max-width:100%;overflow-x:clip}
 a{color:#14100E;text-decoration:none}
@@ -249,6 +263,7 @@ class Component extends DCLogic {
         this.mo.observe(document.body, { childList: true, subtree: true });
       }
       [300, 1200, 2600].forEach(ms => setTimeout(() => this.typeFloor(), ms));
+      this.warm();
     }
 
     this.items.forEach(a => this.once(a, el => {
@@ -270,6 +285,27 @@ class Component extends DCLogic {
       this.ov.style.pointerEvents = 'auto';
     }
     this.apply();
+  }
+
+  /* every section below the fold ships its artwork lazily; this starts the
+     download while the section is still more than a screen away, so it has
+     decoded by the time the reader gets there — fast first paint, no pop-in */
+  warm(){
+    if (!window.IntersectionObserver) return;
+    const lift = sec => {
+      Array.from(sec.querySelectorAll('img[loading="lazy"]')).forEach(img => {
+        img.loading = 'eager';
+        img.fetchPriority = 'low';
+      });
+    };
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        lift(e.target);
+        [400, 1200].forEach(ms => setTimeout(() => lift(e.target), ms));
+      });
+    }, { rootMargin: '150% 0px 150% 0px' });
+    Array.from(document.querySelectorAll('[data-sec]')).forEach(s => io.observe(s));
   }
 
   once(el, fn){

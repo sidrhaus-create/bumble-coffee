@@ -2,7 +2,14 @@
 
 Production copy of **Bumble Full Website**, unchanged visually. Nothing was redesigned:
 the master page and all six section files are byte-identical to the design source except
-for two lines in `index.html` (runtime script renamed to `bumble.js`, `<title>` + `lang="ru"` added).
+for `index.html` (runtime script renamed to `bumble.js`, `<title>` + `lang="ru"`, and the
+same critical-asset `<link rel="preload">` set the design carries in its helmet).
+
+All raster artwork ships as **WebP** (alpha preserved, production pixel sizes) — the
+`assets/` tree is 1.8 MB, down from 10.4 MB of PNG. Hero cans and the phoenix mark are
+preloaded; every below-the-fold image is `loading="lazy" decoding="async"` with explicit
+`width`/`height`, and the master page warms the next section's images one and a half
+screens ahead via IntersectionObserver.
 
 ## Contents
 
@@ -17,9 +24,9 @@ tilda-build/
   Bumble Buy.dc.html          ← section 06     где купить
   Bumble Partners.dc.html     ← section 07     партнёрам
   assets/
-    cans/        6 can renders (png)
-    scenes/      4 rhythm scenes (png)
-    robusta/     7 parallax layers + lids (png)
+    cans/        6 can renders (webp, 620×1695)
+    scenes/      4 rhythm scenes (webp)
+    robusta/     7 parallax layers + lids (webp)
     fonts/       8 Unbounded woff2 (latin + cyrillic, 400/600/700/800)
     phoenix.svg, black-phoenix-wordmark.svg, bumble-script.svg
   tilda-embed.html            ← snippet to paste into Tilda's T123 HTML block
