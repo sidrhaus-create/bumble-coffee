@@ -70,7 +70,7 @@ select:invalid{color:rgba(20,16,14,.3)}
 
           <div data-pt-row="2" style="position:relative;padding-top:clamp(18px,2.6vh,30px);opacity:0;transform:translateY(18px)">
             <label data-pt-label for="pt-email" style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.5);transition:transform .32s cubic-bezier(.16,1,.3,1),color .32s ease">ПОЧТА</label>
-            <input data-pt-input id="pt-email" name="email" type="email" autocomplete="email" placeholder="name@company.ru" style="display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:0 0 12px;border:0;background:none;font-family:inherit;font-size:clamp(15px,1.15vw,23px);font-weight:700;letter-spacing:-.015em;color:#14100E;outline:none"/>
+            <input data-pt-input id="pt-email" name="email" type="email" autocomplete="email" placeholder="ваш@email.ru" style="display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:0 0 12px;border:0;background:none;font-family:inherit;font-size:clamp(15px,1.15vw,23px);font-weight:700;letter-spacing:-.015em;color:#14100E;outline:none"/>
             <span style="display:block;height:1px;background:rgba(20,16,14,.22)"></span>
             <span data-pt-under style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#81377B;transform:scaleX(0);transform-origin:left center;transition:transform .42s cubic-bezier(.16,1,.3,1)"></span>
             <span data-pt-err style="display:block;height:0;overflow:hidden;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;color:#B3261E;transition:height .26s ease,opacity .26s ease;opacity:0"></span>
@@ -121,7 +121,7 @@ select:invalid{color:rgba(20,16,14,.3)}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;endpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/partners&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;PARTNERS_EMAIL&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;endpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/partners&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;info@bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
 const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/;
 
@@ -318,7 +318,7 @@ class Component extends DCLogic {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return true;
     } catch (e) {
-      console.info('[Bumble] partners lead (endpoint ' + url + ' not connected yet, recipient key: ' + (this.props.recipient || 'PARTNERS_EMAIL') + ')', payload);
+      console.info('[Bumble] partners lead (endpoint ' + url + ' not connected yet, recipient key: ' + (this.props.recipient || 'info@bumblephoenix.ru') + ')', payload);
       return true;
     }
   }

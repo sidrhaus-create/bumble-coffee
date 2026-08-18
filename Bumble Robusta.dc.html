@@ -277,6 +277,9 @@ class Component extends DCLogic {
       this.sticky.style.height = '100svh';
       this.sticky.style.alignItems = 'stretch';
     }
+    /* phones: the pin lasts only as long as the reveal needs — a longer track
+       leaves an empty beige viewport between the coffee and ТВОЙ РИТМ */
+    if (this.scroller) this.scroller.style.height = '132svh';
     st.width = '100%';
     st.maxWidth = '100vw';
     st.height = 'auto';
@@ -285,8 +288,8 @@ class Component extends DCLogic {
     st.flexDirection = 'column';
     st.boxSizing = 'border-box';
     st.overflow = 'hidden';
-    st.paddingTop = (hdH + 18) + 'px';
-    st.paddingBottom = 'calc(16px + env(safe-area-inset-bottom))';
+    st.paddingTop = (hdH + 12) + 'px';
+    st.paddingBottom = 'calc(12px + env(safe-area-inset-bottom))';
     st.paddingLeft = '5.4%';
     st.paddingRight = '5.4%';
 
@@ -303,9 +306,9 @@ class Component extends DCLogic {
     };
 
     flow(this.index, 1, { textAlign: 'left', fontSize: '10px', letterSpacing: '.28em' });
-    flow(this.lock, 2, { marginTop: '18px', zIndex: 10 });
-    flow(this.slot, 3, { marginTop: '20px', zIndex: 9 });
-    flow(this.note, 4, { marginTop: '10px', justifyContent: 'flex-start', alignItems: 'center', minHeight: '44px', zIndex: 12 });
+    flow(this.lock, 2, { marginTop: '14px', zIndex: 10 });
+    flow(this.slot, 3, { marginTop: '14px', zIndex: 9 });
+    flow(this.note, 4, { marginTop: '6px', justifyContent: 'flex-start', alignItems: 'center', minHeight: '44px', zIndex: 12 });
 
     /* hint and revealed copy trade the same slot, so opening the can never
        shifts the layout under the reader's thumb */
@@ -320,9 +323,9 @@ class Component extends DCLogic {
     if (this.copy){
       this.copy.style.transform = '';
       Array.from(this.copy.querySelectorAll('[data-rb-line]')).forEach(el => {
-        if (el.style.fontWeight === '800') el.style.fontSize = '22px';
+        if (el.style.fontWeight === '800') el.style.fontSize = '21px';
       });
-      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = '13.5px'; });
+      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = '12.6px'; el.style.lineHeight = '1.55'; });
     }
     this.sizeSlot();
     requestAnimationFrame(() => this.sizeSlot());
@@ -332,19 +335,28 @@ class Component extends DCLogic {
       this.art.style.position = 'relative';
       this.art.style.left = 'auto';
       this.art.style.top = 'auto';
-      this.art.style.width = '100%';
+      /* the coffee is the payoff of this screen: it breaks the 5.4% text column
+         and runs edge to edge, so the composition reads as one explosion */
+      this.art.style.width = 'auto';
+      this.art.style.marginLeft = '-6.054%';
+      this.art.style.marginRight = '-6.054%';
       this.art.style.height = 'auto';
       this.art.style.order = 5;
       this.art.style.flex = '1 1 auto';
       this.art.style.minHeight = '0';
-      this.art.style.marginTop = '12px';
+      this.art.style.marginTop = '8px';
       Array.from(this.art.querySelectorAll('img')).forEach(img => {
         if (img.dataset.fitWired) return;
         img.dataset.fitWired = '1';
         img.addEventListener('load', () => this.fitArt());
       });
     }
-    const m = { burst: ['0%', '54%', '56%'], bridge: ['30%', '30%', '30%'], grounds: ['50%', '20%', '28%'], beans: ['32%', '2%', '54%'], splash: ['16%', '28%', '68%'] };
+    /* portrait composition: wide and shallow rather than tall and small — the
+       layers keep their desktop relationship (beans high right, splash across
+       the middle, grounds and bridge inside it, burst low left) but every width
+       is scaled up to the full bleed and every top pulled in, so the whole
+       composition spans ~96% of the screen and still lands inside the band */
+    const m = { burst: ['2%', '40%', '70%'], bridge: ['25%', '44%', '34%'], grounds: ['46%', '30%', '32%'], beans: ['33%', '0%', '62%'], splash: ['5%', '12%', '84%'] };
     this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
     this.fitArt();
     requestAnimationFrame(() => this.fitArt());
@@ -379,14 +391,27 @@ class Component extends DCLogic {
     const cs = getComputedStyle(this.stage);
     const padB = parseFloat(cs.paddingBottom) || 0;
     const floor = this.stage.getBoundingClientRect().bottom - padB;
-    const avail = floor - a.getBoundingClientRect().top - 6;
     a.style.flex = '0 0 auto';
-    a.style.height = Math.round(Math.max(need, avail)) + 'px';
-    if (avail > 80 && need > avail){
+    a.style.marginTop = '8px';
+    const avail = floor - a.getBoundingClientRect().top - 6;
+    /* the band always hugs the composition. Spare room is spent ABOVE the art
+       (the coffee sits at the foot of the screen, where the eye leaves the
+       section) rather than as dead beige below it — the art is already 96% of
+       the width, so it cannot be scaled up without clipping its own edges.
+       A short screen scales the whole band down instead of slicing it. */
+    a.style.height = Math.round(need) + 'px';
+    if (avail >= need){
+      a.style.transform = '';
+      a.style.marginTop = Math.round(8 + Math.min(150, Math.max(0, avail - need - 34))) + 'px';
+      return;
+    }
+    if (avail > 80){
       const s = avail / need;
       a.style.transformOrigin = '50% 0';
       a.style.transform = 'scale(' + s.toFixed(3) + ')';
       a.style.height = Math.round(need * s) + 'px';
+    } else {
+      a.style.transform = '';
     }
   }
 
@@ -423,7 +448,8 @@ class Component extends DCLogic {
       el.style.marginTop = '';
       el.style.minHeight = '';
     });
-    if (this.art){ this.art.style.transform = ''; this.art.style.flex = ''; }
+    if (this.art){ this.art.style.transform = ''; this.art.style.flex = ''; this.art.style.marginLeft = ''; this.art.style.marginRight = ''; }
+    if (this.scroller) this.scroller.style.height = '175vh';
     if (this.index){ this.index.style.left = 'auto'; this.index.style.right = '6%'; this.index.style.top = '13.2%'; this.index.style.width = 'auto'; this.index.style.textAlign = 'right'; this.index.style.fontSize = ''; this.index.style.letterSpacing = ''; }
     if (this.note){ this.note.style.left = 'auto'; this.note.style.right = '6%'; this.note.style.top = '17.6%'; this.note.style.width = 'auto'; this.note.style.justifyContent = 'flex-end'; }
     [this.slot, this.art].forEach(el => {
@@ -435,7 +461,7 @@ class Component extends DCLogic {
     });
     if (this.copy){
       Array.from(this.copy.querySelectorAll('[data-rb-line]')).forEach(el => { if (el.style.fontWeight === '800') el.style.fontSize = 'clamp(19px,1.85cqw,36px)'; });
-      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = 'clamp(11px,.84cqw,16px)'; });
+      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = 'clamp(11px,.84cqw,16px)'; el.style.lineHeight = '1.62'; });
     }
   }
 

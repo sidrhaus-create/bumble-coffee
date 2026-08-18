@@ -237,13 +237,13 @@ a:hover{color:#F23904}
 
       <div data-m-foot style="position:relative;width:100%;flex:0 0 auto;height:186px;box-sizing:border-box">
 
-        <div data-m-tags style="position:absolute;left:18px;right:18px;top:0;display:flex;flex-direction:column;align-items:center;gap:12px;will-change:transform,opacity">
+        <div data-m-tags style="position:absolute;left:18px;right:18px;top:0;display:flex;flex-direction:column;align-items:center;gap:14px;will-change:transform,opacity">
           <div style="font-size:16px;font-weight:800;letter-spacing:-.022em;line-height:1.2;text-align:center">БОДРИТ КАК КОФЕ.<br/>ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:304px">
-            <span style="display:flex;align-items:center;justify-content:center;min-height:38px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:0 8px;text-align:center;white-space:nowrap">0% САХАРА</span>
-            <span data-badge-accent style="display:flex;align-items:center;justify-content:center;min-height:38px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #F23904;border-radius:3px;padding:0 8px;text-align:center;white-space:nowrap">125 МГ КОФЕИНА</span>
-            <span style="display:flex;align-items:center;justify-content:center;min-height:38px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:0 8px;text-align:center;white-space:nowrap">ROBUSTA</span>
-            <span data-badge-accent style="display:flex;align-items:center;justify-content:center;min-height:38px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #F23904;border-radius:3px;padding:0 8px;text-align:center;white-space:nowrap">6 ВКУСОВ</span>
+          <div data-m-badges style="position:relative;width:100%;max-width:336px;height:130px">
+            <span style="position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;min-height:34px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:0 11px;white-space:nowrap;transform:rotate(-1.5deg)">0% САХАРА</span>
+            <span data-badge-accent style="position:absolute;right:0;top:32px;display:flex;align-items:center;justify-content:center;min-height:34px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #F23904;border-radius:3px;padding:0 11px;white-space:nowrap;transform:rotate(1deg)">125 МГ КОФЕИНА</span>
+            <span style="position:absolute;left:26px;top:66px;display:flex;align-items:center;justify-content:center;min-height:34px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #14100E;border-radius:3px;padding:0 11px;white-space:nowrap;transform:rotate(.8deg)">ROBUSTA</span>
+            <span data-badge-accent style="position:absolute;right:10px;top:96px;display:flex;align-items:center;justify-content:center;min-height:34px;box-sizing:border-box;font-size:11px;font-weight:700;letter-spacing:.04em;line-height:1;border:1px solid #F23904;border-radius:3px;padding:0 11px;white-space:nowrap;transform:rotate(-1deg)">6 ВКУСОВ</span>
           </div>
         </div>
 
@@ -480,8 +480,15 @@ class Component extends DCLogic {
       stage.style.paddingBottom = 'calc(10px + env(safe-area-inset-bottom))';
       if (this.mm){
         const short = window.innerHeight < 820;
-        this.mm.foot.style.height = short ? '146px' : '158px';
-        this.mm.zone.style.height = short ? '88px' : '96px';
+        /* the badge composition is a staggered stage, not a grid — the foot is
+           as tall as that stage plus the slogan, and the scroll hint keeps its
+           own clear band underneath so it never reads as part of the group */
+        this.mm.foot.style.height = short ? '178px' : '186px';
+        this.mm.zone.style.height = short ? '84px' : '92px';
+        if (this.mm.hint){
+          this.mm.hint.style.marginTop = short ? '16px' : '22px';
+          this.mm.hint.style.height = '38px';
+        }
       }
       requestAnimationFrame(() => this.measureRail());
       if (was !== true) setTimeout(() => this.centerM(this.selM2 < 0 ? 0 : this.selM2, false), 20);

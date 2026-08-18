@@ -66,9 +66,10 @@
     <div data-rhythm data-screen-label="Rhythm · when to drink" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#FAEED4">
 
       <div data-open style="position:absolute;left:5.4%;top:16%;z-index:6;will-change:transform,opacity">
-        <div style="overflow:hidden"><div style="font-size:5.6vw;font-weight:800;line-height:1;letter-spacing:-.035em">ТВОЙ РИТМ.</div></div>
-        <div style="overflow:hidden"><div style="font-size:5.6vw;font-weight:800;line-height:1;letter-spacing:-.035em">ТВОЙ BUMBLE.</div></div>
-        <div style="margin-top:22px;font-size:.76vw;font-weight:700;letter-spacing:.3em;opacity:.5">НАВЕДИ НА РЕЖИМ</div>
+        <div data-open-in style="transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1);will-change:opacity,transform">
+          <div style="overflow:hidden"><div style="font-size:5.6vw;font-weight:800;line-height:1;letter-spacing:-.035em">ТВОЙ РИТМ.</div></div>
+          <div style="overflow:hidden"><div style="font-size:5.6vw;font-weight:800;line-height:1;letter-spacing:-.035em">ТВОЙ BUMBLE.</div></div>
+        </div>
       </div>
 
       <div data-zones style="position:absolute;inset:0;display:flex;z-index:3;opacity:0;will-change:opacity">
@@ -94,7 +95,7 @@
             </div>
             <div data-accent style="margin-top:16px;width:9vw;height:2px;background:#F23904"></div>
           </div>
-          <div data-vtitle style="position:absolute;left:50%;bottom:9%;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;transition:opacity .45s ease">WORK</div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">WORK</div>
           <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">01</div>
           <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">WORK</div>
           <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
@@ -117,7 +118,7 @@
           </div>
           
           
-          <div data-vtitle style="position:absolute;left:50%;bottom:9%;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;transition:opacity .45s ease">STUDY</div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">STUDY</div>
           <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">02</div>
           <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">STUDY<div style="margin-top:.12em;height:2px;background:#14100E;transform-origin:left center;animation:bmTitleRule 4.6s cubic-bezier(.16,1,.3,1) infinite"></div></div>
           <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
@@ -148,7 +149,7 @@
           <div data-graphic2 style="position:absolute;left:31%;top:20%;bottom:6%;width:2px;opacity:0;transition:opacity .6s ease;overflow:hidden">
             <div style="width:100%;height:400%;background:repeating-linear-gradient(180deg,#14100E 0 26px,transparent 26px 98px);opacity:.24;animation:bmRoadV 2.4s linear infinite"></div>
           </div>
-          <div data-vtitle style="position:absolute;left:50%;bottom:9%;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;transition:opacity .45s ease">DRIVE</div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">DRIVE</div>
           <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">03</div>
           <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">DRIVE</div>
           <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
@@ -181,7 +182,7 @@
               <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">11</div>
             </div>
           </div>
-          <div data-vtitle style="position:absolute;left:50%;bottom:9%;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;transition:opacity .45s ease">GYM</div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">GYM</div>
           <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">04</div>
           <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">GYM</div>
           <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
@@ -215,9 +216,7 @@
             <svg width="17" height="11" viewBox="0 0 17 11" style="display:block"><path d="M11,1.5 L15.6,5.5 L11,9.5 M15.4,5.5 L1,5.5" style="fill:none;stroke:#14100E;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round"/></svg>
           </div>
         </div>
-        <div data-railcap style="position:absolute;left:0;top:14px;font-size:clamp(9px,.6vw,12px);font-weight:700;letter-spacing:.3em;opacity:0;transition:opacity .6s ease">ВЫБЕРИ РЕЖИМ</div>
       </div>
-      <div data-swipehint style="position:absolute;left:0;right:0;bottom:5%;z-index:6;text-align:center;font-size:11px;font-weight:700;letter-spacing:.3em;opacity:0;transition:opacity .6s ease;pointer-events:none">СВАЙПНИ БАНКУ</div>
 
       <div data-modes style="display:none;position:absolute;left:5.4%;right:5.4%;bottom:9%;z-index:7;grid-template-columns:repeat(4,1fr);gap:6px;opacity:0;transition:opacity .5s ease">
         <button data-mode="0" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">WORK</button>
@@ -250,14 +249,13 @@ class Component extends DCLogic {
     this.canWrap = stage.querySelector('[data-can]');
     this.cans = [0,1,2,3,4,5].map(i => stage.querySelector('[data-c' + i + ']'));
     this.open = stage.querySelector('[data-open]');
+    this.openIn = stage.querySelector('[data-open-in]');
     this.flavorLayer = stage.querySelector('[data-flavor]');
     this.flavorSets = Array.from(stage.querySelectorAll('[data-fl]'));
     this.rail = stage.querySelector('[data-rail]');
-    this.railCap = stage.querySelector('[data-railcap]');
     this.marker = stage.querySelector('[data-marker]');
     this.arrowL = stage.querySelector('[data-arrow-l]');
     this.arrowR = stage.querySelector('[data-arrow-r]');
-    this.swipeHint = stage.querySelector('[data-swipehint]');
     this.modes = stage.querySelector('[data-modes]');
     this.modeBtns = Array.from(stage.querySelectorAll('[data-mode]'));
     this.indices = Array.from(stage.querySelectorAll('[data-index]'));
@@ -270,17 +268,28 @@ class Component extends DCLogic {
 
     /* node-level listeners are marked on the stage: a remount re-wires the new
        nodes instead of leaving the scene inert */
+    /* window-level listeners are re-asserted on EVERY mount: the master remounts
+       imported sections, and a flag that outlives the removed listener would leave
+       this scene frozen at whatever opacity it held when it was torn down */
+    if (!this.onScroll) this.onScroll = () => this.apply();
+    window.removeEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    if (!this.onResize){
+      this.onResize = () => { this.layout(); this.apply(); };
+      window.addEventListener('resize', this.onResize);
+    }
+    if (!this.onFlavorEvt){
+      this.onFlavorEvt = e => this.setFlavor(e.detail.index);
+      document.addEventListener('bumble:flavor', this.onFlavorEvt);
+    }
+
     if (!stage.dataset.wired){
       stage.dataset.wired = '1';
-      if (!this.wired){
-        this.wired = true;
-        this.onScroll = () => this.apply();
-        window.addEventListener('scroll', this.onScroll, { passive: true });
-        window.addEventListener('resize', () => { this.layout(); this.apply(); });
-        document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
-      }
       this.zones.forEach((z, i) => {
-        z.addEventListener('pointerenter', () => { if (!this.deck) this.activate(i); });
+        /* the closed state has to survive a stray mouse move: on desktop a mode
+           opens from its own label (hover) or from a click anywhere in its column */
+        const label = z.querySelector('[data-vtitle]');
+        if (label) label.addEventListener('pointerenter', () => { if (!this.deck) this.activate(i); });
         z.addEventListener('pointerdown', () => { if (!this.deck) this.activate(i); });
       });
       this.modeBtns.forEach((b, i) => b.addEventListener('click', e => {
@@ -311,7 +320,7 @@ class Component extends DCLogic {
       });
       this.stage.addEventListener('pointerleave', () => { this.mx = 0; this.my = 0; this.applyParallax(); });
       this.canWrap.addEventListener('pointerdown', e => {
-        if (this.p < 0.38 || this.p > 0.985) return;
+        if (this.p > 0.985) return;
         e.preventDefault();
         this.dragging = true;
         this.dragX = e.clientX;
@@ -342,27 +351,53 @@ class Component extends DCLogic {
         if ((this.dragMoved || 0) > 22) this.noteInteraction();
         this.apply();
       });
-      this.tickMarker();
     }
+    if (!this.mRaf && !this.rebinding) this.tickMarker();
     this.apply();
   }
 
   componentWillUnmount(){
     window.removeEventListener('scroll', this.onScroll);
-    if (this.mRaf) cancelAnimationFrame(this.mRaf);
+    this.wired = false;
+    if (this.mRaf){ cancelAnimationFrame(this.mRaf); this.mRaf = null; }
     this.pauseDemo();
   }
 
   /* the flavor marker mirrors the can's real horizontal position, frame by frame */
+  /* the one instance that owns the live DOM: everything else is a leftover */
+  alive(){
+    return !!(this.stage && this.stage.isConnected && this.scroller && this.scroller.isConnected
+              && this.open && this.open.isConnected);
+  }
+
   tickMarker(){
+    /* the loop is never allowed to die: it is what keeps the scene honest */
     this.mRaf = requestAnimationFrame(() => this.tickMarker());
-    /* the deck keeps a live mode even after the master remounts the section */
-    if (this.deck){
-      const p = this.pNow();
-      if (p > 0.42 && p < 0.985){
-        if (this.active === null){ this.active = 0; this.applyZones(); }
-        else if (this.zones[this.active] && this.zones[this.active].style.opacity !== '1') this.applyZones();
-      }
+    /* the master remounts imported sections and can hand an instance a mix of
+       live and detached refs — so re-bind to whatever is in the document now
+       instead of painting nodes nobody can see */
+    const live = document.querySelector('[data-rhythm]');
+    if (!live) return;
+    if (live !== this.stage || !this.alive()){
+      if (this.rebinding) return;
+      this.rebinding = true;
+      this.mount();
+      this.rebinding = false;
+      return;
+    }
+    /* the panel is driven from the frame loop as well as from scroll events: an
+       imported section can be remounted at any time, and one extra rect read per
+       frame is cheaper than a scene frozen mid-transition */
+    if (this.scroller){
+      const top = Math.round(this.scroller.getBoundingClientRect().top);
+      if (top !== this.lastTop){ this.lastTop = top; this.apply(); }
+    }
+    this.paintHead();
+    /* an open mode survives the master's remounts — but nothing is ever opened
+       on the reader's behalf */
+    if (this.deck && this.active !== null){
+      const z = this.zones[this.active];
+      if (z && z.style.opacity !== '1') this.applyZones();
     }
     if (!this.rail || !this.canWrap || this.rail.style.opacity === '0') return;
     const b = this.canWrap.getBoundingClientRect(), st = this.stage.getBoundingClientRect();
@@ -374,12 +409,30 @@ class Component extends DCLogic {
     this.arrowR.style.left = rel;
   }
 
+  /* Two layers, two jobs: the outer block carries the scroll-driven entrance
+     (written every frame, so it must not transition), the inner one carries the
+     open/closed state as a plain CSS transition — the statement steps aside the
+     moment a mode opens and comes back when the section is closed again. */
+  paintHead(){
+    /* a remounted section leaves the previous instance behind, and React can hand
+       it a MIX of live and detached refs — such an instance must never paint, and
+       nothing is painted before apply() has produced a real value */
+    if (!this.alive() || this.headBase === undefined) return;
+    this.open.style.opacity = this.headBase.toFixed(3);
+    this.open.style.transform = 'translateY(' + this.headY.toFixed(1) + 'px)';
+    const closed = this.active === null;
+    if (this.openIn && this.openClosed !== closed){
+      this.openClosed = closed;
+      this.openIn.style.opacity = closed ? '1' : '0';
+      this.openIn.style.transform = closed ? 'translateY(0)' : 'translateY(-22px)';
+    }
+    this.open.style.pointerEvents = closed ? '' : 'none';
+  }
+
   noteInteraction(){
     if (this.interacted) return;
     this.interacted = true;
     this.pauseDemo();
-    if (this.railCap) this.railCap.style.opacity = 0;
-    if (this.swipeHint) this.swipeHint.style.opacity = 0;
   }
 
   pauseDemo(){
@@ -558,12 +611,13 @@ class Component extends DCLogic {
 
   activate(i){
     const p = this.pNow();
-    if (p < 0.38 || p > 0.985) return;
+    if (p > 0.985) return;
     if (this.active === i) return;
     this.engaged = true;
     this.pauseDemo();
     this.active = i;
     this.applyZones();
+    this.paintHead();
   }
 
   applyZones(){
@@ -629,7 +683,7 @@ class Component extends DCLogic {
 
   apply(){
     const sc = this.scroller;
-    if (!sc) return;
+    if (!this.alive()) return;
     const vh = window.innerHeight;
     const rTop = sc.getBoundingClientRect().top;
     const stageH = this.stage.offsetHeight || vh;
@@ -644,11 +698,18 @@ class Component extends DCLogic {
     const appear = io(cl((vh - rTop) / (vh * 0.62)));
 
     /* ENTER (0-10%) → HOLD (10-30%) → TRANSITION (30-38%) */
-    const openOut = cl((p - 0.30) / 0.08);
-    this.open.style.opacity = (appear * (1 - openOut)).toFixed(3);
-    this.open.style.transform = 'translateY(' + ((1 - appear) * 60 - p * 14 - openOut * 96).toFixed(1) + 'px)';
+    /* the statement OWNS the screen for the whole track while nothing is open —
+       only an opened mode clears it, plus a short tail so the panel does not hand
+       over to ГДЕ КУПИТЬ with type still on it */
+    const tail = cl((p - 0.90) / 0.10);
+    this.headBase = appear * (1 - tail);
+    this.headY = (1 - appear) * 60 - p * 14 - tail * 60;
+    this.paintHead();
 
-    const zonesIn = io(cl((p - 0.32) / 0.09));
+    /* the four modes belong to the section's FIRST visible state: they rise with
+       the statement as the panel enters, so nobody has to scroll to discover that
+       WORK / STUDY / DRIVE / GYM are the controls */
+    const zonesIn = appear;
     this.zonesWrap.style.opacity = zonesIn.toFixed(3);
     this.zonesWrap.style.pointerEvents = zonesIn > 0.6 ? 'auto' : 'none';
     this.indices.forEach((el, i) => {
@@ -677,14 +738,8 @@ class Component extends DCLogic {
       dx = this.stage.offsetWidth * 0.2;
       dy = -this.stage.offsetHeight * 0.03;
       scale = 0.92 + 0.08 * enter;
-      /* the master remounts sections on re-render, so the deck re-seeds itself
-         whenever it finds no active mode inside the interactive window */
-      if (this.active === null && p > 0.42){
-        this.active = 0;
-        if (!this.seedT) this.seedT = setTimeout(() => { this.seedT = null; this.applyZones(); }, 0);
-      }
       if (this.modes){
-        const on = p > 0.38;
+        const on = appear > 0.12 && p < 0.995;
         this.modes.style.opacity = on ? 1 : 0;
         this.modes.style.pointerEvents = on ? 'auto' : 'none';
       }
@@ -693,11 +748,9 @@ class Component extends DCLogic {
     this.lastDx = dx; this.lastDy = dy - p * 18; this.lastScale = scale;
     if (!this.dragging && !this.demoRaf) this.canWrap.style.transform = this.canTransform(dx + (this.demo || 0), dy - p * 18, scale);
 
-    const railOn = !this.vertical && p > 0.36;
+    const railOn = !this.vertical && appear > 0.5 && p < 0.995;
     if (this.rail) this.rail.style.opacity = railOn ? 1 : 0;
-    if (this.railCap) this.railCap.style.opacity = railOn && !this.interacted ? 0.5 : 0;
-    const swipeOn = this.vertical && p > 0.36;
-    if (this.swipeHint) this.swipeHint.style.opacity = swipeOn && !this.interacted ? 0.5 : 0;
+    const swipeOn = this.vertical && appear > 0.5 && p < 0.995;
     if (railOn || swipeOn) this.maybeDemo();
     else if (this.demoTimer){ clearTimeout(this.demoTimer); this.demoTimer = null; }
     this.applyParallax();

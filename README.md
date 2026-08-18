@@ -58,6 +58,27 @@ All images live in `assets/` — that folder is the `/images` equivalent.
 * Serve the whole build from **one origin** (no cross-domain split), otherwise the
   section fetches need CORS headers.
 
+## Contact + partners form
+
+The single public address is **info@bumblephoenix.ru** — used by the burger-menu
+contacts, the footer contacts and every `mailto:` link in `index.html`.
+
+The «ПАРТНЁРАМ» form validates and POSTs its lead as JSON to the `endpoint` prop
+(default `/api/partners`) with the intended recipient `info@bumblephoenix.ru`.
+**A browser cannot send mail by itself**, so real delivery still needs one server-side
+piece — any of:
+
+* a serverless function (Netlify / Vercel / Cloudflare Worker) at `/api/partners`
+  that forwards the JSON to info@bumblephoenix.ru via SMTP or an API
+  (Resend, SendGrid, Mailgun, Unisender, Яндекс 360);
+* a form service endpoint (Formspree / Getform / Tilda's own form receiver) — set its
+  URL as the `endpoint` and its recipient to info@bumblephoenix.ru;
+* Tilda: replace the form's submit target with a Tilda form block wired to
+  info@bumblephoenix.ru in Настройки → Формы.
+
+Until that endpoint answers 2xx, the lead is logged to the console with the recipient
+address; nothing is silently dropped and no mail is sent.
+
 ## External dependencies
 
 `bumble.js` loads React 18.3.1 (`react.production.min.js` + `react-dom.production.min.js`)

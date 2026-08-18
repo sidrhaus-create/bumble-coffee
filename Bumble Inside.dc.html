@@ -36,18 +36,19 @@
       <div>КОФЕ.</div>
       <div>ГАЗ.</div>
       <div>НОЛЬ САХАРА.</div>
+      <div>СОК.</div>
     </div>
 
-    <div data-ph="0.15,0.35,90,1.25" style="position:absolute;left:-1.5vw;top:31%;z-index:3;white-space:nowrap;font-size:10.5vw;font-weight:800;letter-spacing:-.045em;line-height:.86;will-change:transform,opacity">ROBUSTA</div>
+    <div data-in-big data-m-fs="44" data-ph="0.15,0.35,90,1.25" style="position:absolute;left:-1.5vw;top:31%;z-index:3;white-space:nowrap;font-size:10.5vw;font-weight:800;letter-spacing:-.045em;line-height:.86;will-change:transform,opacity">ROBUSTA</div>
     <div data-ph="0.17,0.34,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity">01 · КОФЕЙНАЯ БАЗА</div>
 
-    <div data-ph="0.37,0.57,110,1.35" style="position:absolute;left:4.6%;top:26%;z-index:3;white-space:nowrap;font-size:17.5vw;font-weight:800;letter-spacing:-.055em;line-height:.82;will-change:transform,opacity">125</div>
+    <div data-in-big data-m-fs="86" data-ph="0.37,0.57,110,1.35" style="position:absolute;left:4.6%;top:26%;z-index:3;white-space:nowrap;font-size:17.5vw;font-weight:800;letter-spacing:-.055em;line-height:.82;will-change:transform,opacity">125</div>
     <div data-ph="0.39,0.56,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity">02 · МГ КОФЕИНА</div>
 
-    <div data-ph="0.59,0.78,110,1.3" style="position:absolute;left:4.2%;top:25%;z-index:3;font-size:20vw;font-weight:800;letter-spacing:-.06em;line-height:.8;will-change:transform,opacity">0%</div>
+    <div data-in-big data-m-fs="90" data-ph="0.59,0.78,110,1.3" style="position:absolute;left:4.2%;top:25%;z-index:3;font-size:20vw;font-weight:800;letter-spacing:-.06em;line-height:.8;will-change:transform,opacity">0%</div>
         <div data-ph="0.61,0.77,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity"><span data-accent style="color:#F23904">03</span> · САХАРА</div>
 
-    <div data-ph="0.79,0.94,100,1.2" style="position:absolute;left:4.6%;top:30%;z-index:3;white-space:nowrap;font-size:8.6vw;font-weight:800;letter-spacing:-.05em;line-height:.84;will-change:transform,opacity">SPARKLING</div>
+    <div data-in-big data-m-fs="42" data-ph="0.79,0.94,100,1.2" style="position:absolute;left:4.6%;top:30%;z-index:3;white-space:nowrap;font-size:8.6vw;font-weight:800;letter-spacing:-.05em;line-height:.84;will-change:transform,opacity">SPARKLING</div>
     <div data-ph="0.81,0.93,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity">04 · ЛЁГКАЯ ГАЗАЦИЯ</div>
 
     <div data-fizz style="position:absolute;left:0;right:0;bottom:0;height:100%;z-index:5;opacity:0;pointer-events:none">
@@ -72,7 +73,7 @@
       <img loading="lazy" decoding="async" width="620" height="1695" data-c5 src="assets/cans/wild-berries.webp" alt="Bumble Coffee Wild Berries" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
     </div>
 
-    <div data-in-spec data-ph="0.9,1.06,30,0.4" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;line-height:1;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · SPARKLING</div>
+    <div data-in-spec data-ph="0.9,1.06,30,0.4" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;line-height:1;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · СОК · SPARKLING</div>
 
     <div data-in-slogan data-ph="0.93,1.08,70,0.75" style="position:absolute;left:5.4%;top:24%;z-index:6;font-weight:800;font-size:3.05vw;line-height:1.16;letter-spacing:-.03em;will-change:transform,opacity">
       <div style="overflow:hidden"><div>БОДРИТ КАК КОФЕ.</div></div>
@@ -137,7 +138,7 @@ class Component extends DCLogic {
     const m = window.innerWidth <= 768;
     const stage = this.stage;
     if (!stage) return;
-    if (m === this.mob && this.tuned) return;
+    if (m === this.mob && this.tuned){ if (m){ this.bigType(true); this.fitSpec(true); } return; }
     this.mob = m;
     this.tuned = true;
     Array.from(stage.querySelectorAll('*')).forEach(el => {
@@ -159,29 +160,97 @@ class Component extends DCLogic {
        holds the right — an editorial split rather than a centred poster */
     const slogan = stage.querySelector('[data-in-slogan]');
     if (slogan){
-      slogan.style.width = m ? '44%' : '';
+      slogan.style.left = m ? '24px' : '5.4%';
+      slogan.style.width = m ? '56vw' : '';
       slogan.style.top = m ? '23%' : '24%';
       slogan.style.fontSize = m ? '24px' : '3.05vw';
       slogan.style.lineHeight = m ? '1.1' : '1.16';
+      slogan.style.zIndex = m ? '7' : '6';
       if (m) delete slogan.dataset.vwOrig;
     }
+    this.bigType(m);
     /* the two micro-lines stack on a phone instead of colliding on one baseline,
        and stay tucked just under the product */
     Array.from(stage.querySelectorAll('[data-in-spec]')).forEach((el, i) => {
       el.style.bottom = m ? (i === 0 ? '30px' : '58px') : '12.5%';
       el.style.letterSpacing = m ? '.16em' : '.3em';
+      el.style.whiteSpace = m ? 'nowrap' : '';
       if (i === 1) el.style.marginRight = m ? '-.16em' : '-.3em';
     });
+    this.fitSpec(m);
     if (this.band) this.band.style.height = m ? '46%' : '38%';
     if (this.deep) this.deep.style.height = m ? '108svh' : '152vh';
     if (this.canWrap){
+      /* portrait is a two-column relationship: type owns the left 60vw, the can
+         owns the right edge. Nothing important is ever behind it. */
       this.canWrap.style.height = m ? '44svh' : '62vh';
-      this.canWrap.style.width = m ? '17svh' : '23vh';
-      this.canWrap.style.left = m ? '74%' : '73%';
+      this.canWrap.style.width = m ? '16svh' : '23vh';
+      this.canWrap.style.left = m ? '82%' : '73%';
       this.canWrap.style.top = m ? '54%' : '52%';
     }
     if (this.scroller) this.scroller.style.height = m ? '392svh' : '460vh';
     stage.style.height = m ? '100svh' : '100vh';
+  }
+
+  /* the descriptor gained СОК — on a phone the tracking gives way before the type
+     size does, so the line keeps one baseline and never overflows. Re-run once the
+     Unbounded webfont has actually swapped in, or the measurement is of fallback
+     metrics and the line grows past the edge afterwards. */
+  fitSpec(m){
+    const el = this.stage && this.stage.querySelector('[data-in-spec]');
+    if (!el) return;
+    if (!m){ el.style.letterSpacing = '.3em'; return; }
+    const room = this.stage.clientWidth - el.offsetLeft - 14;
+    let ls = 0.16;
+    el.style.letterSpacing = '.16em';
+    while (el.offsetWidth > room && ls > 0.02){
+      ls -= 0.01;
+      el.style.letterSpacing = ls.toFixed(2) + 'em';
+    }
+    if (!this.specWatch){
+      this.specWatch = true;
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.fitSpec(window.innerWidth <= 768));
+      [400, 1400, 3000].forEach(ms => setTimeout(() => this.fitSpec(window.innerWidth <= 768), ms));
+    }
+  }
+
+  /* the four display words are the one place type and can could collide.
+     On a phone they take a fixed left column, sit ABOVE the can in the stack
+     (one predictable z-index for the whole scroll, never traded mid-scroll)
+     and shrink until the complete word fits that column. */
+  bigType(m){
+    const maxW = window.innerWidth * 0.58;
+    Array.from(this.stage.querySelectorAll('[data-in-big]')).forEach(el => {
+      if (el.dataset.bigFs === undefined){
+        el.dataset.bigFs = el.style.fontSize;
+        el.dataset.bigLeft = el.style.left;
+        el.dataset.bigZ = el.style.zIndex || '';
+      }
+      if (!m){
+        el.style.fontSize = el.dataset.bigFs;
+        el.style.left = el.dataset.bigLeft;
+        el.style.zIndex = el.dataset.bigZ;
+        return;
+      }
+      el.style.left = '24px';
+      el.style.zIndex = '7';
+      let fs = parseFloat(el.dataset.mFs || '40');
+      el.style.fontSize = fs + 'px';
+      /* fractional measurement: offsetWidth rounds, and a rounded-down reading
+         let a word stay one step too wide once the real font was in */
+      const wide = () => el.getBoundingClientRect().width > maxW;
+      for (let n = 0; n < 24 && wide() && fs > 24; n++){
+        fs = Math.max(24, fs - Math.max(0.8, fs * 0.035));
+        el.style.fontSize = fs.toFixed(1) + 'px';
+      }
+    });
+    /* the first pass measures fallback metrics — Unbounded is wider, so the words
+       have to be re-fitted once it has actually swapped in (same guard as fitSpec) */
+    if (!this.bigWatch){
+      this.bigWatch = true;
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.bigType(window.innerWidth <= 768));
+      [400, 1400, 3000].forEach(ms => setTimeout(() => this.bigType(window.innerWidth <= 768), ms));
+    }
   }
 
   setFlavor(i){
