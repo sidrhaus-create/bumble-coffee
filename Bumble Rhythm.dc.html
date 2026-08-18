@@ -418,6 +418,7 @@ class Component extends DCLogic {
        it a MIX of live and detached refs — such an instance must never paint, and
        nothing is painted before apply() has produced a real value */
     if (!this.alive() || this.headBase === undefined) return;
+    if (this.deck) return;                       /* no statement panel on phones */
     this.open.style.opacity = this.headBase.toFixed(3);
     this.open.style.transform = 'translateY(' + this.headY.toFixed(1) + 'px)';
     const closed = this.active === null;
@@ -532,8 +533,12 @@ class Component extends DCLogic {
     this.hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
     this.stage.style.top = this.hdH + 'px';
     this.stage.style.height = 'calc(100svh - ' + this.hdH + 'px)';
-    if (this.scroller) this.scroller.style.height = '300svh';
+    if (this.scroller) this.scroller.style.height = '200svh';
     this.vwFix(this.stage, true);
+    /* phones open straight on the first mode — the ТВОЙ РИТМ statement panel is
+       not part of the portrait flow at all (no state, no scroll distance) */
+    if (this.open) this.open.style.display = 'none';
+    if (this.active === null) this.active = 0;
     this.zonesWrap.style.display = 'block';
     this.zonesWrap.style.flexDirection = '';
     this.zones.forEach(z => {
@@ -580,6 +585,7 @@ class Component extends DCLogic {
 
   undeck(){
     this.wasDeck = false;
+    if (this.open){ this.open.style.display = ''; }
     this.vwFix(this.stage, false);
     if (this.scroller) this.scroller.style.height = '260vh';
     this.zonesWrap.style.display = 'flex';

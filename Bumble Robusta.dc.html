@@ -288,7 +288,7 @@ class Component extends DCLogic {
     st.flexDirection = 'column';
     st.boxSizing = 'border-box';
     st.overflow = 'hidden';
-    st.paddingTop = (hdH + 12) + 'px';
+    st.paddingTop = (hdH + 10) + 'px';
     st.paddingBottom = 'calc(12px + env(safe-area-inset-bottom))';
     st.paddingLeft = '5.4%';
     st.paddingRight = '5.4%';
@@ -306,9 +306,9 @@ class Component extends DCLogic {
     };
 
     flow(this.index, 1, { textAlign: 'left', fontSize: '10px', letterSpacing: '.28em' });
-    flow(this.lock, 2, { marginTop: '14px', zIndex: 10 });
-    flow(this.slot, 3, { marginTop: '14px', zIndex: 9 });
-    flow(this.note, 4, { marginTop: '6px', justifyContent: 'flex-start', alignItems: 'center', minHeight: '44px', zIndex: 12 });
+    flow(this.lock, 2, { marginTop: '10px', zIndex: 10 });
+    flow(this.slot, 3, { marginTop: '12px', zIndex: 9 });
+    flow(this.note, 4, { marginTop: '2px', justifyContent: 'flex-start', alignItems: 'center', minHeight: '36px', zIndex: 12 });
 
     /* hint and revealed copy trade the same slot, so opening the can never
        shifts the layout under the reader's thumb */
@@ -332,94 +332,81 @@ class Component extends DCLogic {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.sizeSlot());
 
     if (this.art){
-      this.art.style.position = 'relative';
-      this.art.style.left = 'auto';
-      this.art.style.top = 'auto';
-      /* the coffee is the payoff of this screen: it breaks the 5.4% text column
-         and runs edge to edge, so the composition reads as one explosion */
-      this.art.style.width = 'auto';
-      this.art.style.marginLeft = '-6.054%';
-      this.art.style.marginRight = '-6.054%';
-      this.art.style.height = 'auto';
-      this.art.style.order = 5;
-      this.art.style.flex = '1 1 auto';
-      this.art.style.minHeight = '0';
-      this.art.style.marginTop = '8px';
+      /* the coffee owns the lower half of the phone screen: the band leaves the
+         text flow entirely and is pinned full-bleed inside the stage, so each
+         PNG layer stays a separate, large parallax element instead of being
+         squeezed into one small composite under the copy */
+      const a = this.art.style;
+      a.position = 'absolute';
+      a.left = '0';
+      a.right = 'auto';
+      a.width = '100%';
+      a.marginLeft = '0';
+      a.marginRight = '0';
+      a.marginTop = '0';
+      a.order = '';
+      a.flex = '';
+      a.minHeight = '';
+      a.transform = '';
+      a.zIndex = '3';
       Array.from(this.art.querySelectorAll('img')).forEach(img => {
         if (img.dataset.fitWired) return;
         img.dataset.fitWired = '1';
         img.addEventListener('load', () => this.fitArt());
       });
     }
-    /* portrait composition: wide and shallow rather than tall and small — the
-       layers keep their desktop relationship (beans high right, splash across
-       the middle, grounds and bridge inside it, burst low left) but every width
-       is scaled up to the full bleed and every top pulled in, so the whole
-       composition spans ~96% of the screen and still lands inside the band */
-    const m = { burst: ['3%', '41%', '72%'], bridge: ['25%', '45%', '35%'], grounds: ['45%', '30%', '33%'], beans: ['33%', '0%', '63%'], splash: ['3%', '12%', '88%'] };
-    this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
+    /* portrait composition — one big coffee explosion across the whole width:
+       beans high right (slowest), grounds centre-right, the wide liquid splash
+       through the middle, the small bean cluster as mid-foreground particles and
+       the big burst anchored to the lower left. Widths are % of the full screen;
+       vertical placement is resolved in fitArt against the real band height, most
+       layers anchored to the FOOT of the band so tall phones do not open a gap. */
+    this.mArt = {
+      burst:   { left: '-8%', width: '82%', bottom: 0.00 },
+      bridge:  { left: '4%',  width: '34%', bottom: 0.07 },
+      grounds: { left: '44%', width: '40%', bottom: 0.13 },
+      splash:  { left: '16%', width: '82%', bottom: 0.17 },
+      beans:   { left: '42%', width: '62%', top: -0.08 }
+    };
+    this.layers.forEach(L => {
+      const v = this.mArt[L.name];
+      if (!v) return;
+      L.el.style.left = v.left;
+      L.el.style.width = v.width;
+    });
     this.fitArt();
     requestAnimationFrame(() => this.fitArt());
     this.measureDirs();
   }
 
-  /* portrait: the art band is sized to the composition it actually holds.
-     Each layer sits at top% of the band and is as tall as its own aspect ratio
-     makes it, so the band needs h >= layerHeight / (1 - top) for that layer to
-     land inside. The band takes the largest of those, or the room the stack has
-     left over — whichever is bigger, so there is no dead space either — and if
-     the stack is tighter than the composition needs, the whole band scales down
-     instead of being sliced by the stage edge. */
+  /* portrait: the band is pinned to the foot of the screen, under the copy, and
+     every layer is placed inside it from its own aspect ratio — so the layers
+     stay separate (each keeps its own depth in frame()) while together they read
+     as one full-width coffee explosion filling roughly half the viewport. */
   fitArt(){
     const a = this.art;
-    if (!this.narrow || !a) return;
+    if (!this.narrow || !a || !this.mArt) return;
     a.style.transform = '';
-    const w = a.clientWidth;
-    if (!w) return;
-    let need = 0;
+    const sr = this.stage.getBoundingClientRect();
+    if (!sr.width) return;
+    const padB = parseFloat(getComputedStyle(this.stage).paddingBottom) || 0;
+    const anchor = this.note || this.slot;
+    const stackBottom = anchor ? anchor.getBoundingClientRect().bottom - sr.top : sr.height * 0.4;
+    const top = Math.max(sr.height * 0.38, stackBottom + 6);
+    const H = Math.max(180, sr.height - padB - top - 2);
+    a.style.top = Math.round(top) + 'px';
+    a.style.height = Math.round(H) + 'px';
+    const w = a.clientWidth || sr.width;
     this.layers.forEach(L => {
+      const v = this.mArt[L.name];
+      if (!v) return;
       const img = L.el.querySelector('img');
-      if (!img) return;
-      const iw = img.naturalWidth || parseFloat(img.getAttribute('width')) || 0;
-      const ih = img.naturalHeight || parseFloat(img.getAttribute('height')) || 0;
-      if (!iw || !ih) return;
-      const lw = (parseFloat(L.el.style.width) || 0) / 100 * w;
-      const top = Math.min(0.92, (parseFloat(L.el.style.top) || 0) / 100);
-      need = Math.max(need, (lw * ih / iw) / (1 - top));
+      const iw = (img && (img.naturalWidth || parseFloat(img.getAttribute('width')))) || 1;
+      const ih = (img && (img.naturalHeight || parseFloat(img.getAttribute('height')))) || 1;
+      const lh = (parseFloat(L.el.style.width) || 0) / 100 * w * ih / iw;
+      const y = v.top != null ? v.top * H : H - v.bottom * H - lh;
+      L.el.style.top = Math.round(y) + 'px';
     });
-    if (!need) return;
-    const cs = getComputedStyle(this.stage);
-    const padB = parseFloat(cs.paddingBottom) || 0;
-    const floor = this.stage.getBoundingClientRect().bottom - padB;
-    a.style.flex = '0 0 auto';
-    a.style.marginTop = '8px';
-    const avail = floor - a.getBoundingClientRect().top - 6;
-    /* the band always hugs the composition. Spare room is spent ABOVE the art
-       (the coffee sits at the foot of the screen, where the eye leaves the
-       section) rather than as dead beige below it — the art is already 96% of
-       the width, so it cannot be scaled up without clipping its own edges.
-       A short screen scales the whole band down instead of slicing it. */
-    a.style.height = Math.round(need) + 'px';
-    /* spare room is spent on the composition itself, not on beige: the band
-       scales up from its top edge until it fills the screen (capped so the
-       widest layer never loses its own silhouette off the stage edge), and
-       only what is left after that becomes a small gap under the copy */
-    if (avail >= need){
-      const s = Math.min(1.1, avail / need);
-      a.style.transformOrigin = '50% 0';
-      a.style.transform = s > 1.005 ? 'scale(' + s.toFixed(3) + ')' : '';
-      a.style.height = Math.round(need) + 'px';
-      a.style.marginTop = Math.round(8 + Math.max(0, Math.min(40, avail - need * s - 8))) + 'px';
-      return;
-    }
-    if (avail > 80){
-      const s = avail / need;
-      a.style.transformOrigin = '50% 0';
-      a.style.transform = 'scale(' + s.toFixed(3) + ')';
-      a.style.height = Math.round(need * s) + 'px';
-    } else {
-      a.style.transform = '';
-    }
   }
 
   /* the shared text slot is as tall as its tallest state, so the reveal
