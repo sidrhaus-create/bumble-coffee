@@ -29,9 +29,6 @@ tilda-build/
     robusta/     7 parallax layers + lids (webp)
     fonts/       8 Unbounded woff2 (latin + cyrillic, 400/600/700/800)
     phoenix.svg, black-phoenix-wordmark.svg, bumble-script.svg
-  api/
-    partners.js               ← serverless handler for the ПАРТНЁРАМ form (deploy separately)
-    README.md                 ← how to deploy it + required env vars
   tilda-embed.html            ← snippet to paste into Tilda's T123 HTML block
   README.md
 ```
@@ -66,21 +63,20 @@ All images live in `assets/` — that folder is the `/images` equivalent.
 The single public address is **info@bumblephoenix.ru** — used by the burger-menu
 contacts, the footer contacts and every `mailto:` link in `index.html`.
 
-The «ПАРТНЁРАМ» form validates and POSTs its lead as JSON to the `endpoint` prop
-(default `/api/partners`) with the intended recipient `info@bumblephoenix.ru`.
-**A browser cannot send mail by itself**, so real delivery still needs one server-side
-piece — any of:
+The «ПАРТНЁРАМ» form does its own validation, then hands the lead to the PARENT
+Tilda page over `postMessage` — there is no backend, no serverless function and no
+mail provider in this build. Mail is sent by the native Tilda form on
+https://bumblephoenix.ru, which is wired to info@bumblephoenix.ru.
 
-* a serverless function (Netlify / Vercel / Cloudflare Worker) at `/api/partners`
-  that forwards the JSON to info@bumblephoenix.ru via SMTP or an API
-  (Resend, SendGrid, Mailgun, Unisender, Яндекс 360);
-* a form service endpoint (Formspree / Getform / Tilda's own form receiver) — set its
-  URL as the `endpoint` and its recipient to info@bumblephoenix.ru;
-* Tilda: replace the form's submit target with a Tilda form block wired to
-  info@bumblephoenix.ru in Настройки → Формы.
+Bridge contract (origin is the `parentOrigin` prop, default `https://bumblephoenix.ru`):
 
-Until that endpoint answers 2xx, the lead is logged to the console with the recipient
-address; nothing is silently dropped and no mail is sent.
+* iframe → parent: `{ type: 'BUMBLE_PARTNERS_SUBMIT', data: { name, phone, email, subject } }`
+* parent → iframe: `{ type: 'BUMBLE_PARTNERS_RESULT', ok: true | false, error? }`
+
+The success screen («СПАСИБО. СВЯЖЕМСЯ С ВАМИ.» + «ЗАЯВКА ПРИНЯТА») appears ONLY on
+`ok: true` from that exact origin. Anything else — `ok: false`, a wrong origin, a
+missing parent, or 20 s of silence — restores the button and shows
+«НЕ УДАЛОСЬ ОТПРАВИТЬ. ПОПРОБУЙТЕ ЕЩЁ РАЗ.» with every entered value kept.
 
 ## External dependencies
 

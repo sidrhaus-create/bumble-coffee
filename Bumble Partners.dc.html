@@ -122,7 +122,7 @@ select:invalid{color:rgba(20,16,14,.3)}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;endpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;info@bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;parentOrigin&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;info@bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
 const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/;
 
@@ -222,6 +222,8 @@ class Component extends DCLogic {
   componentWillUnmount(){ this.teardown(); }
 
   teardown(){
+    /* a lead in flight must not leave a bridge listener behind on remount */
+    if (this.pending) this.pending({ ok: false, why: 'section unmounted while sending' });
     if (!this.wired) return;
     (this.handlers || []).forEach(([el, ev, fn]) => el.removeEventListener(ev, fn));
     this.handlers = [];
@@ -306,28 +308,45 @@ class Component extends DCLogic {
     return ok ? v : null;
   }
 
-  /* Mail is sent by the serverless handler in api/partners.js — it owns the
-     recipient and the mail-provider key. The browser only POSTs the lead and
-     reports what the server actually answered: no endpoint, a network failure
-     or any non-2xx status is a FAILURE, never a success screen. */
-  async send(payload){
-    const url = (this.props.endpoint || '').trim();
-    if (!url) return { ok: false, why: 'endpoint not configured' };
-    try {
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      if (!res.ok) return { ok: false, why: 'HTTP ' + res.status };
-      /* a handler that answers 2xx but reports its own failure is still a failure */
-      let body = null;
-      try { body = await res.clone().json(); } catch (e) {}
-      if (body && body.ok === false) return { ok: false, why: body.error || 'handler reported failure' };
-      return { ok: true };
-    } catch (e) {
-      return { ok: false, why: (e && e.message) || 'network error' };
+  /* Mail is sent by the native Tilda form on the PARENT page. This iframe only
+     hands the lead across the postMessage bridge and waits for the parent's real
+     answer: BUMBLE_PARTNERS_RESULT with ok === true is the ONLY success. No
+     endpoint, no mail provider, no optimistic or timed success. */
+  send(payload){
+    const origin = (this.props.parentOrigin || 'https://bumblephoenix.ru').trim();
+    if (window.parent === window){
+      return Promise.resolve({ ok: false, why: 'not embedded — no Tilda parent to send through' });
     }
+    return new Promise(resolve => {
+      let settled = false;
+      const finishWith = r => {
+        if (settled) return;
+        settled = true;
+        window.removeEventListener('message', onMsg);
+        clearTimeout(timer);
+        this.pending = null;
+        resolve(r);
+      };
+      const onMsg = e => {
+        if (e.origin !== origin) return;
+        const d = e.data;
+        if (!d || d.type !== 'BUMBLE_PARTNERS_RESULT') return;
+        if (d.ok === true) finishWith({ ok: true });
+        else finishWith({ ok: false, why: d.error || d.reason || 'Tilda reported a failure' });
+      };
+      window.addEventListener('message', onMsg);
+      /* silence is a failure, never a success */
+      const timer = setTimeout(() => finishWith({ ok: false, why: 'no BUMBLE_PARTNERS_RESULT from the Tilda page' }), 20000);
+      this.pending = finishWith;
+      try {
+        window.parent.postMessage({
+          type: 'BUMBLE_PARTNERS_SUBMIT',
+          data: { name: payload.name, phone: payload.phone, email: payload.email, subject: payload.subject }
+        }, origin);
+      } catch (err){
+        finishWith({ ok: false, why: (err && err.message) || 'postMessage failed' });
+      }
+    });
   }
 
   async submit(){
@@ -346,7 +365,7 @@ class Component extends DCLogic {
     });
 
     if (this.sendErr) this.sendErr.style.display = 'none';
-    const payload = { name: v.name, phone: v.phone, email: v.email, subject: v.subject, createdAt: new Date().toISOString() };
+    const payload = { name: v.name, phone: v.phone, email: v.email, subject: v.subject };
     const r = await this.send(payload);
     if (!r.ok){ this.sendFailed(r.why); return; }
     this.finish();
