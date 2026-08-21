@@ -312,8 +312,30 @@ class Component extends DCLogic {
      hands the lead across the postMessage bridge and waits for the parent's real
      answer: BUMBLE_PARTNERS_RESULT with ok === true is the ONLY success. No
      endpoint, no mail provider, no optimistic or timed success. */
+  /* Tilda may serve the parent page over http OR https — both are the same site,
+     so both are accepted, and the one actually in use is read off the referrer */
+  parentOrigin(){
+    const listed = (this.props.parentOrigin || 'https://bumblephoenix.ru')
+      .split(',').map(s => s.trim()).filter(Boolean);
+    const allowed = listed.slice();
+    listed.forEach(o => {
+      const alt = o.startsWith('https://') ? 'http://' + o.slice(8)
+                : o.startsWith('http://') ? 'https://' + o.slice(7) : null;
+      if (alt && allowed.indexOf(alt) < 0) allowed.push(alt);
+    });
+    let origin = allowed[0];
+    try {
+      if (document.referrer){
+        const ref = new URL(document.referrer).origin;
+        if (allowed.indexOf(ref) >= 0) origin = ref;
+      }
+    } catch (e) {}
+    return { origin: origin, allowed: allowed };
+  }
+
   send(payload){
-    const origin = (this.props.parentOrigin || 'https://bumblephoenix.ru').trim();
+    const { origin, allowed } = this.parentOrigin();
+    console.log('[Bumble form] parent origin:', origin, '| accepted:', allowed.join(', '));
     if (window.parent === window){
       return Promise.resolve({ ok: false, why: 'not embedded — no Tilda parent to send through' });
     }
@@ -328,9 +350,10 @@ class Component extends DCLogic {
         resolve(r);
       };
       const onMsg = e => {
-        if (e.origin !== origin) return;
+        if (allowed.indexOf(e.origin) < 0) return;
         const d = e.data;
         if (!d || d.type !== 'BUMBLE_PARTNERS_RESULT') return;
+        console.log('[Bumble form] parent response:', e.origin, d);
         if (d.ok === true) finishWith({ ok: true });
         else finishWith({ ok: false, why: d.error || d.reason || 'Tilda reported a failure' });
       };
@@ -343,6 +366,7 @@ class Component extends DCLogic {
           type: 'BUMBLE_PARTNERS_SUBMIT',
           data: { name: payload.name, phone: payload.phone, email: payload.email, subject: payload.subject }
         }, origin);
+        console.log('[Bumble form] message sent');
       } catch (err){
         finishWith({ ok: false, why: (err && err.message) || 'postMessage failed' });
       }
