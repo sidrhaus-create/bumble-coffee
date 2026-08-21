@@ -250,6 +250,7 @@ class Component extends DCLogic {
     this.cans = [0,1,2,3,4,5].map(i => stage.querySelector('[data-c' + i + ']'));
     this.open = stage.querySelector('[data-open]');
     this.openIn = stage.querySelector('[data-open-in]');
+    this.headLines = Array.from(stage.querySelectorAll('[data-open-in] > div > div'));
     this.flavorLayer = stage.querySelector('[data-flavor]');
     this.flavorSets = Array.from(stage.querySelectorAll('[data-fl]'));
     this.rail = stage.querySelector('[data-rail]');
@@ -418,7 +419,15 @@ class Component extends DCLogic {
        it a MIX of live and detached refs — such an instance must never paint, and
        nothing is painted before apply() has produced a real value */
     if (!this.alive() || this.headBase === undefined) return;
-    if (this.deck) return;                       /* no statement panel on phones */
+    /* phones: the statement is the section's FIRST state and dissolves into the
+       mode deck over a short scroll beat */
+    if (this.deck){
+      const it = this.introT || 0;
+      this.open.style.opacity = (this.headBase * (1 - it)).toFixed(3);
+      this.open.style.transform = 'translateY(' + (this.headY - it * 34).toFixed(1) + 'px)';
+      this.open.style.pointerEvents = 'none';
+      return;
+    }
     this.open.style.opacity = this.headBase.toFixed(3);
     this.open.style.transform = 'translateY(' + this.headY.toFixed(1) + 'px)';
     const closed = this.active === null;
@@ -533,12 +542,29 @@ class Component extends DCLogic {
     this.hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
     this.stage.style.top = this.hdH + 'px';
     this.stage.style.height = 'calc(100svh - ' + this.hdH + 'px)';
-    if (this.scroller) this.scroller.style.height = '200svh';
+    if (this.scroller) this.scroller.style.height = '230svh';
     this.vwFix(this.stage, true);
-    /* phones open straight on the first mode — the ТВОЙ РИТМ statement panel is
-       not part of the portrait flow at all (no state, no scroll distance) */
-    if (this.open) this.open.style.display = 'none';
-    if (this.active === null) this.active = 0;
+    /* phones open on the ТВОЙ РИТМ statement, then hand over to the first mode
+       after one short scroll beat (~20% of the track) */
+    if (this.open){
+      /* editorial portrait intro: headline upper-left over three lines, can lower
+         right. Everything is sized in vw/% so the composition is identical on
+         375, 390, 393 and 430 — no per-device pixel positions. */
+      this.open.style.display = '';
+      this.open.style.left = 'clamp(24px,7vw,32px)';
+      this.open.style.right = 'auto';
+      this.open.style.top = '13%';
+      this.open.style.width = '78%';
+      this.open.style.pointerEvents = 'none';
+      this.headLines.forEach((el, i) => {
+        el.style.fontSize = 'clamp(30px,8.4vw,40px)';
+        el.style.lineHeight = '1.02';
+        if (i === 1) el.innerHTML = 'ТВОЙ<br>BUMBLE.';
+      });
+      if (this.openIn){ this.openIn.style.opacity = '1'; this.openIn.style.transform = 'translateY(0)'; }
+      this.openClosed = true;
+    }
+    if (!this.engaged) this.active = null;
     this.zonesWrap.style.display = 'block';
     this.zonesWrap.style.flexDirection = '';
     this.zones.forEach(z => {
@@ -585,7 +611,18 @@ class Component extends DCLogic {
 
   undeck(){
     this.wasDeck = false;
-    if (this.open){ this.open.style.display = ''; }
+    if (this.open){
+      this.open.style.display = '';
+      this.open.style.left = '5.4%';
+      this.open.style.top = '16%';
+      this.open.style.width = '';
+      this.open.style.pointerEvents = '';
+      (this.headLines || []).forEach((el, i) => {
+        el.style.lineHeight = '1';
+        if (i === 1) el.textContent = 'ТВОЙ BUMBLE.';
+      });
+    }
+    this.introT = 0;
     this.vwFix(this.stage, false);
     if (this.scroller) this.scroller.style.height = '260vh';
     this.zonesWrap.style.display = 'flex';
@@ -722,6 +759,12 @@ class Component extends DCLogic {
   apply(){
     const sc = this.scroller;
     if (!this.alive()) return;
+    if (this._applying) return;                  /* applyZones() calls back into apply() */
+    this._applying = true;
+    try { this.applyBody(sc); } finally { this._applying = false; }
+  }
+
+  applyBody(sc){
     const vh = window.innerHeight;
     const rTop = sc.getBoundingClientRect().top;
     const stageH = this.stage.offsetHeight || vh;
@@ -773,11 +816,23 @@ class Component extends DCLogic {
     if (this.deck){
       /* the can holds the right half of the screen at full size; copy and
          chips own the bottom, the scene illustration the left */
-      dx = this.stage.offsetWidth * 0.2;
-      dy = -this.stage.offsetHeight * 0.03;
+      /* intro beat: statement holds, then WORK takes over. Untouched by the
+         reader it follows the scroll both ways; one tap locks the deck open. */
+      const intro = cl((p - 0.05) / 0.15);
+      this.introT = intro;
+      /* the can sits lower-right during the statement — clear of the headline at
+         every phone width — and travels to its WORK pose as the intro resolves */
+      const W = this.stage.offsetWidth, H = this.stage.offsetHeight;
+      dx = W * 0.28 + (W * 0.2 - W * 0.28) * intro;
+      dy = H * 0.055 + (-H * 0.03 - H * 0.055) * intro;
       scale = 0.92 + 0.08 * enter;
+      if (!this.engaged){
+        const want = intro >= 1 ? 0 : null;
+        if (this.active !== want){ this.active = want; this.applyZones(); }
+      }
+      this.paintHead();
       if (this.modes){
-        const on = appear > 0.12 && p < 0.995;
+        const on = appear > 0.12 && p < 0.995 && intro > 0.5;
         this.modes.style.opacity = on ? 1 : 0;
         this.modes.style.pointerEvents = on ? 'auto' : 'none';
       }
@@ -788,7 +843,11 @@ class Component extends DCLogic {
 
     const railOn = !this.vertical && appear > 0.5 && p < 0.995;
     if (this.rail) this.rail.style.opacity = railOn ? 1 : 0;
-    const swipeOn = this.vertical && appear > 0.5 && p < 0.995;
+    /* the swipe hint nudges the can ±38px — it must not run while the intro
+       statement owns the screen, or the composition shifts per device */
+    const introHold = this.deck && (this.introT || 0) < 1;
+    const swipeOn = this.vertical && appear > 0.5 && p < 0.995 && !introHold;
+    if (introHold && (this.demoTimer || this.demoRaf)) this.pauseDemo();
     if (railOn || swipeOn) this.maybeDemo();
     else if (this.demoTimer){ clearTimeout(this.demoTimer); this.demoTimer = null; }
     this.applyParallax();

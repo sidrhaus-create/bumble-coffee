@@ -102,6 +102,7 @@ select:invalid{color:rgba(20,16,14,.3)}
               </span>
             </button>
             <span style="flex:1 1 180px;font-size:clamp(9px,.58vw,11px);font-weight:700;letter-spacing:.2em;line-height:1.7;color:rgba(20,16,14,.42)">ОТВЕЧАЕМ В ТЕЧЕНИЕ ДВУХ РАБОЧИХ ДНЕЙ</span>
+            <span data-pt-send-err style="display:none;flex:1 1 100%;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;line-height:1.7;color:#B3261E">НЕ УДАЛОСЬ ОТПРАВИТЬ.<br/>ПОПРОБУЙТЕ ЕЩЁ РАЗ.</span>
           </div>
 
         </form>
@@ -121,7 +122,7 @@ select:invalid{color:rgba(20,16,14,.3)}
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;endpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;/api/partners&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;info@bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;endpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;info@bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
 const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/;
 
@@ -165,6 +166,7 @@ class Component extends DCLogic {
     this.doneLines = Array.from(root.querySelectorAll('[data-pt-done-line]'));
     this.doneNote = root.querySelector('[data-pt-done-note]');
     this.btn = root.querySelector('[data-pt-submit]');
+    this.sendErr = root.querySelector('[data-pt-send-err]');
     this.wipe = root.querySelector('[data-pt-wipe]');
     this.btnText = root.querySelector('[data-pt-btn-text]');
     this.btnLabel = root.querySelector('[data-pt-btn-label]');
@@ -304,22 +306,27 @@ class Component extends DCLogic {
     return ok ? v : null;
   }
 
-  /* Frontend code cannot send mail on its own. The lead is POSTed to a server
-     endpoint that owns the recipient address and any credentials; until that
-     endpoint exists the payload is logged and the UI runs its success path. */
+  /* Mail is sent by the serverless handler in api/partners.js — it owns the
+     recipient and the mail-provider key. The browser only POSTs the lead and
+     reports what the server actually answered: no endpoint, a network failure
+     or any non-2xx status is a FAILURE, never a success screen. */
   async send(payload){
-    const url = this.props.endpoint || '/api/partners';
+    const url = (this.props.endpoint || '').trim();
+    if (!url) return { ok: false, why: 'endpoint not configured' };
     try {
       const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return true;
+      if (!res.ok) return { ok: false, why: 'HTTP ' + res.status };
+      /* a handler that answers 2xx but reports its own failure is still a failure */
+      let body = null;
+      try { body = await res.clone().json(); } catch (e) {}
+      if (body && body.ok === false) return { ok: false, why: body.error || 'handler reported failure' };
+      return { ok: true };
     } catch (e) {
-      console.info('[Bumble] partners lead (endpoint ' + url + ' not connected yet, recipient key: ' + (this.props.recipient || 'info@bumblephoenix.ru') + ')', payload);
-      return true;
+      return { ok: false, why: (e && e.message) || 'network error' };
     }
   }
 
@@ -338,10 +345,26 @@ class Component extends DCLogic {
       if (u){ u.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1) ' + (i * 0.05) + 's'; u.style.transform = 'scaleX(1)'; }
     });
 
+    if (this.sendErr) this.sendErr.style.display = 'none';
     const payload = { name: v.name, phone: v.phone, email: v.email, subject: v.subject, createdAt: new Date().toISOString() };
-    await this.send(payload);
-    await new Promise(r => setTimeout(r, 520));
+    const r = await this.send(payload);
+    if (!r.ok){ this.sendFailed(r.why); return; }
     this.finish();
+  }
+
+  /* nothing is cleared: the reader keeps every value and can send again */
+  sendFailed(why){
+    if (why) console.warn('[Bumble] partners lead not sent:', why);
+    this.busy = false;
+    this.btn.disabled = false;
+    this.btn.style.cursor = 'pointer';
+    this.btnLabel.textContent = 'ОТПРАВИТЬ';
+    this.wipe.style.transform = 'scaleY(0)';
+    this.rows.forEach(rw => {
+      const u = rw.querySelector('[data-pt-under]');
+      if (u) u.style.transform = 'scaleX(0)';
+    });
+    if (this.sendErr) this.sendErr.style.display = 'block';
   }
 
   finish(){

@@ -29,6 +29,9 @@ tilda-build/
     robusta/     7 parallax layers + lids (webp)
     fonts/       8 Unbounded woff2 (latin + cyrillic, 400/600/700/800)
     phoenix.svg, black-phoenix-wordmark.svg, bumble-script.svg
+  api/
+    partners.js               ← serverless handler for the ПАРТНЁРАМ form (deploy separately)
+    README.md                 ← how to deploy it + required env vars
   tilda-embed.html            ← snippet to paste into Tilda's T123 HTML block
   README.md
 ```
