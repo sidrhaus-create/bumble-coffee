@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-400.woff2) format('woff2');font-weight:400;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-700.woff2) format('woff2');font-weight:700;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-800.woff2) format('woff2');font-weight:800;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-800.woff2) format('woff2');font-weight:800;font-display:swap}
+body{margin:0;background:#FAEED4;-webkit-font-smoothing:antialiased}
+a{color:#14100E;text-decoration:none}
+a:hover{color:#81377B}
+@keyframes rbBurst{0%{opacity:0;transform:translate(calc(var(--dx,0px)*var(--k,1)),calc(var(--dy,0px)*var(--k,1))) scale(.13) rotate(var(--r0,0deg))}9%{opacity:1}62%{transform:translate(calc(var(--dx,0px)*-.05),calc(var(--dy,0px)*-.05)) scale(1.052) rotate(calc(var(--r0,0deg)*-.1))}100%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}}
+@keyframes rbSuck{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}100%{opacity:0;transform:translate(calc(var(--dx,0px)*.92),calc(var(--dy,0px)*.92)) scale(.12) rotate(var(--r0,0deg))}}
+@keyframes rbFloat1{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(.3cqw,-.62cqw) rotate(.4deg)}}
+@keyframes rbFloat2{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-.38cqw,-.9cqw) rotate(-.45deg)}}
+@keyframes rbFloat3{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(.5cqw,-1.15cqw) rotate(.55deg)}}
+@keyframes rbFloat4{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-.56cqw,-1.5cqw) rotate(-.62deg)}}
+@keyframes rbRing{0%{transform:translate(-50%,-50%) scale(.32);opacity:.7}62%{opacity:.16}100%{transform:translate(-50%,-50%) scale(var(--rs,8));opacity:0}}
+@keyframes rbPulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.5}70%{opacity:0}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
+@keyframes rbLidPop{0%{transform:scale(1) rotate(0deg)}16%{transform:scale(1.105) rotate(-3.2deg)}42%{transform:scale(.972) rotate(1.6deg)}70%{transform:scale(1.014) rotate(-.5deg)}100%{transform:scale(1) rotate(0deg)}}
+@keyframes rbLineUp{from{transform:translateY(115%)}to{transform:translateY(0)}}
+@keyframes rbSoftIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rbHint{0%,100%{opacity:.66}50%{opacity:1}}
+@keyframes rbDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.3}}
+@keyframes rbGrowX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+</style>
+</helmet>
+
+<div style="font-family:Unbounded,system-ui,sans-serif;color:#14100E;background:#FAEED4">
+  <div data-rb-scroll style="position:relative;height:175vh">
+    <div data-rb-sticky data-screen-label="05 · Why Robusta" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#FAEED4;display:flex;align-items:center;justify-content:center">
+
+      <div data-rb-stage style="position:relative;width:min(100vw,177.78vh);aspect-ratio:16 / 9;container-type:inline-size">
+
+        <div data-rb-index style="position:absolute;right:6%;top:13.2%;z-index:12;text-align:right;font-size:clamp(10px,.72cqw,14px);font-weight:700;letter-spacing:.3em;line-height:1.6">05 · ПОЧЕМУ РОБУСТА</div>
+
+        <div data-rb-note style="position:absolute;right:6%;top:17.6%;z-index:12;display:flex;align-items:center;justify-content:flex-end;gap:.5cqw;opacity:0;pointer-events:none">
+          <span data-rb-accent-bg style="display:block;width:6px;height:6px;border-radius:50%;background:#F6B54B"></span>
+          <button data-rb-reset type="button" style="padding:0;border:0;background:none;font-family:inherit;font-size:clamp(9px,.66cqw,13px);font-weight:700;letter-spacing:.2em;color:rgba(20,16,14,.52);border-bottom:1px solid rgba(20,16,14,.26);cursor:pointer;transition:color .25s ease,border-color .25s ease" style-hover="color:#14100E;border-color:#14100E">СОБРАТЬ ОБРАТНО</button>
+        </div>
+
+        <div data-rb-art style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:3;pointer-events:none">
+
+        <div data-rb-layer="burst" data-rb-burst=".26,1.4,-14,rbFloat4,.55" style="position:absolute;left:7.5%;top:64%;width:27%;z-index:7;will-change:transform">
+          <img loading="lazy" decoding="async" width="1100" height="668" data-rb-img src="assets/robusta/l5-burst.webp" alt="Зёрна робусты во всплеске кофе" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-layer="bridge" data-rb-burst=".18,1.3,-9,rbFloat3,.46" style="position:absolute;left:33%;top:66%;width:16%;z-index:6;will-change:transform">
+          <div style="transform:scaleX(-1) rotate(7deg)">
+            <img loading="lazy" decoding="async" width="715" height="761" data-rb-img src="assets/robusta/l3-beans.webp" alt="" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+          </div>
+        </div>
+
+        <div data-rb-layer="grounds" data-rb-burst=".12,1.34,17,rbFloat2,.4" style="position:absolute;left:38%;top:50%;width:18%;z-index:5;will-change:transform">
+          <img loading="lazy" decoding="async" width="425" height="632" data-rb-img src="assets/robusta/l2-grounds.webp" alt="Молотый кофе и капли" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-layer="beans" data-rb-burst=".06,1.24,-13,rbFloat1,.26" style="position:absolute;left:44%;top:15%;width:40%;z-index:3;will-change:transform">
+          <img loading="lazy" decoding="async" width="715" height="761" data-rb-img src="assets/robusta/l3-beans.webp" alt="Зёрна робусты" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        <div data-rb-layer="splash" data-rb-burst="0,1.16,9,rbFloat4,.32" style="position:absolute;left:37%;top:31%;width:46%;z-index:4;will-change:transform">
+          <img loading="lazy" decoding="async" width="811" height="636" data-rb-img src="assets/robusta/l4-splash.webp" alt="Всплеск кофе" style="display:block;width:100%;height:auto;opacity:0;transform-origin:50% 50%;will-change:transform,opacity"/>
+        </div>
+
+        </div>
+
+        <div data-rb-textslot style="position:absolute;left:0;top:0;width:100%;height:100%;z-index:9">
+
+        <div data-rb-copy style="position:absolute;left:7.5%;top:31.6%;width:30%;z-index:9;opacity:0;pointer-events:none">
+          <div style="display:flex;align-items:center;gap:.8cqw;overflow:hidden;padding-bottom:2px">
+            <div data-rb-line style="display:flex;align-items:center;gap:.8cqw;font-size:clamp(9px,.7cqw,13px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.55)">
+              <span data-rb-accent-bg style="display:block;width:2.4cqw;height:2px;background:#F6B54B"></span>
+              <span>ПОЧЕМУ ИМЕННО ОНА</span>
+            </div>
+          </div>
+          <div style="margin-top:.9cqw;overflow:hidden;padding-bottom:.1cqw">
+            <div data-rb-line style="font-size:clamp(19px,1.85cqw,36px);font-weight:800;line-height:1.12;letter-spacing:-.025em">Потому что Bumble —</div>
+          </div>
+          <div style="overflow:hidden;padding-bottom:.1cqw">
+            <div data-rb-line style="font-size:clamp(19px,1.85cqw,36px);font-weight:800;line-height:1.12;letter-spacing:-.025em">про движение.</div>
+          </div>
+          <div data-rb-soft style="margin-top:1.1cqw;font-size:clamp(11px,.84cqw,16px);font-weight:400;line-height:1.62;color:rgba(20,16,14,.72);text-wrap:pretty">Робуста даёт плотную кофейную основу, характер и больше природного кофеина.</div>
+          <div data-rb-soft style="margin-top:.7cqw;font-size:clamp(11px,.84cqw,16px);font-weight:400;line-height:1.62;color:rgba(20,16,14,.72);text-wrap:pretty">Мы соединяем её с фруктовым вкусом, газом и нулём сахара — чтобы сначала ты почувствовал вкус, а следом пришёл заряд.</div>
+        </div>
+
+        <div data-rb-hint style="position:absolute;left:7.5%;top:33.6%;width:30%;z-index:9;display:flex;align-items:center;gap:.75cqw;animation:rbHint 3.4s ease-in-out infinite">
+          <span data-rb-accent-bg style="display:block;width:8px;height:8px;border-radius:50%;background:#F6B54B;animation:rbDot 2.1s ease-in-out infinite"></span>
+          <span data-rb-hint-text style="font-size:clamp(10px,.76cqw,15px);font-weight:700;letter-spacing:.2em">НАЖМИ И ОТКРОЙ БАНКУ — УЗНАЕШЬ</span>
+        </div>
+
+        </div>
+
+        <div data-rb-lock style="position:absolute;left:7.5%;top:12.778%;width:37.396%;z-index:10;will-change:transform">
+          <img loading="lazy" decoding="async" width="718" height="200" src="assets/robusta/headline-base.webp" alt="ПОЧЕМУ ROBUSTA?" style="display:block;width:100%;height:auto"/>
+          <div data-rb-lid role="button" tabindex="0" aria-label="Открыть банку" style="position:absolute;left:5.43%;top:-7%;width:33.7%;aspect-ratio:1;cursor:pointer;transform-origin:50% 50%;will-change:transform">
+            <span data-rb-pulse data-rb-accent-br style="position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:50%;border:2px solid #F6B54B;transform:translate(-50%,-50%);animation:rbPulse 2.6s cubic-bezier(.22,1,.36,1) infinite;pointer-events:none"></span>
+            <span data-rb-ring data-rb-accent-br style="position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:50%;border:2px solid #F6B54B;transform:translate(-50%,-50%) scale(.32);opacity:0;pointer-events:none"></span>
+            <span data-rb-ring style="position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:50%;border:1px solid rgba(20,16,14,.5);transform:translate(-50%,-50%) scale(.32);opacity:0;pointer-events:none"></span>
+            <img loading="lazy" decoding="async" width="242" height="242" data-rb-lid-closed src="assets/robusta/lid-closed.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;transition:opacity .18s ease"/>
+            <img loading="lazy" decoding="async" width="242" height="242" data-rb-lid-open src="assets/robusta/lid-open.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .18s ease"/>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;burstPower&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.4,&quot;max&quot;:1.8,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Взрыв&quot;},&quot;parallax&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:1.6,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Взрыв&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F6B54B&quot;,&quot;options&quot;:[&quot;#F6B54B&quot;,&quot;#F23904&quot;,&quot;#81377B&quot;,&quot;#14100E&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Стиль&quot;},&quot;autoOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Поведение&quot;}}">
+class Component extends DCLogic {
+  componentDidMount(){
+    const stage = document.querySelector('[data-rb-stage]');
+    if (!stage) return;
+    this.stage = stage;
+    this.scroller = document.querySelector('[data-rb-scroll]');
+    this.lock = stage.querySelector('[data-rb-lock]');
+    this.lid = stage.querySelector('[data-rb-lid]');
+    this.lidClosed = stage.querySelector('[data-rb-lid-closed]');
+    this.lidOpen = stage.querySelector('[data-rb-lid-open]');
+    this.pulse = stage.querySelector('[data-rb-pulse]');
+    this.rings = Array.from(stage.querySelectorAll('[data-rb-ring]'));
+    this.copy = stage.querySelector('[data-rb-copy]');
+    this.hint = stage.querySelector('[data-rb-hint]');
+    this.sticky = document.querySelector('[data-rb-sticky]');
+    this.art = stage.querySelector('[data-rb-art]');
+    this.slot = stage.querySelector('[data-rb-textslot]');
+    this.index = stage.querySelector('[data-rb-index]');
+    this.note = stage.querySelector('[data-rb-note]');
+    this.lines = Array.from(stage.querySelectorAll('[data-rb-line]'));
+    this.softs = Array.from(stage.querySelectorAll('[data-rb-soft]'));
+
+    const homes = this.layerHomes || (this.layerHomes = {});
+    this.layers = Array.from(stage.querySelectorAll('[data-rb-layer]')).map(el => {
+      const v = el.dataset.rbBurst.split(',');
+      const name = el.dataset.rbLayer;
+      if (!homes[name]) homes[name] = { left: el.style.left, top: el.style.top, width: el.style.width };
+      return { el, img: el.querySelector('[data-rb-img]'), name,
+               delay: +v[0], dur: +v[1], rot: +v[2], float: v[3], depth: +v[4], home: homes[name] };
+    });
+
+    /* the poster coordinates are captured once — later remounts must not read
+       back a mobile/mid arrangement and mistake it for the desktop original */
+    if (!this.homeLock){
+      this.homeCopy = { left: this.copy.style.left, top: this.copy.style.top, width: this.copy.style.width };
+      this.homeLock = { left: this.lock.style.left, top: this.lock.style.top, width: this.lock.style.width };
+      this.homeHint = { left: this.hint.style.left, top: this.hint.style.top, width: this.hint.style.width };
+    }
+
+    this.opened = this.lidOpen.style.opacity === '1';
+    this.mx = 0; this.my = 0; this.tx = 0; this.ty = 0; this.p = 0;
+
+    this.teardown();
+    this.applyTheme();
+    this.layout();
+    {
+      this.wired = true;
+      /* scroll state is applied synchronously — rAF is throttled to zero in
+         backgrounded frames, and the section must never render mid-transition */
+      this.onScroll = () => { this.readScroll(); this.frame(); };
+      this.onResize = () => { this.layout(); this.fitCopy(); this.fitArt(); this.measureDirs(); this.readScroll(); this.frame(); };
+      this.onMove = e => {
+        const r = this.stage.getBoundingClientRect();
+        this.tx = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width - .5) * 2));
+        this.ty = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height - .5) * 2));
+        this.frame();
+      };
+      this.onLeave = () => { this.tx = 0; this.ty = 0; this.frame(); };
+      this.onKey = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.toggle(); } };
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+      window.addEventListener('resize', this.onResize);
+      this.stage.addEventListener('pointermove', this.onMove);
+      this.stage.addEventListener('pointerleave', this.onLeave);
+      this.onLidClick = () => this.open();
+      this.onResetClick = () => this.close();
+      this.lid.addEventListener('click', this.onLidClick);
+      this.lid.addEventListener('keydown', this.onKey);
+      this.resetBtn = this.stage.querySelector('[data-rb-reset]');
+      if (this.resetBtn) this.resetBtn.addEventListener('click', this.onResetClick);
+      this.tick = () => { this.frame(); this.raf = requestAnimationFrame(this.tick); };
+      this.raf = requestAnimationFrame(this.tick);
+    }
+    this.measureDirs();
+    this.readScroll();
+    this.frame();
+  }
+
+  componentWillUnmount(){
+    this.teardown();
+  }
+
+  /* the master site remounts imported sections on every re-render, so the
+     listeners have to be releasable and re-attachable, not one-shot */
+  teardown(){
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+    if (this.stage && this.onMove){
+      this.stage.removeEventListener('pointermove', this.onMove);
+      this.stage.removeEventListener('pointerleave', this.onLeave);
+    }
+    if (this.lid && this.onLidClick){
+      this.lid.removeEventListener('click', this.onLidClick);
+      this.lid.removeEventListener('keydown', this.onKey);
+    }
+    if (this.resetBtn && this.onResetClick) this.resetBtn.removeEventListener('click', this.onResetClick);
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = null;
+    this.wired = false;
+    this.mode = null;
+    this.lastVis = null;
+  }
+
+  componentDidUpdate(){ this.applyTheme(); }
+
+  applyTheme(){
+    if (!this.stage) return;
+    const c = this.props.accent || '#F6B54B';
+    this.stage.querySelectorAll('[data-rb-accent-bg]').forEach(el => { el.style.background = c; });
+    this.stage.querySelectorAll('[data-rb-accent-br]').forEach(el => { el.style.borderColor = c; });
+  }
+
+  /* mobile rearranges the poster into a portrait stack; desktop keeps the artwork grid */
+  layout(){
+    const narrow = window.innerWidth <= 768 || (window.innerWidth < 860 && window.innerWidth / window.innerHeight < 1.15);
+    /* between phone and full desktop the poster has no room for a text band under
+       the headline, so the art regroups to the right and the copy runs down the left */
+    const mid = !narrow && this.stage.getBoundingClientRect().width < 1180;
+    const mode = narrow ? 'n' : (mid ? 'm' : 'd');
+    if (mode === this.mode && mode !== 'n') return;
+    const fresh = mode !== this.mode;
+    this.mode = mode;
+    this.narrow = narrow;
+    if (narrow){ this.mobileFlow(); return; }
+    if (fresh) this.unflow();
+    const st = this.stage.style;
+    if (mid){
+      st.width = 'min(100vw,177.78vh)';
+      st.height = 'auto';
+      st.aspectRatio = '16 / 9';
+      this.set(this.lock, { left: '6%', top: '11%', width: '38%' });
+      this.set(this.hint, { left: '6%', top: '33.5%', width: '40%' });
+      this.set(this.copy, { left: '6%', top: '32%', width: '36%' });
+      const m = { burst: ['6%', '75.5%', '18%'], bridge: ['30%', '79%', '8%'], grounds: ['44%', '46%', '18%'], beans: ['50%', '11%', '39%'], splash: ['42%', '28%', '46%'] };
+      this.layers.forEach(L => { const v = m[L.name]; if (v) this.set(L.el, { left: v[0], top: v[1], width: v[2] }); });
+    } else {
+      st.width = 'min(100vw,177.78vh)';
+      st.height = 'auto';
+      st.aspectRatio = '16 / 9';
+      this.set(this.lock, this.homeLock);
+      this.set(this.hint, this.homeHint);
+      this.set(this.copy, this.homeCopy);
+      this.layers.forEach(L => this.set(L.el, L.home));
+    }
+  }
+
+  set(el, v){ if (!el) return; el.style.left = v.left; el.style.top = v.top; el.style.width = v.width; }
+
+  /* ── portrait mobile: a real vertical flow, not the poster rescaled ──
+     label → ПОЧЕМУ ROBUSTA? + lid → hint / revealed copy → art band.
+     Nothing is stacked on top of anything else; the ingredient layers own
+     their own band at the bottom and are clipped by the stage, so the
+     burst can never widen the document. */
+  mobileFlow(){
+    const st = this.stage.style;
+    const hd = document.querySelector('[data-hd]');
+    const hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
+    if (this.sticky){
+      this.sticky.style.height = '100svh';
+      this.sticky.style.alignItems = 'stretch';
+    }
+    /* phones: the pin lasts only as long as the reveal needs — a longer track
+       leaves an empty beige viewport between the coffee and ТВОЙ РИТМ */
+    if (this.scroller) this.scroller.style.height = '132svh';
+    st.width = '100%';
+    st.maxWidth = '100vw';
+    st.height = 'auto';
+    st.aspectRatio = 'auto';
+    st.display = 'flex';
+    st.flexDirection = 'column';
+    st.boxSizing = 'border-box';
+    st.overflow = 'hidden';
+    st.paddingTop = (hdH + 10) + 'px';
+    st.paddingBottom = 'calc(12px + env(safe-area-inset-bottom))';
+    st.paddingLeft = '5.4%';
+    st.paddingRight = '5.4%';
+
+    const flow = (el, order, extra) => {
+      if (!el) return;
+      el.style.position = 'relative';
+      el.style.left = 'auto';
+      el.style.right = 'auto';
+      el.style.top = 'auto';
+      el.style.width = '100%';
+      el.style.order = order;
+      el.style.flex = '0 0 auto';
+      if (extra) Object.keys(extra).forEach(k => { el.style[k] = extra[k]; });
+    };
+
+    flow(this.index, 1, { textAlign: 'left', fontSize: '10px', letterSpacing: '.28em' });
+    flow(this.lock, 2, { marginTop: '10px', zIndex: 10 });
+    flow(this.slot, 3, { marginTop: '12px', zIndex: 9 });
+    flow(this.note, 4, { marginTop: '2px', justifyContent: 'flex-start', alignItems: 'center', minHeight: '36px', zIndex: 12 });
+
+    /* hint and revealed copy trade the same slot, so opening the can never
+       shifts the layout under the reader's thumb */
+    [this.hint, this.copy].forEach(el => {
+      if (!el) return;
+      el.style.position = 'absolute';
+      el.style.left = '0';
+      el.style.right = '0';
+      el.style.top = '0';
+      el.style.width = '100%';
+    });
+    if (this.copy){
+      this.copy.style.transform = '';
+      Array.from(this.copy.querySelectorAll('[data-rb-line]')).forEach(el => {
+        if (el.style.fontWeight === '800') el.style.fontSize = '21px';
+      });
+      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = '12.6px'; el.style.lineHeight = '1.55'; });
+    }
+    this.sizeSlot();
+    requestAnimationFrame(() => this.sizeSlot());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.sizeSlot());
+
+    if (this.art){
+      /* the coffee owns the lower half of the phone screen: the band leaves the
+         text flow entirely and is pinned full-bleed inside the stage, so each
+         PNG layer stays a separate, large parallax element instead of being
+         squeezed into one small composite under the copy */
+      const a = this.art.style;
+      a.position = 'absolute';
+      a.left = '0';
+      a.right = 'auto';
+      a.width = '100%';
+      a.marginLeft = '0';
+      a.marginRight = '0';
+      a.marginTop = '0';
+      a.order = '';
+      a.flex = '';
+      a.minHeight = '';
+      a.transform = '';
+      a.zIndex = '3';
+      Array.from(this.art.querySelectorAll('img')).forEach(img => {
+        if (img.dataset.fitWired) return;
+        img.dataset.fitWired = '1';
+        img.addEventListener('load', () => this.fitArt());
+      });
+    }
+    /* portrait composition — one big coffee explosion across the whole width:
+       beans high right (slowest), grounds centre-right, the wide liquid splash
+       through the middle, the small bean cluster as mid-foreground particles and
+       the big burst anchored to the lower left. Widths are % of the full screen;
+       vertical placement is resolved in fitArt against the real band height, most
+       layers anchored to the FOOT of the band so tall phones do not open a gap. */
+    this.mArt = {
+      burst:   { left: '-8%', width: '82%', bottom: 0.00 },
+      bridge:  { left: '4%',  width: '34%', bottom: 0.07 },
+      grounds: { left: '44%', width: '40%', bottom: 0.13 },
+      splash:  { left: '16%', width: '82%', bottom: 0.17 },
+      beans:   { left: '42%', width: '62%', top: -0.08 }
+    };
+    this.layers.forEach(L => {
+      const v = this.mArt[L.name];
+      if (!v) return;
+      L.el.style.left = v.left;
+      L.el.style.width = v.width;
+    });
+    this.fitArt();
+    requestAnimationFrame(() => this.fitArt());
+    this.measureDirs();
+  }
+
+  /* portrait: the band is pinned to the foot of the screen, under the copy, and
+     every layer is placed inside it from its own aspect ratio — so the layers
+     stay separate (each keeps its own depth in frame()) while together they read
+     as one full-width coffee explosion filling roughly half the viewport. */
+  fitArt(){
+    const a = this.art;
+    if (!this.narrow || !a || !this.mArt) return;
+    a.style.transform = '';
+    const sr = this.stage.getBoundingClientRect();
+    if (!sr.width) return;
+    const padB = parseFloat(getComputedStyle(this.stage).paddingBottom) || 0;
+    const anchor = this.note || this.slot;
+    const stackBottom = anchor ? anchor.getBoundingClientRect().bottom - sr.top : sr.height * 0.4;
+    const top = Math.max(sr.height * 0.38, stackBottom + 6);
+    const H = Math.max(180, sr.height - padB - top - 2);
+    a.style.top = Math.round(top) + 'px';
+    a.style.height = Math.round(H) + 'px';
+    const w = a.clientWidth || sr.width;
+    this.layers.forEach(L => {
+      const v = this.mArt[L.name];
+      if (!v) return;
+      const img = L.el.querySelector('img');
+      const iw = (img && (img.naturalWidth || parseFloat(img.getAttribute('width')))) || 1;
+      const ih = (img && (img.naturalHeight || parseFloat(img.getAttribute('height')))) || 1;
+      const lh = (parseFloat(L.el.style.width) || 0) / 100 * w * ih / iw;
+      const y = v.top != null ? v.top * H : H - v.bottom * H - lh;
+      L.el.style.top = Math.round(y) + 'px';
+    });
+  }
+
+  /* the shared text slot is as tall as its tallest state, so the reveal
+     never pushes the art band or the reset link around */
+  sizeSlot(){
+    if (!this.narrow || !this.slot) return;
+    const h = Math.max(this.copy ? this.copy.scrollHeight : 0, this.hint ? this.hint.scrollHeight : 0, 60) + 10;
+    if (this.slot.style.height !== h + 'px') this.slot.style.height = h + 'px';
+    this.fitArt();
+  }
+
+  /* leaving mobile: hand every node back to the poster geometry */
+  unflow(){
+    if (this.sticky){
+      this.sticky.style.height = '100vh';
+      this.sticky.style.alignItems = 'center';
+    }
+    const st = this.stage.style;
+    st.display = '';
+    st.flexDirection = '';
+    st.boxSizing = '';
+    st.overflow = '';
+    st.paddingTop = '';
+    st.paddingBottom = '';
+    st.paddingLeft = '';
+    st.paddingRight = '';
+    st.maxWidth = '';
+    [this.index, this.lock, this.slot, this.note, this.art].forEach(el => {
+      if (!el) return;
+      el.style.position = 'absolute';
+      el.style.order = '';
+      el.style.flex = '';
+      el.style.marginTop = '';
+      el.style.minHeight = '';
+    });
+    if (this.art){ this.art.style.transform = ''; this.art.style.flex = ''; this.art.style.marginLeft = ''; this.art.style.marginRight = ''; }
+    if (this.scroller) this.scroller.style.height = '175vh';
+    if (this.index){ this.index.style.left = 'auto'; this.index.style.right = '6%'; this.index.style.top = '13.2%'; this.index.style.width = 'auto'; this.index.style.textAlign = 'right'; this.index.style.fontSize = ''; this.index.style.letterSpacing = ''; }
+    if (this.note){ this.note.style.left = 'auto'; this.note.style.right = '6%'; this.note.style.top = '17.6%'; this.note.style.width = 'auto'; this.note.style.justifyContent = 'flex-end'; }
+    [this.slot, this.art].forEach(el => {
+      if (!el) return;
+      el.style.left = '0';
+      el.style.top = '0';
+      el.style.width = '100%';
+      el.style.height = '100%';
+    });
+    if (this.copy){
+      Array.from(this.copy.querySelectorAll('[data-rb-line]')).forEach(el => { if (el.style.fontWeight === '800') el.style.fontSize = 'clamp(19px,1.85cqw,36px)'; });
+      Array.from(this.copy.querySelectorAll('[data-rb-soft]')).forEach(el => { el.style.fontSize = 'clamp(11px,.84cqw,16px)'; el.style.lineHeight = '1.62'; });
+    }
+  }
+
+  /* the copy lives in the clear band between headline and leaves — on shorter
+     stages it scales down rather than running into the artwork */
+  fitCopy(){
+    if (!this.copy) return;
+    this.copy.style.transform = '';
+    if (this.narrow) return;
+    const below = this.layers.find(L => L.name === 'burst');
+    if (!below) return;
+    /* the layer climbs as the section scrolls — reserve its full drift */
+    const drift = 0.66 * 104 * below.depth * (this.props.parallax ?? 1);
+    const avail = below.el.offsetTop - this.copy.offsetTop - 10 - drift;
+    const h = this.copy.scrollHeight;
+    if (h > avail && avail > 40){
+      this.copy.style.transformOrigin = 'left top';
+      this.copy.style.transform = 'scale(' + Math.max(0.82, avail / h).toFixed(3) + ')';
+    }
+  }
+
+  readScroll(){
+    const sc = this.scroller;
+    if (!sc) return;
+    const vh = window.innerHeight;
+    const r = sc.getBoundingClientRect();
+    const span = Math.max(1, sc.offsetHeight - vh);
+    const cl = t => Math.max(0, Math.min(1, t));
+    this.p = cl(-r.top / span);
+    /* the scene washes in as the previous section hands over, and clears again
+       before the next one takes the screen — no hard seam either side */
+    this.enter = cl((vh - r.top) / (vh * 0.8));
+    this.exit = cl((this.p - 0.78) / 0.22);
+    if (!this.opened && (this.props.autoOpen ?? true) && this.p > 0.45) this.open();
+  }
+
+  /* radial direction of every layer away from the can, for the exit drift */
+  measureDirs(){
+    if (!this.lid) return;
+    const lr = this.lid.getBoundingClientRect();
+    const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2;
+    this.layers.forEach(L => {
+      const r = L.el.getBoundingClientRect();
+      const vx = (r.left + r.width / 2) - cx, vy = (r.top + r.height / 2) - cy;
+      const n = Math.hypot(vx, vy) || 1;
+      L.ux = vx / n; L.uy = vy / n;
+    });
+  }
+
+  frame(){
+    this.mx += (this.tx - this.mx) * 0.07;
+    this.my += (this.ty - this.my) * 0.07;
+    const k = this.props.parallax ?? 1;
+    const ex = this.exit || 0, en = this.enter == null ? 1 : this.enter;
+    const sp = (this.p - 0.34);
+    const damp = 1 - ex * 0.65;
+    /* portrait has no room for the wide radial drift — the same motion, scaled */
+    const nk = this.narrow ? 0.38 : 1;
+    this.layers.forEach(L => {
+      const d = L.depth * k * damp;
+      const dx = (this.mx * 13 * d + (L.ux || 0) * ex * ex * 96 * (0.4 + L.depth)) * nk;
+      const dy = sp * -104 * d * (this.narrow ? 0.55 : 1) + this.my * 9 * d + (L.uy || 0) * ex * ex * 72 * (0.4 + L.depth) * nk;
+      L.el.style.transform = 'translate3d(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px,0)';
+    });
+    if (this.lock) this.lock.style.transform = 'translate3d(' + (this.mx * -4 * k * nk).toFixed(2) + 'px,' + ((sp * 26 * k * damp - ex * 40) * (this.narrow ? 0.3 : 1)).toFixed(2) + 'px,0)';
+    /* the scene thins out but never empties before the panel leaves — a fully
+       cleared sticky tail reads as a blank viewport between sections */
+    const vis = (en * (1 - ex * 0.45)).toFixed(3);
+    if (vis !== this.lastVis){
+      this.lastVis = vis;
+      this.stage.style.opacity = vis;
+      this.stage.style.pointerEvents = +vis < 0.35 ? 'none' : '';
+    }
+  }
+
+  vectors(){
+    const lr = this.lid.getBoundingClientRect();
+    const cx = lr.left + lr.width / 2, cy = lr.top + lr.height / 2;
+    this.layers.forEach(L => {
+      const r = L.img.getBoundingClientRect();
+      /* a mirrored wrapper flips the img's own coordinate system, so the
+         vector toward the lid has to be flipped with it */
+      const par = L.img.parentElement;
+      let fx = 1;
+      if (par && par !== L.el){
+        const t = getComputedStyle(par).transform;
+        if (t && t !== 'none' && new DOMMatrix(t).a < 0) fx = -1;
+      }
+      L.img.style.setProperty('--dx', (fx * (cx - (r.left + r.width / 2))).toFixed(1) + 'px');
+      L.img.style.setProperty('--dy', (cy - (r.top + r.height / 2)).toFixed(1) + 'px');
+      L.img.style.setProperty('--r0', (L.rot * fx) + 'deg');
+      L.img.style.setProperty('--k', (this.props.burstPower ?? 1));
+    });
+  }
+
+  open(){
+    if (this.opened) return;
+    this.opened = true;
+    this.lidClosed.style.opacity = 0;
+    this.lidOpen.style.opacity = 1;
+    this.pulse.style.display = 'none';
+    this.lid.style.animation = 'none';
+    void this.lid.offsetWidth;
+    this.lid.style.animation = 'rbLidPop .78s cubic-bezier(.22,1.15,.36,1) both';
+    this.rings.forEach((r, i) => {
+      r.style.setProperty('--rs', i === 0 ? 7.5 : 12);
+      r.style.animation = 'none'; void r.offsetWidth;
+      r.style.animation = 'rbRing ' + (0.95 + i * 0.32) + 's cubic-bezier(.16,1,.3,1) ' + (i * 0.08) + 's both';
+    });
+
+    this.vectors();
+    this.layers.forEach(L => {
+      L.img.style.animation = 'none'; void L.img.offsetWidth;
+      L.img.style.animation = 'rbBurst ' + L.dur + 's cubic-bezier(.2,.9,.24,1) ' + L.delay + 's both';
+      L.img.onanimationend = () => {
+        L.img.style.animation = L.float + ' ' + (9 + L.depth * 4).toFixed(1) + 's ease-in-out infinite';
+        L.img.style.opacity = 1;
+      };
+    });
+
+    this.hint.style.animation = 'none';
+    this.hint.style.transition = 'opacity .34s ease, transform .34s ease';
+    this.hint.style.opacity = 0;
+    this.hint.style.transform = 'translateY(-10px)';
+    this.hint.style.pointerEvents = 'none';
+
+    this.fitCopy();
+    this.sizeSlot();
+    this.copy.style.opacity = 1;
+    this.lines.forEach((el, i) => {
+      el.style.animation = 'none'; void el.offsetWidth;
+      el.style.animation = 'rbLineUp .82s cubic-bezier(.16,1,.3,1) ' + (0.28 + i * 0.09) + 's both';
+    });
+    this.softs.forEach((el, i) => {
+      el.style.animation = 'none'; void el.offsetWidth;
+      el.style.animation = 'rbSoftIn .8s cubic-bezier(.16,1,.3,1) ' + (0.62 + i * 0.1) + 's both';
+    });
+
+    this.note.style.transition = 'opacity .5s ease .9s';
+    this.note.style.opacity = 1;
+    this.note.style.pointerEvents = 'auto';
+  }
+
+  close(){
+    if (!this.opened) return;
+    this.opened = false;
+    this.vectors();
+    this.layers.forEach(L => {
+      L.img.onanimationend = null;
+      L.img.style.animation = 'none'; void L.img.offsetWidth;
+      L.img.style.animation = 'rbSuck .62s cubic-bezier(.6,0,.85,.3) ' + (0.06 * (1 - L.depth)).toFixed(2) + 's both';
+    });
+    this.copy.style.transition = 'opacity .3s ease';
+    this.copy.style.opacity = 0;
+    this.note.style.transition = 'opacity .25s ease';
+    this.note.style.opacity = 0;
+    this.note.style.pointerEvents = 'none';
+    setTimeout(() => {
+      if (this.opened) return;
+      this.lidOpen.style.opacity = 0;
+      this.lidClosed.style.opacity = 1;
+      this.pulse.style.display = '';
+      this.lid.style.animation = 'rbLidPop .5s cubic-bezier(.22,1.15,.36,1) both';
+      this.hint.style.transition = '';
+      this.hint.style.opacity = '';
+      this.hint.style.transform = '';
+      this.hint.style.pointerEvents = '';
+      this.hint.style.animation = 'rbHint 3.4s ease-in-out infinite';
+      this.copy.style.transition = '';
+    }, 560);
+  }
+
+  toggle(){ this.opened ? this.close() : this.open(); }
+
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

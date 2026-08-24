@@ -36,10 +36,10 @@ a:hover{color:#14100E}
   <div id="top"></div>
 
   <header data-hd style="position:fixed;left:0;right:0;top:0;z-index:60;padding-top:env(safe-area-inset-top);background:rgba(247,242,236,.93);backdrop-filter:blur(12px);border-bottom:1px solid rgba(20,16,14,.14)">
-    <div data-hd-inner style="display:flex;align-items:center;gap:2vw;padding:0 5.4%;height:74px">
-      <a data-hd-logo href="#top" aria-label="Bumble Coffee — наверх" style="display:flex;align-items:center;gap:14px;cursor:pointer">
-        <img src="assets/phoenix.svg" alt="BLACK PHOENIX" style="display:block;height:34px;width:auto"/>
-        <img data-hd-word src="assets/black-phoenix-wordmark.svg" alt="" style="display:block;width:132px;opacity:.85"/>
+    <div data-hd-inner style="display:flex;align-items:center;gap:2vw;padding:0 clamp(14px,5.4%,60px);height:74px">
+      <a data-hd-logo href="#top" aria-label="Bumble Coffee — наверх" style="flex:0 0 auto;display:flex;align-items:center;gap:clamp(8px,2.2vw,14px);cursor:pointer">
+        <img src="assets/phoenix.svg" alt="BLACK PHOENIX" style="display:block;flex:0 0 auto;height:clamp(26px,7vw,34px);width:auto"/>
+        <img data-hd-word src="assets/black-phoenix-wordmark.svg" alt="" style="display:block;flex:0 0 auto;width:clamp(82px,24vw,132px);opacity:.85"/>
       </a>
 
       <nav data-hd-nav style="position:relative;margin-left:auto;display:flex;align-items:center;gap:2.1vw">
@@ -378,7 +378,9 @@ class Component extends DCLogic {
     this.narrow = window.innerWidth < 1024;
     this.mob = window.innerWidth <= 768;
     this.hdNav.style.display = this.narrow ? 'none' : 'flex';
-    this.hdWord.style.display = window.innerWidth < 560 ? 'none' : 'block';
+    /* the brand mark is one stable lockup — phoenix + BLACK PHOENIX wording —
+       and stays whole at every width; only its scale changes */
+    this.hdWord.style.display = 'block';
     const burger = document.querySelector('[data-hd-burger]');
     burger.style.marginLeft = this.narrow ? 'auto' : '2.6vw';
     document.querySelector('[data-hd-inner]').style.height = this.narrow ? '64px' : '74px';

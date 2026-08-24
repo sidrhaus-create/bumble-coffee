@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-400.woff2) format('woff2');font-weight:400;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-700.woff2) format('woff2');font-weight:700;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-800.woff2) format('woff2');font-weight:800;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-800.woff2) format('woff2');font-weight:800;font-display:swap}
+body{margin:0;background:#FAEED4;-webkit-font-smoothing:antialiased}
+a{color:#14100E;text-decoration:none}
+a:hover{color:#81377B}
+input::placeholder{color:rgba(20,16,14,.3);font-weight:700}
+select:invalid{color:rgba(20,16,14,.3)}
+</style>
+</helmet>
+
+<div style="font-family:Unbounded,system-ui,sans-serif;color:#14100E;background:#FAEED4">
+  <div data-pt data-screen-label="08 · ПАРТНЁРАМ" style="position:relative;overflow:hidden;background:#FAEED4;padding:clamp(64px,10vh,124px) 5.4% clamp(56px,9vh,110px)">
+
+    <img decoding="async" data-pt-phx src="assets/phoenix.svg" alt="" style="position:absolute;right:-6%;top:-8%;height:112%;width:auto;opacity:.032;z-index:0;pointer-events:none"/>
+    <div style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:0;pointer-events:none;background-image:linear-gradient(90deg,rgba(20,16,14,.05) 1px,transparent 1px);background-size:12.5% 100%"></div>
+
+    <div style="position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-start;gap:clamp(34px,5vw,96px)">
+
+      <div style="flex:1 1 400px;min-width:0;max-width:620px">
+        <div data-pt-rev="0" style="display:flex;align-items:baseline;gap:18px;font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.3em;opacity:0;transform:translateY(16px)">
+          <span style="opacity:.45">08</span>
+          <span data-pt-accent style="color:#81377B">ПАРТНЁРАМ</span>
+        </div>
+
+        <h2 style="margin:clamp(18px,2.4vh,32px) 0 0;font-size:clamp(32px,4.2vw,92px);font-weight:800;letter-spacing:-.042em;line-height:.98">
+          <span style="display:block;overflow:hidden;padding-bottom:.04em"><span data-pt-line style="display:block;transform:translateY(112%)">ДАВАЙТЕ</span></span>
+          <span style="display:block;overflow:hidden;padding-bottom:.04em"><span data-pt-line style="display:block;transform:translateY(112%)">РАСТИ ВМЕСТЕ.</span></span>
+        </h2>
+
+        <p data-pt-rev="1" style="margin:clamp(20px,2.8vh,34px) 0 0;max-width:38ch;font-size:clamp(13px,.94vw,19px);font-weight:400;line-height:1.62;color:rgba(20,16,14,.72);text-wrap:pretty;opacity:0;transform:translateY(16px)">Хотите добавить Bumble Coffee в свою сеть, магазин, сервис доставки или заведение? Оставьте контакты — обсудим сотрудничество.</p>
+
+        <div data-pt-rev="2" style="margin-top:clamp(20px,2.8vh,32px);font-size:clamp(9px,.64vw,12px);font-weight:700;letter-spacing:.26em;color:rgba(20,16,14,.5);opacity:0;transform:translateY(16px)">РИТЕЙЛ · ДИСТРИБУЦИЯ · HoReCa · ДОСТАВКА</div>
+
+      </div>
+
+      <div style="flex:1 1 400px;min-width:0;max-width:620px">
+
+        <form data-pt-form novalidate style="display:block">
+
+          <div data-pt-row="0" style="position:relative;padding-top:clamp(14px,2vh,22px);opacity:0;transform:translateY(18px)">
+            <label data-pt-label for="pt-name" style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.5);transition:transform .32s cubic-bezier(.16,1,.3,1),color .32s ease">ИМЯ</label>
+            <input data-pt-input id="pt-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" style="display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:0 0 12px;border:0;background:none;font-family:inherit;font-size:clamp(15px,1.15vw,23px);font-weight:700;letter-spacing:-.015em;color:#14100E;outline:none"/>
+            <span style="display:block;height:1px;background:rgba(20,16,14,.22)"></span>
+            <span data-pt-under style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#81377B;transform:scaleX(0);transform-origin:left center;transition:transform .42s cubic-bezier(.16,1,.3,1)"></span>
+            <span data-pt-err style="display:block;height:0;overflow:hidden;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;color:#B3261E;transition:height .26s ease,opacity .26s ease;opacity:0"></span>
+          </div>
+
+          <div data-pt-row="1" style="position:relative;padding-top:clamp(18px,2.6vh,30px);opacity:0;transform:translateY(18px)">
+            <label data-pt-label for="pt-phone" style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.5);transition:transform .32s cubic-bezier(.16,1,.3,1),color .32s ease">ТЕЛЕФОН</label>
+            <input data-pt-input id="pt-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 900 000 00 00" style="display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:0 0 12px;border:0;background:none;font-family:inherit;font-size:clamp(15px,1.15vw,23px);font-weight:700;letter-spacing:-.015em;color:#14100E;outline:none"/>
+            <span style="display:block;height:1px;background:rgba(20,16,14,.22)"></span>
+            <span data-pt-under style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#81377B;transform:scaleX(0);transform-origin:left center;transition:transform .42s cubic-bezier(.16,1,.3,1)"></span>
+            <span data-pt-err style="display:block;height:0;overflow:hidden;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;color:#B3261E;transition:height .26s ease,opacity .26s ease;opacity:0"></span>
+          </div>
+
+          <div data-pt-row="2" style="position:relative;padding-top:clamp(18px,2.6vh,30px);opacity:0;transform:translateY(18px)">
+            <label data-pt-label for="pt-email" style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.5);transition:transform .32s cubic-bezier(.16,1,.3,1),color .32s ease">ПОЧТА</label>
+            <input data-pt-input id="pt-email" name="email" type="email" autocomplete="email" placeholder="ваш@email.ru" style="display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:0 0 12px;border:0;background:none;font-family:inherit;font-size:clamp(15px,1.15vw,23px);font-weight:700;letter-spacing:-.015em;color:#14100E;outline:none"/>
+            <span style="display:block;height:1px;background:rgba(20,16,14,.22)"></span>
+            <span data-pt-under style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#81377B;transform:scaleX(0);transform-origin:left center;transition:transform .42s cubic-bezier(.16,1,.3,1)"></span>
+            <span data-pt-err style="display:block;height:0;overflow:hidden;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;color:#B3261E;transition:height .26s ease,opacity .26s ease;opacity:0"></span>
+          </div>
+
+          <div data-pt-row="3" style="position:relative;padding-top:clamp(18px,2.6vh,30px);opacity:0;transform:translateY(18px)">
+            <label data-pt-label for="pt-subject" style="display:block;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.5);transition:transform .32s cubic-bezier(.16,1,.3,1),color .32s ease">ТЕМА ОБРАЩЕНИЯ</label>
+            <select data-pt-input id="pt-subject" name="subject" required style="display:block;width:100%;box-sizing:border-box;margin-top:10px;padding:0 26px 12px 0;border:0;border-radius:0;background:none;font-family:inherit;font-size:clamp(15px,1.15vw,23px);font-weight:700;letter-spacing:-.015em;color:#14100E;outline:none;appearance:none;-webkit-appearance:none;cursor:pointer">
+              <option value="">Выберите тему</option>
+              <option value="СОТРУДНИЧЕСТВО">СОТРУДНИЧЕСТВО</option>
+              <option value="ДИСТРИБУЦИЯ">ДИСТРИБУЦИЯ</option>
+              <option value="РИТЕЙЛ">РИТЕЙЛ</option>
+              <option value="HoReCa">HoReCa</option>
+              <option value="ДОСТАВКА">ДОСТАВКА</option>
+              <option value="ДРУГОЕ">ДРУГОЕ</option>
+            </select>
+            <span data-pt-chev style="position:absolute;right:2px;bottom:16px;width:9px;height:9px;border-right:2px solid rgba(20,16,14,.45);border-bottom:2px solid rgba(20,16,14,.45);transform:rotate(45deg);pointer-events:none;transition:transform .3s ease"></span>
+            <span style="display:block;height:1px;background:rgba(20,16,14,.22)"></span>
+            <span data-pt-under style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#81377B;transform:scaleX(0);transform-origin:left center;transition:transform .42s cubic-bezier(.16,1,.3,1)"></span>
+            <span data-pt-err style="display:block;height:0;overflow:hidden;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;color:#B3261E;transition:height .26s ease,opacity .26s ease;opacity:0"></span>
+          </div>
+
+          <div data-pt-row="4" style="margin-top:clamp(26px,4vh,44px);display:flex;flex-wrap:wrap;align-items:center;gap:18px;opacity:0;transform:translateY(18px)">
+            <button data-pt-submit type="submit" style="position:relative;flex:1 1 240px;min-height:58px;padding:20px 30px;border:0;border-radius:2px;background:#14100E;color:#FAEED4;font-family:inherit;font-size:clamp(11px,.72vw,14px);font-weight:800;letter-spacing:.24em;cursor:pointer;overflow:hidden">
+              <span data-pt-wipe style="position:absolute;inset:0;background:#81377B;transform:scaleY(0);transform-origin:center bottom;transition:transform .52s cubic-bezier(.22,1,.28,1)"></span>
+              <span data-pt-btn-text style="position:relative;display:inline-flex;align-items:center;gap:12px;transition:transform .4s cubic-bezier(.16,1,.3,1)">
+                <span data-pt-btn-label>ОТПРАВИТЬ</span>
+                <span data-pt-btn-arrow style="display:inline-block;opacity:0;transform:translateX(-8px);transition:opacity .34s ease,transform .34s cubic-bezier(.16,1,.3,1)">→</span>
+              </span>
+            </button>
+            <span style="flex:1 1 180px;font-size:clamp(9px,.58vw,11px);font-weight:700;letter-spacing:.2em;line-height:1.7;color:rgba(20,16,14,.42)">ОТВЕЧАЕМ В ТЕЧЕНИЕ ДВУХ РАБОЧИХ ДНЕЙ</span>
+            <span data-pt-send-err style="display:none;flex:1 1 100%;font-size:clamp(9px,.6vw,11px);font-weight:700;letter-spacing:.16em;line-height:1.7;color:#B3261E">НЕ УДАЛОСЬ ОТПРАВИТЬ.<br/>ПОПРОБУЙТЕ ЕЩЁ РАЗ.</span>
+          </div>
+
+        </form>
+
+        <div data-pt-done style="display:none;padding-top:clamp(20px,3vh,34px)">
+          <div style="overflow:hidden;padding-bottom:.06em"><div data-pt-done-line style="font-size:clamp(26px,2.9vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.06;transform:translateY(112%)">СПАСИБО.</div></div>
+          <div style="overflow:hidden;padding-bottom:.06em"><div data-pt-done-line style="font-size:clamp(26px,2.9vw,58px);font-weight:800;letter-spacing:-.035em;line-height:1.06;transform:translateY(112%)">СВЯЖЕМСЯ С ВАМИ.</div></div>
+          <div data-pt-done-note style="margin-top:clamp(16px,2.4vh,26px);display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(14px)">
+            <span data-pt-dot style="display:block;width:7px;height:7px;border-radius:50%;background:#81377B"></span>
+            <span style="font-size:clamp(9px,.62vw,12px);font-weight:700;letter-spacing:.28em;color:rgba(20,16,14,.55)">ЗАЯВКА ПРИНЯТА</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;parentOrigin&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;},&quot;recipient&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;info@bumblephoenix.ru&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Отправка заявки&quot;}}">
+const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
+const RE_MAIL = /^[^\s@]+@[^\s@]+\.[a-zA-Zа-яА-Я]{2,}$/;
+
+class Component extends DCLogic {
+  componentDidMount(){
+    this.mount();
+    if (!this.tuneWired){
+      this.tuneWired = true;
+      window.addEventListener('resize', () => this.mobileTune());
+    }
+  }
+
+  /* phones: 16px inputs (anything smaller makes iOS zoom on focus), 44px
+     touch rows, readable micro labels, and no watermark behind the form */
+  mobileTune(){
+    const root = this.root || document.querySelector('[data-pt]');
+    if (!root) return;
+    const m = window.innerWidth <= 768;
+    const phx = root.querySelector('[data-pt-phx]');
+    if (phx) phx.style.display = m ? 'none' : '';
+    Array.from(root.querySelectorAll('[data-pt-input]')).forEach(el => {
+      el.style.fontSize = m ? '16px' : 'clamp(15px,1.15vw,23px)';
+      el.style.minHeight = m ? '34px' : '';
+      el.style.paddingBottom = m ? '14px' : '12px';
+    });
+    Array.from(root.querySelectorAll('[data-pt-label]')).forEach(el => {
+      el.style.fontSize = m ? '10px' : 'clamp(9px,.6vw,11px)';
+    });
+  }
+  componentDidUpdate(){ this.mount(); }
+
+  mount(){
+    const root = document.querySelector('[data-pt]');
+    if (!root) return;
+    this.root = root;
+    this.form = root.querySelector('[data-pt-form]');
+    this.rows = Array.from(root.querySelectorAll('[data-pt-row]'));
+    this.revs = Array.from(root.querySelectorAll('[data-pt-rev]'));
+    this.lines = Array.from(root.querySelectorAll('[data-pt-line]'));
+    this.done = root.querySelector('[data-pt-done]');
+    this.doneLines = Array.from(root.querySelectorAll('[data-pt-done-line]'));
+    this.doneNote = root.querySelector('[data-pt-done-note]');
+    this.btn = root.querySelector('[data-pt-submit]');
+    this.sendErr = root.querySelector('[data-pt-send-err]');
+    this.wipe = root.querySelector('[data-pt-wipe]');
+    this.btnText = root.querySelector('[data-pt-btn-text]');
+    this.btnLabel = root.querySelector('[data-pt-btn-label]');
+    this.btnArrow = root.querySelector('[data-pt-btn-arrow]');
+    this.mobileTune();
+    this.fields = ['name','phone','email','subject'].map(n => ({
+      name: n,
+      el: root.querySelector('[name="' + n + '"]'),
+      row: root.querySelector('[name="' + n + '"]').closest('[data-pt-row]')
+    }));
+
+    this.teardown();
+    this.wired = true;
+    this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
+
+    this.handlers = [];
+    const bind = (el, ev, fn) => { el.addEventListener(ev, fn); this.handlers.push([el, ev, fn]); };
+
+    this.fields.forEach(f => {
+      const under = f.row.querySelector('[data-pt-under]');
+      const label = f.row.querySelector('[data-pt-label]');
+      bind(f.el, 'focus', () => {
+        under.style.transform = 'scaleX(1)';
+        label.style.transform = 'translateY(-3px)';
+        label.style.color = this.accent;
+      });
+      bind(f.el, 'blur', () => {
+        const filled = !!f.el.value.trim();
+        under.style.transform = filled ? 'scaleX(1)' : 'scaleX(0)';
+        under.style.opacity = filled ? '.4' : '1';
+        label.style.transform = 'translateY(0)';
+        label.style.color = 'rgba(20,16,14,.5)';
+      });
+      bind(f.el, 'input', () => this.clearError(f));
+      bind(f.el, 'change', () => this.clearError(f));
+    });
+
+    bind(this.btn, 'pointerenter', () => this.hover(true));
+    bind(this.btn, 'pointerleave', () => this.hover(false));
+    bind(this.form, 'submit', e => { e.preventDefault(); this.submit(); });
+
+    this.onFlavor = e => this.setFlavor(e.detail.index);
+    document.addEventListener('bumble:flavor', this.onFlavor);
+
+    if (!this.revealed){
+      this.io = new IntersectionObserver(entries => {
+        if (entries.some(en => en.isIntersecting)) this.reveal();
+      }, { threshold: 0.16 });
+      this.io.observe(root);
+    }
+  }
+
+  componentWillUnmount(){ this.teardown(); }
+
+  teardown(){
+    /* a lead in flight must not leave a bridge listener behind on remount */
+    if (this.pending) this.pending({ ok: false, why: 'section unmounted while sending' });
+    if (!this.wired) return;
+    (this.handlers || []).forEach(([el, ev, fn]) => el.removeEventListener(ev, fn));
+    this.handlers = [];
+    document.removeEventListener('bumble:flavor', this.onFlavor);
+    if (this.io){ this.io.disconnect(); this.io = null; }
+    this.wired = false;
+  }
+
+  setFlavor(i){
+    const c = COLORS[i] || COLORS[0];
+    this.accent = c;
+    this.root.querySelectorAll('[data-pt-accent]').forEach(el => { el.style.color = c; });
+    this.root.querySelectorAll('[data-pt-under]').forEach(el => { el.style.background = c; });
+    this.root.querySelectorAll('[data-pt-dot]').forEach(el => { el.style.background = c; });
+    if (this.wipe) this.wipe.style.background = c;
+  }
+
+  /* headline masks up, copy staggers in, then the form rows draw one by one */
+  reveal(){
+    if (this.revealed) return;
+    this.revealed = true;
+    const ease = 'cubic-bezier(.16,1,.3,1)';
+    this.lines.forEach((el, i) => {
+      el.style.transition = 'transform .86s ' + ease + ' ' + (0.06 + i * 0.09) + 's';
+      el.style.transform = 'translateY(0)';
+    });
+    this.revs.forEach(el => {
+      const i = +el.dataset.ptRev;
+      el.style.transition = 'opacity .7s ease ' + (0.26 + i * 0.09) + 's, transform .8s ' + ease + ' ' + (0.26 + i * 0.09) + 's';
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+    });
+    this.rows.forEach(el => {
+      const i = +el.dataset.ptRow;
+      const d = 0.42 + i * 0.1;
+      el.style.transition = 'opacity .66s ease ' + d + 's, transform .78s ' + ease + ' ' + d + 's';
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+    });
+    if (this.io){ this.io.disconnect(); this.io = null; }
+  }
+
+  hover(on){
+    if (this.busy) return;
+    this.wipe.style.transform = on ? 'scaleY(1)' : 'scaleY(0)';
+    this.btnText.style.transform = on ? 'translateX(6px)' : 'translateX(0)';
+    this.btnArrow.style.opacity = on ? 1 : 0;
+    this.btnArrow.style.transform = on ? 'translateX(0)' : 'translateX(-8px)';
+  }
+
+  error(f, msg){
+    const err = f.row.querySelector('[data-pt-err]');
+    err.textContent = msg;
+    err.style.height = '2.1em';
+    err.style.paddingTop = '8px';
+    err.style.opacity = 1;
+    f.row.querySelector('[data-pt-under]').style.background = '#B3261E';
+    f.row.querySelector('[data-pt-under]').style.transform = 'scaleX(1)';
+  }
+
+  clearError(f){
+    const err = f.row.querySelector('[data-pt-err]');
+    if (err.style.opacity === '0' || !err.textContent) return;
+    err.style.height = '0';
+    err.style.paddingTop = '0';
+    err.style.opacity = 0;
+    const u = f.row.querySelector('[data-pt-under]');
+    u.style.background = this.accent;
+    u.style.transform = f.el.value.trim() ? 'scaleX(1)' : 'scaleX(0)';
+  }
+
+  validate(){
+    const v = {};
+    this.fields.forEach(f => { v[f.name] = (f.el.value || '').trim(); });
+    let ok = true;
+    const fail = (n, m) => { ok = false; this.error(this.fields.find(f => f.name === n), m); };
+    if (v.name.length < 2) fail('name', 'УКАЖИТЕ ИМЯ');
+    const digits = v.phone.replace(/\D/g, '');
+    if (digits.length < 10 || digits.length > 15) fail('phone', 'ПРОВЕРЬТЕ НОМЕР ТЕЛЕФОНА');
+    if (!RE_MAIL.test(v.email)) fail('email', 'ПРОВЕРЬТЕ АДРЕС ПОЧТЫ');
+    if (!v.subject) fail('subject', 'ВЫБЕРИТЕ ТЕМУ');
+    return ok ? v : null;
+  }
+
+  /* Mail is sent by the native Tilda form on the PARENT page. This iframe only
+     hands the lead across the postMessage bridge and waits for the parent's real
+     answer: BUMBLE_PARTNERS_RESULT with ok === true is the ONLY success. No
+     endpoint, no mail provider, no optimistic or timed success. */
+  /* Tilda may serve the parent page over http OR https — both are the same site,
+     so both are accepted, and the one actually in use is read off the referrer */
+  parentOrigin(){
+    const listed = (this.props.parentOrigin || 'https://bumblephoenix.ru')
+      .split(',').map(s => s.trim()).filter(Boolean);
+    const allowed = listed.slice();
+    listed.forEach(o => {
+      const alt = o.startsWith('https://') ? 'http://' + o.slice(8)
+                : o.startsWith('http://') ? 'https://' + o.slice(7) : null;
+      if (alt && allowed.indexOf(alt) < 0) allowed.push(alt);
+    });
+    let origin = allowed[0];
+    try {
+      if (document.referrer){
+        const ref = new URL(document.referrer).origin;
+        if (allowed.indexOf(ref) >= 0) origin = ref;
+      }
+    } catch (e) {}
+    return { origin: origin, allowed: allowed };
+  }
+
+  send(payload){
+    const { origin, allowed } = this.parentOrigin();
+    console.log('[Bumble form] parent origin:', origin, '| accepted:', allowed.join(', '));
+    if (window.parent === window){
+      return Promise.resolve({ ok: false, why: 'not embedded — no Tilda parent to send through' });
+    }
+    return new Promise(resolve => {
+      let settled = false;
+      const finishWith = r => {
+        if (settled) return;
+        settled = true;
+        window.removeEventListener('message', onMsg);
+        clearTimeout(timer);
+        this.pending = null;
+        resolve(r);
+      };
+      const onMsg = e => {
+        if (allowed.indexOf(e.origin) < 0) return;
+        const d = e.data;
+        if (!d || d.type !== 'BUMBLE_PARTNERS_RESULT') return;
+        console.log('[Bumble form] parent response:', e.origin, d);
+        if (d.ok === true) finishWith({ ok: true });
+        else finishWith({ ok: false, why: d.error || d.reason || 'Tilda reported a failure' });
+      };
+      window.addEventListener('message', onMsg);
+      /* silence is a failure, never a success */
+      const timer = setTimeout(() => finishWith({ ok: false, why: 'no BUMBLE_PARTNERS_RESULT from the Tilda page' }), 20000);
+      this.pending = finishWith;
+      try {
+        window.parent.postMessage({
+          type: 'BUMBLE_PARTNERS_SUBMIT',
+          data: { name: payload.name, phone: payload.phone, email: payload.email, subject: payload.subject }
+        }, origin);
+        console.log('[Bumble form] message sent');
+      } catch (err){
+        finishWith({ ok: false, why: (err && err.message) || 'postMessage failed' });
+      }
+    });
+  }
+
+  async submit(){
+    if (this.busy) return;
+    const v = this.validate();
+    if (!v) return;
+    this.busy = true;
+    this.btn.disabled = true;
+    this.btn.style.cursor = 'default';
+    this.btnLabel.textContent = 'ОТПРАВЛЯЕМ...';
+    this.btnArrow.style.opacity = 0;
+    this.wipe.style.transform = 'scaleY(1)';
+    this.rows.forEach((r, i) => {
+      const u = r.querySelector('[data-pt-under]');
+      if (u){ u.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1) ' + (i * 0.05) + 's'; u.style.transform = 'scaleX(1)'; }
+    });
+
+    if (this.sendErr) this.sendErr.style.display = 'none';
+    const payload = { name: v.name, phone: v.phone, email: v.email, subject: v.subject };
+    const r = await this.send(payload);
+    if (!r.ok){ this.sendFailed(r.why); return; }
+    this.finish();
+  }
+
+  /* nothing is cleared: the reader keeps every value and can send again */
+  sendFailed(why){
+    if (why) console.warn('[Bumble] partners lead not sent:', why);
+    this.busy = false;
+    this.btn.disabled = false;
+    this.btn.style.cursor = 'pointer';
+    this.btnLabel.textContent = 'ОТПРАВИТЬ';
+    this.wipe.style.transform = 'scaleY(0)';
+    this.rows.forEach(rw => {
+      const u = rw.querySelector('[data-pt-under]');
+      if (u) u.style.transform = 'scaleX(0)';
+    });
+    if (this.sendErr) this.sendErr.style.display = 'block';
+  }
+
+  finish(){
+    const h = this.form.offsetHeight;
+    this.form.style.height = h + 'px';
+    this.form.style.overflow = 'hidden';
+    this.form.style.transition = 'height .62s cubic-bezier(.16,1,.3,1), opacity .34s ease';
+    requestAnimationFrame(() => {
+      this.form.style.opacity = 0;
+      this.form.style.height = '0px';
+    });
+    setTimeout(() => {
+      this.form.style.display = 'none';
+      this.done.style.display = 'block';
+      requestAnimationFrame(() => {
+        this.doneLines.forEach((el, i) => {
+          el.style.transition = 'transform .82s cubic-bezier(.16,1,.3,1) ' + (i * 0.09) + 's';
+          el.style.transform = 'translateY(0)';
+        });
+        this.doneNote.style.transition = 'opacity .6s ease .34s, transform .7s cubic-bezier(.16,1,.3,1) .34s';
+        this.doneNote.style.opacity = 1;
+        this.doneNote.style.transform = 'translateY(0)';
+      });
+    }, 640);
+  }
+
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

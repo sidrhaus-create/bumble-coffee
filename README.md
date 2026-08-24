@@ -11,25 +11,60 @@ preloaded; every below-the-fold image is `loading="lazy" decoding="async"` with 
 `width`/`height`, and the master page warms the next section's images one and a half
 screens ahead via IntersectionObserver.
 
+## Локальный запуск
+
+Сайт **обязательно открывать по http**, а не двойным кликом по `index.html`:
+секции подгружаются страницей во время работы, и браузер блокирует это на `file://`.
+Картинки при этом не «теряются» — все пути относительные; без сервера просто не
+соберётся сама страница.
+
+* **macOS** — двойной клик по `start-local.command`
+* **Windows** — двойной клик по `start-local.bat`
+* **VS Code / Cursor** — расширение **Live Server** → правый клик по `index.html` →
+  *Open with Live Server*
+* **Любая консоль** — `npx serve .` или `python3 -m http.server 5173`
+
+Затем открыть `http://localhost:5173/index.html`.
+
+## Изменения этой сборки (мобильная версия)
+
+1. **«ТВОЙ РИТМ. / ТВОЙ BUMBLE.»** — ровно две строки на телефоне. Строки заданы
+   `white-space: nowrap`, кегль измеряется и подгоняется под колонку (97 % ширины),
+   поэтому третья строка не появляется ни на 375, ни на 390/393/430 px.
+   Пересчёт — при resize и после загрузки шрифтов.
+2. **Шапка** — фирменный знак всегда целиком: феникс + надпись BLACK PHOENIX.
+   Логотип — один неразрывный flex-блок (`flex:0 0 auto`), масштабируется
+   (феникс `clamp(26–34px)`, надпись `clamp(82–132px)`); шапка `position:fixed`,
+   бургер справа, скролл-анимации её не трогают.
+3. **Банка больше не дрожит.** Все трансформации банки идут через единственную
+   функцию `canPaint()`. Кадры от скролла пишутся без CSS-перехода (прежний
+   `.78s` ease, догонявший цель каждый кадр, и давал тряску); плавность включается
+   только на дискретных событиях — выбор режима, отпускание банки после drag.
+   Используются `translate3d`, `will-change: transform`, `backface-visibility: hidden`
+   и субпиксельное чтение скролла.
+
 ## Contents
 
 ```
 tilda-build/
-  index.html                  ← MAIN ENTRY POINT (the whole site, hero → footer)
-  bumble.js                   ← rendering runtime (required, loaded by index.html)
-  Bumble Flavor Keys.dc.html  ← section 01–02  hero / flavour lineup
-  Bumble Inside.dc.html       ← section 03     что внутри
-  Bumble Robusta.dc.html      ← section 04     robusta parallax
-  Bumble Rhythm.dc.html       ← section 05     work / study / drive / gym
-  Bumble Buy.dc.html          ← section 06     где купить
-  Bumble Partners.dc.html     ← section 07     партнёрам
-  assets/
-    cans/        6 can renders (webp, 620×1695)
-    scenes/      4 rhythm scenes (webp)
-    robusta/     7 parallax layers + lids (webp)
-    fonts/       8 Unbounded woff2 (latin + cyrillic, 400/600/700/800)
+  index.html                  ← ГЛАВНАЯ СТРАНИЦА (весь сайт: hero → футер)
+  bumble.js                   ← рантайм рендеринга (обязателен, грузится из index.html)
+  Bumble Flavor Keys.html     ← секция 01–02  hero / линейка вкусов
+  Bumble Inside.html          ← секция 03     что внутри
+  Bumble Robusta.html         ← секция 04     robusta parallax
+  Bumble Rhythm.html          ← секция 05     work / study / drive / gym
+  Bumble Buy.html             ← секция 06     где купить
+  Bumble Partners.html        ← секция 07     партнёрам
+  assets/                     ← ВСЕ изображения, шрифты и SVG (28 файлов, 1.8 МБ)
+    cans/       6 банок (webp, 620×1695) — orange, cherry, lime, berry, mango, cola
+    scenes/     4 сцены ритма (webp) — work, study, drive, gym
+    robusta/    7 слоёв параллакса + крышки (webp)
+    fonts/      8 Unbounded woff2 (latin + cyrillic, 400/600/700/800)
     phoenix.svg, black-phoenix-wordmark.svg, bumble-script.svg
-  tilda-embed.html            ← snippet to paste into Tilda's T123 HTML block
+  api/                        ← не используется, см. api/README.md
+  tilda-embed.html            ← код для блока T123 «HTML-код» в Tilda
+  start-local.command         ← локальный запуск, macOS (двойной клик)
+  start-local.bat             ← локальный запуск, Windows (двойной клик)
   README.md
 ```
 
@@ -42,7 +77,7 @@ All images live in `assets/` — that folder is the `/images` equivalent.
 1. Upload the **entire `tilda-build` folder** to any static host over **HTTPS**
    (Netlify, Vercel, Cloudflare Pages, timeweb, nginx, S3+CloudFront…).
    Keep the folder structure exactly as-is — `index.html`, `bumble.js` and the six
-   `.dc.html` section files must stay side by side in the same directory, and
+   `Bumble ….html` section files must stay side by side in the same directory, and
    `assets/` must stay directly beneath them. All paths are relative, so the build
    works from a domain root or from any subfolder.
 2. Open `https://your-host/…/index.html` and check the scroll once. That is the
@@ -51,10 +86,12 @@ All images live in `assets/` — that folder is the `/images` equivalent.
    `tilda-embed.html`, replacing the placeholder URL with your hosted `index.html`.
 
 ### Important
+* Папка `api/` оставлена, но сайтом не используется: форма «ПАРТНЁРАМ» передаёт
+  заявку родительской странице Tilda через `postMessage` (см. ниже и `api/README.md`).
 * Must be served over **http(s)**, not opened as a `file://` document — the sections
   are loaded at runtime by the page and browsers block that on `file://`.
 * The server must send `.woff2` and `.png` with normal static MIME types (default
-  everywhere) and allow the six `.dc.html` files to be served as `text/html`.
+  everywhere) and allow the six `Bumble ….html` files to be served as `text/html`.
 * Serve the whole build from **one origin** (no cross-domain split), otherwise the
   section fetches need CORS headers.
 

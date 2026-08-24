@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-400.woff2) format('woff2');font-weight:400;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-700.woff2) format('woff2');font-weight:700;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-800.woff2) format('woff2');font-weight:800;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-800.woff2) format('woff2');font-weight:800;font-display:swap}
+@keyframes bmRoad{from{transform:translateX(0)}to{transform:translateX(-25%)}}
+@keyframes bmCursorBlink{0%,45%{opacity:1}50%,95%{opacity:.15}100%{opacity:1}}
+@keyframes bmCursorMove{0%{transform:translate(0,0)}22%{transform:translate(120px,-34px)}48%{transform:translate(212px,26px)}72%{transform:translate(74px,52px)}100%{transform:translate(0,0)}}
+@keyframes bmBarGrow{0%,100%{transform:scaleX(.5)}50%{transform:scaleX(1)}}
+@keyframes bmPlay{0%{transform:translateX(0)}100%{transform:translateX(232px)}}
+@keyframes bmWrite{0%,8%{stroke-dashoffset:1}46%,100%{stroke-dashoffset:0}}
+@keyframes bmTicks{0%,100%{transform:scaleY(.68)}50%{transform:scaleY(1)}}
+@keyframes bmRoll{to{transform:translateY(-325px)}}
+@keyframes bmPlate{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes bmSkySlow{0%,100%{transform:translateX(0)}50%{transform:translateX(-16px)}}
+@keyframes bmShift{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes bmFruitA{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(2deg)}}
+@keyframes bmFruitB{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(11px) rotate(-2.5deg)}}
+@keyframes bmFruitC{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.06);opacity:.75}}
+@keyframes bmRise{0%{transform:translateY(0);opacity:0}18%{opacity:.7}100%{transform:translateY(-190px);opacity:0}}
+@keyframes bmTitleRule{0%{transform:scaleX(0)}26%,74%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+@keyframes bmRoadV{from{transform:translateY(0)}to{transform:translateY(25%)}}
+@keyframes bmFlipR{0%,52%{transform:scaleX(1);opacity:.5}74%,100%{transform:scaleX(.04);opacity:0}}
+@keyframes bmFlipL{0%,56%{transform:scaleX(.04);opacity:0}78%,100%{transform:scaleX(1);opacity:.45}}
+@keyframes bmFlicker{0%,100%{opacity:.26}7%{opacity:.1}11%{opacity:.3}44%{opacity:.18}49%{opacity:.32}68%{opacity:.13}72%{opacity:.28}}
+@keyframes bmFlowV{to{stroke-dashoffset:-34}}
+@keyframes bmGymPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes bmSway{0%,100%{transform:rotate(-1.8deg)}50%{transform:rotate(1.8deg)}}
+@keyframes bmSteam{0%{opacity:0;transform:translateY(3px)}30%{opacity:.65}100%{opacity:0;transform:translateY(-12px)}}
+@keyframes bmBlink{0%,45%{opacity:1}50%,95%{opacity:.08}100%{opacity:1}}
+@keyframes bmUi{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.82)}}
+@keyframes bmLamp{0%,100%{transform:rotate(-1.3deg)}50%{transform:rotate(1.3deg)}}
+@keyframes bmGlow{0%,100%{opacity:.16}50%{opacity:.34}}
+@keyframes bmPage{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-2deg)}}
+@keyframes bmFlow{to{stroke-dashoffset:-28}}
+@keyframes bmBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes bmSpin{to{transform:rotate(360deg)}}
+@keyframes bmRepBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes bmPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes bmSky{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+@keyframes bmDrift{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes bmIlluWork{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes bmIlluStudy{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-3px) rotate(.4deg)}}
+@keyframes bmIlluDrive{0%,100%{transform:translateX(0)}50%{transform:translateX(-8px)}}
+@keyframes bmIlluGym{0%,100%{transform:scale(1)}50%{transform:scale(1.016)}}
+@keyframes bmRep{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+@keyframes bmHintL{0%{opacity:0;transform:translateX(calc(-50% - 16px))}20%{opacity:.55}100%{opacity:0;transform:translateX(calc(-50% - 64px))}}
+@keyframes bmHintR{0%{opacity:0;transform:translateX(calc(-50% + 16px))}20%{opacity:.55}100%{opacity:0;transform:translateX(calc(-50% + 64px))}}
+</style>
+</helmet>
+
+<div style="font-family:Unbounded,system-ui,sans-serif;color:#14100E;background:#FAEED4">
+  <div data-rhythm-scroll style="position:relative;height:260vh">
+    <div data-rhythm data-screen-label="Rhythm · when to drink" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#FAEED4">
+
+      <div data-open style="position:absolute;left:5.4%;top:16%;z-index:6;will-change:transform,opacity">
+        <div data-open-in style="transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1);will-change:opacity,transform">
+          <div style="overflow:hidden"><div style="font-size:5.6vw;font-weight:800;line-height:1;letter-spacing:-.035em">ТВОЙ РИТМ.</div></div>
+          <div style="overflow:hidden"><div style="font-size:5.6vw;font-weight:800;line-height:1;letter-spacing:-.035em">ТВОЙ BUMBLE.</div></div>
+        </div>
+      </div>
+
+      <div data-zones style="position:absolute;inset:0;display:flex;z-index:3;opacity:0;will-change:opacity">
+
+        <div data-zone="0" style="position:relative;flex:0 0 25%;height:100%;overflow:hidden;cursor:pointer;transition:flex-basis .74s cubic-bezier(.16,1,.3,1),background .6s ease">
+          <div data-illu style="position:absolute;left:8%;top:24%;height:39%;z-index:2;opacity:0;transition:opacity .4s ease">
+            <div style="position:relative;height:100%;display:inline-block;animation:bmDrift 9s ease-in-out infinite">
+              <img loading="lazy" decoding="async" width="393" height="430" data-sweep src="assets/scenes/work.webp" alt="" style="display:block;height:100%;width:auto;opacity:.8;mask-image:linear-gradient(90deg,#000 0 34%,rgba(0,0,0,0) 47%);mask-size:300% 100%;mask-repeat:no-repeat;mask-position:100% 0;transition:mask-position 1.25s cubic-bezier(.3,.75,.2,1)"/>
+              <div data-fade data-op="1" style="position:absolute;inset:0;opacity:0;transition:opacity .6s ease .55s">
+                <svg viewBox="0 0 393 430" style="position:absolute;inset:0;width:100%;height:100%"><g style="transform-box:fill-box;transform-origin:left center;animation:bmBarGrow 4.6s ease-in-out infinite"><line x1="174" y1="210" x2="220" y2="210" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.6;opacity:.45"/></g>
+     <g style="transform-box:fill-box;transform-origin:left center;animation:bmBarGrow 4.6s ease-in-out .55s infinite"><line x1="174" y1="218" x2="238" y2="218" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.6;opacity:.45"/></g>
+     <g style="transform-box:fill-box;transform-origin:left center;animation:bmBarGrow 4.6s ease-in-out 1.1s infinite"><line x1="174" y1="226" x2="208" y2="226" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.6;opacity:.45"/></g>
+     <g style="animation:bmBlink 1.5s steps(1,end) infinite"><line x1="232" y1="230" x2="232" y2="240" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.5;opacity:.7"/></g>
+     <ellipse cx="103" cy="256" rx="40" ry="6" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1;opacity:.2;animation:bmGlow 6s ease-in-out infinite"/></svg>
+              </div>
+            </div>
+          </div>
+          <div data-graphic style="position:absolute;inset:0;opacity:0;transition:opacity .6s ease;background-image:linear-gradient(rgba(20,16,14,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(20,16,14,.07) 1px,transparent 1px);background-size:64px 64px"></div>
+          <div data-graphic2 style="position:absolute;left:8%;top:44%;z-index:2;opacity:0;transition:opacity .6s ease">
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:2px;height:22px;background:#14100E;animation:bmCursorBlink 1.6s steps(1,end) infinite"></div>
+              <div style="font-size:.72vw;font-weight:700;letter-spacing:.26em;opacity:.6">09:41 → 18:00</div>
+            </div>
+            <div data-accent style="margin-top:16px;width:9vw;height:2px;background:#F23904"></div>
+          </div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">WORK</div>
+          <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">01</div>
+          <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">WORK</div>
+          <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
+            <div style="overflow:hidden"><div data-line style="font-size:2.1vw;font-weight:800;letter-spacing:-.02em;line-height:1.12;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1)">КОГДА НУЖЕН ФОКУС.</div></div>
+            <div style="overflow:hidden;margin-top:14px"><div data-line style="font-size:.76vw;font-weight:700;letter-spacing:.3em;opacity:.6;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1) 70ms">ОТКРЫЛ — И В ДЕЛЕ.</div></div>
+          </div>
+        </div>
+
+        <div data-zone="1" style="position:relative;flex:0 0 25%;height:100%;overflow:hidden;cursor:pointer;border-left:1px solid rgba(20,16,14,.16);transition:flex-basis .74s cubic-bezier(.16,1,.3,1),background .6s ease">
+          <div data-graphic style="position:absolute;left:0;right:0;top:6%;height:62%;opacity:0;transition:opacity .6s ease;background-image:linear-gradient(rgba(20,16,14,.09) 1px,transparent 1px);background-size:100% 38px"></div>
+          <div data-illu style="position:absolute;left:8%;top:24%;height:39%;z-index:2;opacity:0;transition:opacity .4s ease">
+            <div style="position:relative;height:100%;display:inline-block;animation:bmDrift 11s ease-in-out infinite">
+              <img loading="lazy" decoding="async" width="359" height="430" data-sweep src="assets/scenes/study.webp" alt="" style="display:block;height:100%;width:auto;opacity:.8;mask-image:linear-gradient(90deg,#000 0 34%,rgba(0,0,0,0) 47%);mask-size:300% 100%;mask-repeat:no-repeat;mask-position:100% 0;transition:mask-position 1.25s cubic-bezier(.3,.75,.2,1)"/>
+              <div data-fade data-op="1" style="position:absolute;inset:0;opacity:0;transition:opacity .6s ease .55s">
+                <svg viewBox="0 0 359 430" style="position:absolute;inset:0;width:100%;height:100%"><line x1="122" y1="244" x2="206" y2="244" pathLength="1" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.5;opacity:.4;stroke-dasharray:1;stroke-dashoffset:1;animation:bmWrite 8s ease-in-out infinite"/>
+     <line x1="128" y1="236" x2="176" y2="236" pathLength="1" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.2;opacity:.3;stroke-dasharray:1;stroke-dashoffset:1;animation:bmWrite 8s ease-in-out 3.2s infinite"/>
+     <ellipse cx="282" cy="256" rx="54" ry="7" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1;animation:bmGlow 5.5s ease-in-out infinite"/></svg>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">STUDY</div>
+          <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">02</div>
+          <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">STUDY<div style="margin-top:.12em;height:2px;background:#14100E;transform-origin:left center;animation:bmTitleRule 4.6s cubic-bezier(.16,1,.3,1) infinite"></div></div>
+          <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
+            <div style="overflow:hidden"><div data-line style="font-size:2.1vw;font-weight:800;letter-spacing:-.02em;line-height:1.12;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1)">ПАРЫ.</div></div>
+            <div style="overflow:hidden"><div data-line style="font-size:2.1vw;font-weight:800;letter-spacing:-.02em;line-height:1.12;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1) 60ms">ДЕДЛАЙНЫ.</div></div>
+            <div style="overflow:hidden"><div data-line style="font-size:2.1vw;font-weight:800;letter-spacing:-.02em;line-height:1.12;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1) 120ms">СЕССИЯ.</div></div>
+            <div style="overflow:hidden;margin-top:14px"><div data-line style="font-size:.76vw;font-weight:700;letter-spacing:.3em;opacity:.6;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1) 180ms">НЕ ТОРМОЗИ НА ВАЖНОМ.</div></div>
+          </div>
+        </div>
+
+        <div data-zone="2" style="position:relative;flex:0 0 25%;height:100%;overflow:hidden;cursor:pointer;border-left:1px solid rgba(20,16,14,.16);transition:flex-basis .74s cubic-bezier(.16,1,.3,1),background .6s ease">
+          <div data-illu style="position:absolute;left:8%;top:24%;height:39%;z-index:2;opacity:0;transition:opacity .4s ease">
+            <div style="position:relative;height:100%;display:inline-block;animation:bmDrift 8s ease-in-out infinite">
+              <img loading="lazy" decoding="async" width="398" height="430" data-sweep src="assets/scenes/drive.webp" alt="" style="display:block;height:100%;width:auto;opacity:.8;mask-image:linear-gradient(90deg,#000 0 34%,rgba(0,0,0,0) 47%);mask-size:300% 100%;mask-repeat:no-repeat;mask-position:100% 0;transition:mask-position 1.25s cubic-bezier(.3,.75,.2,1)"/>
+              <div data-fade data-op="1" style="position:absolute;inset:0;opacity:0;transition:opacity .6s ease .55s">
+                <svg viewBox="0 0 398 430" style="position:absolute;inset:0;width:100%;height:100%">
+     <line x1="120" y1="392" x2="120" y2="430" style="fill:none;stroke:#2A2620;stroke-linecap:butt;stroke-width:2;opacity:.3;stroke-dasharray:18 16;animation:bmFlowV 1.1s linear infinite"/>
+     <line x1="196" y1="384" x2="196" y2="430" style="fill:none;stroke:#2A2620;stroke-linecap:butt;stroke-width:2.4;opacity:.34;stroke-dasharray:20 14;animation:bmFlowV .85s linear infinite"/>
+     <line x1="272" y1="392" x2="272" y2="430" style="fill:none;stroke:#2A2620;stroke-linecap:butt;stroke-width:2;opacity:.3;stroke-dasharray:18 16;animation:bmFlowV 1.1s linear infinite"/>
+     <ellipse cx="74" cy="268" rx="26" ry="8" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1;opacity:.2;animation:bmGlow 3.8s ease-in-out infinite"/>
+     <ellipse cx="318" cy="268" rx="26" ry="8" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1;opacity:.2;animation:bmGlow 3.8s ease-in-out .4s infinite"/></svg>
+              </div>
+            </div>
+          </div>
+          <div data-graphic style="position:absolute;left:15%;top:14%;bottom:6%;width:2px;opacity:0;transition:opacity .6s ease;overflow:hidden">
+            <div style="width:100%;height:400%;background:repeating-linear-gradient(180deg,#14100E 0 46px,transparent 46px 112px);opacity:.42;animation:bmRoadV 1.5s linear infinite"></div>
+          </div>
+          <div data-graphic2 style="position:absolute;left:31%;top:20%;bottom:6%;width:2px;opacity:0;transition:opacity .6s ease;overflow:hidden">
+            <div style="width:100%;height:400%;background:repeating-linear-gradient(180deg,#14100E 0 26px,transparent 26px 98px);opacity:.24;animation:bmRoadV 2.4s linear infinite"></div>
+          </div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">DRIVE</div>
+          <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">03</div>
+          <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">DRIVE</div>
+          <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
+            <div style="overflow:hidden"><div data-line style="font-size:2.1vw;font-weight:800;letter-spacing:-.02em;line-height:1.12;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1)">ЗАРЯД В ДОРОГУ.</div></div>
+            <div style="overflow:hidden;margin-top:14px"><div data-line style="font-size:.76vw;font-weight:700;letter-spacing:.3em;opacity:.6;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1) 70ms">ОТКРЫЛ — ГОТОВО.</div></div>
+          </div>
+        </div>
+
+        <div data-zone="3" style="position:relative;flex:0 0 25%;height:100%;overflow:hidden;cursor:pointer;border-left:1px solid rgba(20,16,14,.16);transition:flex-basis .74s cubic-bezier(.16,1,.3,1),background .6s ease">
+          <div data-illu style="position:absolute;left:8%;top:24%;height:39%;z-index:2;opacity:0;transition:opacity .4s ease">
+            <div style="position:relative;height:100%;display:inline-block;animation:bmGymPulse 2.6s ease-in-out infinite">
+              <img loading="lazy" decoding="async" width="398" height="430" data-sweep src="assets/scenes/gym.webp" alt="" style="display:block;height:100%;width:auto;opacity:.8;mask-image:linear-gradient(90deg,#000 0 34%,rgba(0,0,0,0) 47%);mask-size:300% 100%;mask-repeat:no-repeat;mask-position:100% 0;transition:mask-position 1.25s cubic-bezier(.3,.75,.2,1)"/>
+              <div data-fade data-op="1" style="position:absolute;inset:0;opacity:0;transition:opacity .6s ease .55s">
+                <svg viewBox="0 0 398 430" style="position:absolute;inset:0;width:100%;height:100%"><g style="transform-box:fill-box;transform-origin:bottom center;animation:bmTicks 2.6s ease-in-out infinite"><path d="M34,404 L34,382 M84,404 L84,372 M134,404 L134,392 M184,404 L184,378" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.2;opacity:.38"/></g>
+     <line x1="20" y1="196" x2="62" y2="196" pathLength="1" style="fill:none;stroke:#2A2620;stroke-linecap:round;stroke-width:1.4;opacity:.32;stroke-dasharray:1;stroke-dashoffset:1;animation:bmWrite 6s ease-in-out infinite"/>
+     <text x="286" y="60" style="font-family:Unbounded,sans-serif;font-weight:700;font-size:13px;letter-spacing:.22em;fill:#2A2620;stroke:none;opacity:.32">SET 03</text></svg>
+              </div>
+            </div>
+          </div>
+          <div data-graphic style="position:absolute;inset:0;opacity:0;transition:opacity .6s ease;background-image:linear-gradient(90deg,rgba(20,16,14,.1) 1px,transparent 1px);background-size:28px 100%"></div>
+          <div data-graphic2 style="position:absolute;left:8%;top:22%;height:34%;overflow:hidden;opacity:0;transition:opacity .6s ease">
+            <div style="animation:bmRep 5s linear infinite">
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">08</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">09</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">10</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">11</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">08</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">09</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">10</div>
+              <div style="font-size:4.4vw;font-weight:800;line-height:1.05;opacity:.16">11</div>
+            </div>
+          </div>
+          <div data-vtitle style="position:absolute;left:50%;bottom:9%;padding:9px 13px;transform-origin:50% 50%;white-space:nowrap;font-size:1.5vw;font-weight:800;letter-spacing:.02em;cursor:pointer;transition:opacity .45s ease">GYM</div>
+          <div data-index style="position:absolute;left:9%;top:clamp(24px,3.4%,40px);font-size:.7vw;font-weight:700;letter-spacing:.24em;opacity:.45;will-change:transform,opacity">04</div>
+          <div data-htitle style="position:absolute;left:8%;top:calc(clamp(24px,3.4%,40px) + 5.2%);z-index:3;font-size:6.4vw;font-weight:800;letter-spacing:-.04em;line-height:1;opacity:0;transition:opacity .5s ease">GYM</div>
+          <div data-copy style="position:absolute;left:8%;bottom:11%;z-index:3;width:54%">
+            <div style="overflow:hidden"><div data-line style="font-size:2.1vw;font-weight:800;letter-spacing:-.02em;line-height:1.12;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1)">ПЕРЕД СЛЕДУЮЩИМ ПОДХОДОМ.</div></div>
+            <div style="overflow:hidden;margin-top:14px"><div data-line data-accenttext style="font-size:.76vw;font-weight:700;letter-spacing:.3em;color:#F23904;transform:translateY(115%);transition:transform .6s cubic-bezier(.16,1,.3,1) 70ms">БОДРИТ БЕЗ ЛИШНЕГО.</div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div data-can style="position:absolute;left:50%;top:56%;height:52vh;width:20vh;z-index:5;cursor:grab;touch-action:none;will-change:transform;backface-visibility:hidden;transform:translate3d(0,0,0)">
+        <img loading="lazy" decoding="async" width="620" height="1695" data-c0 src="assets/cans/orange.webp" alt="Bumble Coffee Orange" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;transform:translateX(-50%);transition:opacity .5s ease"/>
+        <img loading="lazy" decoding="async" width="620" height="1695" data-c1 src="assets/cans/cherry.webp" alt="Bumble Coffee Cherry" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+        <img loading="lazy" decoding="async" width="620" height="1695" data-c2 src="assets/cans/pomegranate.webp" alt="Bumble Coffee Pomegranate" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+        <img loading="lazy" decoding="async" width="620" height="1695" data-c3 src="assets/cans/raspberry.webp" alt="Bumble Coffee Raspberry" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+        <img loading="lazy" decoding="async" width="620" height="1695" data-c4 src="assets/cans/zero-cola.webp" alt="Bumble Coffee Zero Cola" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+        <img loading="lazy" decoding="async" width="620" height="1695" data-c5 src="assets/cans/wild-berries.webp" alt="Bumble Coffee Wild Berries" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+      </div>
+
+      <div data-rail style="position:absolute;left:5.4%;right:5.4%;bottom:6.4%;z-index:6;opacity:0;transition:opacity .7s ease;pointer-events:none">
+        <div style="position:relative;height:1px;background:rgba(20,16,14,.16)">
+          <div style="position:absolute;left:7.96%;top:-3px;width:1px;height:7px;background:rgba(20,16,14,.26)"></div>
+          <div style="position:absolute;left:35.99%;top:-3px;width:1px;height:7px;background:rgba(20,16,14,.26)"></div>
+          <div style="position:absolute;left:64.01%;top:-3px;width:1px;height:7px;background:rgba(20,16,14,.26)"></div>
+          <div style="position:absolute;left:92.04%;top:-3px;width:1px;height:7px;background:rgba(20,16,14,.26)"></div>
+          <div data-marker data-accent style="position:absolute;left:50%;top:-2px;width:30px;height:5px;transform:translateX(-50%);background:#F23904"></div>
+          <div data-arrow-l style="position:absolute;left:50%;top:-5px;opacity:0;transform:translateX(-50%)">
+            <svg width="17" height="11" viewBox="0 0 17 11" style="display:block"><path d="M6,1.5 L1.4,5.5 L6,9.5 M1.6,5.5 L16,5.5" style="fill:none;stroke:#14100E;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round"/></svg>
+          </div>
+          <div data-arrow-r style="position:absolute;left:50%;top:-5px;opacity:0;transform:translateX(-50%)">
+            <svg width="17" height="11" viewBox="0 0 17 11" style="display:block"><path d="M11,1.5 L15.6,5.5 L11,9.5 M15.4,5.5 L1,5.5" style="fill:none;stroke:#14100E;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div data-modes style="display:none;position:absolute;left:5.4%;right:5.4%;bottom:9%;z-index:7;grid-template-columns:repeat(4,1fr);gap:6px;opacity:0;transition:opacity .5s ease">
+        <button data-mode="0" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">WORK</button>
+        <button data-mode="1" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">STUDY</button>
+        <button data-mode="2" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">DRIVE</button>
+        <button data-mode="3" type="button" style="min-height:44px;padding:4px 2px;background:none;border:1px solid rgba(20,16,14,.22);border-radius:3px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.12em;color:#14100E;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease">GYM</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;zoneWidth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:58,&quot;min&quot;:45,&quot;max&quot;:70,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Interaction&quot;}}">
+const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
+const RU = ['АПЕЛЬСИН','ВИШНЯ','ГРАНАТ','МАЛИНА','КОЛА','ЛЕСНЫЕ ЯГОДЫ'];
+const EN = ['ORANGE','CHERRY','POMEGRANATE','RASPBERRY','ZERO COLA','WILD BERRIES'];
+
+
+class Component extends DCLogic {
+  componentDidMount(){ this.mount(); }
+  componentDidUpdate(){ this.mount(); }
+
+  mount(){
+    const stage = document.querySelector('[data-rhythm]');
+    if (!stage) return;
+    this.stage = stage;
+    this.scroller = document.querySelector('[data-rhythm-scroll]');
+    this.zonesWrap = stage.querySelector('[data-zones]');
+    this.zones = Array.from(stage.querySelectorAll('[data-zone]'));
+    /* a remount hands us a BRAND-NEW node whose inline transform is the neutral
+       translate3d(0,0,0) — the paint cache from the previous node must not
+       suppress the first write, or the can renders un-posed until the next scroll */
+    if (this.canWrap !== stage.querySelector('[data-can]')){ this.canLast = null; this.canEase = undefined; }
+    this.canWrap = stage.querySelector('[data-can]');
+    this.cans = [0,1,2,3,4,5].map(i => stage.querySelector('[data-c' + i + ']'));
+    this.open = stage.querySelector('[data-open]');
+    this.openIn = stage.querySelector('[data-open-in]');
+    this.headLines = Array.from(stage.querySelectorAll('[data-open-in] > div > div'));
+    this.flavorLayer = stage.querySelector('[data-flavor]');
+    this.flavorSets = Array.from(stage.querySelectorAll('[data-fl]'));
+    this.rail = stage.querySelector('[data-rail]');
+    this.marker = stage.querySelector('[data-marker]');
+    this.arrowL = stage.querySelector('[data-arrow-l]');
+    this.arrowR = stage.querySelector('[data-arrow-r]');
+    this.modes = stage.querySelector('[data-modes]');
+    this.modeBtns = Array.from(stage.querySelectorAll('[data-mode]'));
+    this.indices = Array.from(stage.querySelectorAll('[data-index]'));
+    if (this.active === undefined || !stage.dataset.wired) this.active = null;
+    this.p = 0;
+
+    this.flavor = undefined;   /* fresh DOM: re-apply the can and colours */
+    this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
+    this.layout();
+
+    /* node-level listeners are marked on the stage: a remount re-wires the new
+       nodes instead of leaving the scene inert */
+    /* window-level listeners are re-asserted on EVERY mount: the master remounts
+       imported sections, and a flag that outlives the removed listener would leave
+       this scene frozen at whatever opacity it held when it was torn down */
+    if (!this.onScroll) this.onScroll = () => this.apply();
+    window.removeEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    if (!this.onResize){
+      this.onResize = () => { this.layout(); this.apply(); };
+      window.addEventListener('resize', this.onResize);
+    }
+    if (!this.fontsHooked && document.fonts && document.fonts.ready){
+      this.fontsHooked = true;
+      document.fonts.ready.then(() => this.fitHead());
+    }
+    if (!this.onFlavorEvt){
+      this.onFlavorEvt = e => this.setFlavor(e.detail.index);
+      document.addEventListener('bumble:flavor', this.onFlavorEvt);
+    }
+
+    if (!stage.dataset.wired){
+      stage.dataset.wired = '1';
+      this.zones.forEach((z, i) => {
+        /* the closed state has to survive a stray mouse move: on desktop a mode
+           opens from its own label (hover) or from a click anywhere in its column */
+        const label = z.querySelector('[data-vtitle]');
+        if (label) label.addEventListener('pointerenter', () => { if (!this.deck) this.activate(i); });
+        z.addEventListener('pointerdown', () => { if (!this.deck) this.activate(i); });
+      });
+      this.modeBtns.forEach((b, i) => b.addEventListener('click', e => {
+        e.preventDefault();
+        this.noteInteraction();
+        this.activate(i);
+      }));
+      /* phones switch mode with a horizontal swipe anywhere in the scene —
+         vertical gestures still scroll the page */
+      this.stage.addEventListener('pointerdown', e => {
+        if (!this.deck || (e.target.closest && e.target.closest('[data-mode]'))) return;
+        this.swX = e.clientX; this.swY = e.clientY; this.swOn = true;
+      });
+      this.stage.addEventListener('pointerup', e => {
+        if (!this.swOn) return;
+        this.swOn = false;
+        const dx = e.clientX - this.swX, dy = e.clientY - this.swY;
+        if (Math.abs(dx) < 44 || Math.abs(dx) < Math.abs(dy)) return;
+        this.noteInteraction();
+        const cur = this.active === null ? 0 : this.active;
+        this.activate(Math.max(0, Math.min(3, cur + (dx < 0 ? 1 : -1))));
+      });
+      this.stage.addEventListener('pointermove', e => {
+        const b = this.stage.getBoundingClientRect();
+        this.mx = (e.clientX - b.left) / b.width - 0.5;
+        this.my = (e.clientY - b.top) / b.height - 0.5;
+        if (!this.dragging) this.applyParallax();
+      });
+      this.stage.addEventListener('pointerleave', () => { this.mx = 0; this.my = 0; this.applyParallax(); });
+      this.canWrap.addEventListener('pointerdown', e => {
+        if (this.p > 0.985) return;
+        e.preventDefault();
+        this.dragging = true;
+        this.dragX = e.clientX;
+        this.dragMoved = 0;
+        this.pauseDemo();
+        this.dragBase = this.lastDx || 0;
+        this.easeUntil = 0;
+        this.canWrap.style.cursor = 'grabbing';
+      });
+      document.addEventListener('pointermove', e => {
+        if (!this.dragging) return;
+        const dx = this.dragBase + (e.clientX - this.dragX);
+        this.dragMoved = Math.max(this.dragMoved || 0, Math.abs(e.clientX - this.dragX));
+        this.canPaint(dx, this.lastDy || 0, this.lastScale || 1);
+        if (this.deck) return;
+        const over = this.zones.findIndex(z => {
+          const b = z.getBoundingClientRect();
+          return this.vertical ? (e.clientY >= b.top && e.clientY <= b.bottom)
+                               : (e.clientX >= b.left && e.clientX <= b.right);
+        });
+        if (over > -1) this.activate(over);
+      });
+      document.addEventListener('pointerup', () => {
+        if (!this.dragging) return;
+        this.dragging = false;
+        this.easeCan();
+        this.canWrap.style.cursor = 'grab';
+        if ((this.dragMoved || 0) > 22) this.noteInteraction();
+        this.apply();
+      });
+    }
+    if (!this.mRaf && !this.rebinding) this.tickMarker();
+    this.apply();
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.onScroll);
+    this.wired = false;
+    if (this.mRaf){ cancelAnimationFrame(this.mRaf); this.mRaf = null; }
+    this.pauseDemo();
+  }
+
+  /* the flavor marker mirrors the can's real horizontal position, frame by frame */
+  /* the one instance that owns the live DOM: everything else is a leftover */
+  alive(){
+    return !!(this.stage && this.stage.isConnected && this.scroller && this.scroller.isConnected
+              && this.open && this.open.isConnected);
+  }
+
+  tickMarker(){
+    /* the loop is never allowed to die: it is what keeps the scene honest */
+    this.mRaf = requestAnimationFrame(() => this.tickMarker());
+    /* the master remounts imported sections and can hand an instance a mix of
+       live and detached refs — so re-bind to whatever is in the document now
+       instead of painting nodes nobody can see */
+    const live = document.querySelector('[data-rhythm]');
+    if (!live) return;
+    if (live !== this.stage || !this.alive()){
+      if (this.rebinding) return;
+      this.rebinding = true;
+      this.mount();
+      this.rebinding = false;
+      return;
+    }
+    /* the panel is driven from the frame loop as well as from scroll events: an
+       imported section can be remounted at any time, and one extra rect read per
+       frame is cheaper than a scene frozen mid-transition */
+    if (this.scroller){
+      const top = this.scroller.getBoundingClientRect().top;
+      if (this.lastTop === undefined || Math.abs(top - this.lastTop) > 0.05){ this.lastTop = top; this.apply(); }
+    }
+    this.paintHead();
+    /* an open mode survives the master's remounts — but nothing is ever opened
+       on the reader's behalf */
+    if (this.deck && this.active !== null){
+      const z = this.zones[this.active];
+      if (z && z.style.opacity !== '1') this.applyZones();
+    }
+    if (!this.rail || !this.canWrap || this.rail.style.opacity === '0') return;
+    const b = this.canWrap.getBoundingClientRect(), st = this.stage.getBoundingClientRect();
+    if (!st.width) return;
+    const pct = ((b.left + b.width / 2) - st.left) / st.width * 100;
+    const rel = Math.max(0, Math.min(100, (Math.max(5.4, Math.min(94.6, pct)) - 5.4) / 89.2 * 100)).toFixed(2) + '%';
+    this.marker.style.left = rel;
+    this.arrowL.style.left = rel;
+    this.arrowR.style.left = rel;
+  }
+
+  /* Two layers, two jobs: the outer block carries the scroll-driven entrance
+     (written every frame, so it must not transition), the inner one carries the
+     open/closed state as a plain CSS transition — the statement steps aside the
+     moment a mode opens and comes back when the section is closed again. */
+  paintHead(){
+    /* a remounted section leaves the previous instance behind, and React can hand
+       it a MIX of live and detached refs — such an instance must never paint, and
+       nothing is painted before apply() has produced a real value */
+    if (!this.alive() || this.headBase === undefined) return;
+    /* phones: the statement is the section's FIRST state and dissolves into the
+       mode deck over a short scroll beat */
+    if (this.deck){
+      const it = this.introT || 0;
+      this.open.style.opacity = (this.headBase * (1 - it)).toFixed(3);
+      this.open.style.transform = 'translateY(' + (this.headY - it * 34).toFixed(1) + 'px)';
+      this.open.style.pointerEvents = 'none';
+      return;
+    }
+    this.open.style.opacity = this.headBase.toFixed(3);
+    this.open.style.transform = 'translateY(' + this.headY.toFixed(1) + 'px)';
+    const closed = this.active === null;
+    if (this.openIn && this.openClosed !== closed){
+      this.openClosed = closed;
+      this.openIn.style.opacity = closed ? '1' : '0';
+      this.openIn.style.transform = closed ? 'translateY(0)' : 'translateY(-22px)';
+    }
+    this.open.style.pointerEvents = closed ? '' : 'none';
+  }
+
+  noteInteraction(){
+    if (this.interacted) return;
+    this.interacted = true;
+    this.pauseDemo();
+  }
+
+  pauseDemo(){
+    if (this.demoTimer){ clearTimeout(this.demoTimer); this.demoTimer = null; }
+    if (this.demoRaf){ cancelAnimationFrame(this.demoRaf); this.demoRaf = null; }
+    this.demo = 0;
+  }
+
+  maybeDemo(){
+    if (this.interacted || this.engaged || this.demoTimer || this.demoRaf || (this.demoRuns || 0) >= 2) return;
+    this.demoTimer = setTimeout(() => { this.demoTimer = null; this.runDemo(); }, 1000);
+  }
+
+  /* left → centre → right → centre, one physical sweep; no bounce, no rotation */
+  runDemo(){
+    if (this.interacted || this.engaged || !this.canWrap) return;
+    const A = 38, LEG = 720, T = LEG * 4, t0 = performance.now();
+    const ease = t => 0.5 - 0.5 * Math.cos(Math.PI * Math.max(0, Math.min(1, t)));
+    this.demoRuns = (this.demoRuns || 0) + 1;
+    this.firedL = false; this.firedR = false;
+    this.easeUntil = 0;
+    const step = now => {
+      if (this.interacted || this.engaged || this.dragging){ this.pauseDemo(); this.apply(); return; }
+      const e = Math.min(1, (now - t0) / T), ph = e * 4;
+      let v;
+      if (ph < 1) v = -A * ease(ph);
+      else if (ph < 2) v = -A * (1 - ease(ph - 1));
+      else if (ph < 3) v = A * ease(ph - 2);
+      else v = A * (1 - ease(ph - 3));
+      this.demo = v;
+      if (!this.firedL && ph > 0.04){ this.firedL = true; this.fireArrow(this.arrowL, 'bmHintL'); }
+      if (!this.firedR && ph > 2.04){ this.firedR = true; this.fireArrow(this.arrowR, 'bmHintR'); }
+      this.canPaint((this.lastDx || 0) + v, this.lastDy || 0, this.lastScale || 1);
+      if (e < 1){ this.demoRaf = requestAnimationFrame(step); return; }
+      this.demoRaf = null; this.demo = 0;
+      this.apply();
+      if ((this.demoRuns || 0) < 2 && !this.interacted && !this.engaged){
+        this.demoTimer = setTimeout(() => { this.demoTimer = null; this.runDemo(); }, 3200);
+      }
+    };
+    this.demoRaf = requestAnimationFrame(step);
+  }
+
+  fireArrow(el, name){
+    if (!el) return;
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = name + ' 1.3s cubic-bezier(.16,1,.3,1)';
+  }
+
+  setFlavor(i){
+    if (this.flavor === i) return;
+    this.flavor = i;
+    const c = COLORS[i] || COLORS[0];
+    this.cans.forEach((el, j) => { if (el) el.style.opacity = j === i ? 1 : 0; });
+    if (this.flavorLayer){
+      this.flavorLayer.style.color = c;
+      this.flavorSets.forEach((el, j) => { el.style.opacity = j === i ? 1 : 0; });
+    }
+    Array.from(this.stage.querySelectorAll('[data-accent]')).forEach(el => { el.style.background = c; });
+    Array.from(this.stage.querySelectorAll('[data-accenttext]')).forEach(el => { el.style.color = c; });
+    const ru = this.stage.querySelector('[data-flavor-ru]'); if (ru) ru.textContent = RU[i] || RU[0];
+    const en = this.stage.querySelector('[data-flavor-en]'); if (en) en.textContent = EN[i] || EN[0];
+  }
+
+  /* portrait / narrow screens get stacked bands instead of columns */
+  layout(){
+    this.deck = window.innerWidth <= 768;
+    this.vertical = window.innerWidth < 900;
+    if (this.deck){ this.deckLayout(); return; }
+    if (this.wasDeck) this.undeck();
+    /* the scene lives strictly below the site header — nothing may sit under the nav */
+    const hd = document.querySelector('[data-hd]');
+    this.hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
+    this.stage.style.top = this.hdH + 'px';
+    this.stage.style.height = this.hdH ? 'calc(100vh - ' + this.hdH + 'px)' : '100vh';
+    this.zonesWrap.style.flexDirection = this.vertical ? 'column' : 'row';
+    this.zones.forEach((z, i) => {
+      z.style.borderLeft = this.vertical || i === 0 ? '0' : '1px solid rgba(20,16,14,.16)';
+      z.style.borderTop = this.vertical && i > 0 ? '1px solid rgba(20,16,14,.16)' : '0';
+      z.style.height = this.vertical ? 'auto' : '100%';
+      z.style.width = this.vertical ? '100%' : 'auto';
+      const vt = z.querySelector('[data-vtitle]');
+      vt.style.transform = this.vertical ? 'translateX(-50%)' : 'translateX(-50%) rotate(-90deg)';
+    });
+    this.applyZones();
+  }
+
+  /* ── phones: one mode at a time ────────────────────────────────────
+     The four desktop columns become a deck — only the active mode is on
+     screen, the can stays big, and swipe or the mode chips switch it. */
+  deckLayout(){
+    this.wasDeck = true;
+    const hd = document.querySelector('[data-hd]');
+    this.hdH = hd ? Math.round(hd.getBoundingClientRect().height) : 0;
+    this.stage.style.top = this.hdH + 'px';
+    this.stage.style.height = 'calc(100svh - ' + this.hdH + 'px)';
+    if (this.scroller) this.scroller.style.height = '230svh';
+    this.vwFix(this.stage, true);
+    /* phones open on the ТВОЙ РИТМ statement, then hand over to the first mode
+       after one short scroll beat (~20% of the track) */
+    if (this.open){
+      /* editorial portrait intro: headline upper-left over three lines, can lower
+         right. Everything is sized in vw/% so the composition is identical on
+         375, 390, 393 and 430 — no per-device pixel positions. */
+      this.open.style.display = '';
+      this.open.style.left = 'clamp(24px,7vw,32px)';
+      this.open.style.right = 'auto';
+      this.open.style.top = '13%';
+      this.open.style.width = '78%';
+      this.open.style.pointerEvents = 'none';
+      this.headLines.forEach((el, i) => {
+        el.style.display = 'inline-block';
+        el.style.whiteSpace = 'nowrap';
+        el.style.lineHeight = '1.06';
+        el.textContent = i === 1 ? 'ТВОЙ BUMBLE.' : 'ТВОЙ РИТМ.';
+      });
+      this.fitHead();
+      if (this.openIn){ this.openIn.style.opacity = '1'; this.openIn.style.transform = 'translateY(0)'; }
+      this.openClosed = true;
+    }
+    if (!this.engaged) this.active = null;
+    this.zonesWrap.style.display = 'block';
+    this.zonesWrap.style.flexDirection = '';
+    this.zones.forEach(z => {
+      z.style.position = 'absolute';
+      z.style.left = '0'; z.style.top = '0';
+      z.style.width = '100%'; z.style.height = '100%';
+      z.style.flex = 'none';
+      z.style.borderLeft = '0';
+      z.style.borderTop = '0';
+      z.style.background = 'transparent';
+      z.style.transition = 'opacity .5s ease';
+      const vt = z.querySelector('[data-vtitle]'); if (vt) vt.style.display = 'none';
+      const ix = z.querySelector('[data-index]'); if (ix){ ix.style.left = '5.4%'; ix.style.top = '2.4%'; }
+      const ht = z.querySelector('[data-htitle]'); if (ht){ ht.style.left = '5.4%'; ht.style.top = '5.6%'; ht.style.fontSize = '34px'; }
+      const il = z.querySelector('[data-illu]'); if (il){ il.style.left = '3%'; il.style.top = '21%'; il.style.height = '26%'; }
+      const cp = z.querySelector('[data-copy]');
+      if (cp){ cp.style.left = '5.4%'; cp.style.width = '89%'; cp.style.bottom = '19%'; }
+    });
+    this.canWrap.style.height = '36svh';
+    this.canWrap.style.width = '15svh';
+    this.canWrap.style.top = '50%';
+    if (this.rail) this.rail.style.display = 'none';
+    /* the four modes read as ONE horizontal control on a phone: a single
+       segmented bar with hairline dividers instead of four loose chips */
+    if (this.modes){
+      const s = this.modes.style;
+      s.display = 'grid';
+      s.gridTemplateColumns = 'repeat(4,1fr)';
+      s.gap = '0';
+      s.border = '1px solid rgba(20,16,14,.22)';
+      s.borderRadius = '4px';
+      s.overflow = 'hidden';
+      s.bottom = 'calc(8% + env(safe-area-inset-bottom))';
+      this.modeBtns.forEach((b, i) => {
+        b.style.border = '0';
+        b.style.borderLeft = i ? '1px solid rgba(20,16,14,.18)' : '0';
+        b.style.borderRadius = '0';
+        b.style.minHeight = '48px';
+        b.style.fontSize = '11px';
+      });
+    }
+    this.applyZones();
+  }
+
+  undeck(){
+    this.wasDeck = false;
+    if (this.open){
+      this.open.style.display = '';
+      this.open.style.left = '5.4%';
+      this.open.style.top = '16%';
+      this.open.style.width = '';
+      this.open.style.pointerEvents = '';
+      (this.headLines || []).forEach((el, i) => {
+        el.style.lineHeight = '1';
+        el.style.display = '';
+        el.style.whiteSpace = '';
+        el.style.fontSize = '';
+        el.textContent = i === 1 ? 'ТВОЙ BUMBLE.' : 'ТВОЙ РИТМ.';
+      });
+    }
+    this.introT = 0;
+    this.vwFix(this.stage, false);
+    if (this.scroller) this.scroller.style.height = '260vh';
+    this.zonesWrap.style.display = 'flex';
+    this.zones.forEach(z => {
+      z.style.position = 'relative';
+      z.style.left = ''; z.style.top = '';
+      z.style.opacity = '';
+      z.style.pointerEvents = '';
+      z.style.transition = 'flex-basis .74s cubic-bezier(.16,1,.3,1),background .6s ease';
+      const vt = z.querySelector('[data-vtitle]'); if (vt) vt.style.display = '';
+      const ix = z.querySelector('[data-index]'); if (ix){ ix.style.left = '9%'; ix.style.top = 'clamp(24px,3.4%,40px)'; }
+      const ht = z.querySelector('[data-htitle]'); if (ht){ ht.style.left = '8%'; ht.style.top = 'calc(clamp(24px,3.4%,40px) + 5.2%)'; ht.style.fontSize = '6.4vw'; }
+      const il = z.querySelector('[data-illu]'); if (il){ il.style.left = '8%'; il.style.top = '24%'; il.style.height = '39%'; }
+      const cp = z.querySelector('[data-copy]'); if (cp){ cp.style.left = '8%'; cp.style.width = '54%'; cp.style.bottom = '11%'; }
+    });
+    if (this.modes){
+      const s = this.modes.style;
+      s.gap = '6px';
+      s.border = '0';
+      s.borderRadius = '';
+      s.overflow = '';
+      s.bottom = '9%';
+      this.modeBtns.forEach(b => {
+        b.style.border = '1px solid rgba(20,16,14,.22)';
+        b.style.borderLeft = '';
+        b.style.borderRadius = '3px';
+        b.style.minHeight = '44px';
+        b.style.fontSize = '10.5px';
+      });
+    }
+    this.canWrap.style.height = '52vh';
+    this.canWrap.style.width = '20vh';
+    this.canWrap.style.top = '56%';
+    if (this.rail) this.rail.style.display = '';
+    if (this.modes){ this.modes.style.display = 'none'; this.modes.style.opacity = 0; }
+  }
+
+  /* the statement is EXACTLY two lines on a phone: ТВОЙ РИТМ. / ТВОЙ BUMBLE.
+     Both lines are set nowrap and the type is measured down to the column, so a
+     narrow device shrinks the size instead of wrapping a third line. */
+  fitHead(){
+    if (!this.deck || !this.open || !(this.headLines || []).length) return;
+    const avail = this.open.clientWidth;
+    if (!avail) return;
+    const base = Math.max(26, Math.min(40, window.innerWidth * 0.084));
+    this.headLines.forEach(el => { el.style.fontSize = base.toFixed(1) + 'px'; });
+    let widest = 0;
+    this.headLines.forEach(el => { widest = Math.max(widest, el.offsetWidth); });
+    /* a hair of margin: offsetWidth rounds down and the wrapper clips */
+    const size = widest > avail ? Math.max(17, base * (avail / widest) * 0.97) : base;
+    this.headLines.forEach(el => { el.style.fontSize = size.toFixed(1) + 'px'; });
+  }
+
+  /* the desktop scene is sized in vw — on a phone those become unreadable,
+     so every vw font size is swapped for a px value and swapped back on resize */
+  vwFix(root, on){
+    Array.from(root.querySelectorAll('*')).forEach(el => {
+      if (on){
+        if (el.dataset.vwOrig !== undefined) return;
+        const m = /font-size:\s*([\d.]+)vw/.exec(el.getAttribute('style') || '');
+        if (!m) return;
+        el.dataset.vwOrig = m[1] + 'vw';
+        el.style.fontSize = Math.max(10, Math.min(44, Math.round(+m[1] / 100 * 1440 * 0.62))) + 'px';
+      } else if (el.dataset.vwOrig !== undefined){
+        el.style.fontSize = el.dataset.vwOrig;
+        delete el.dataset.vwOrig;
+      }
+    });
+  }
+
+  /* progress measured on demand — a fresh remount must not act on a stale value */
+  pNow(){
+    const sc = this.scroller;
+    if (!sc) return 0;
+    const stageH = this.stage.offsetHeight || window.innerHeight;
+    return Math.max(0, Math.min(1, ((this.hdH || 0) - sc.getBoundingClientRect().top) / Math.max(1, sc.offsetHeight - stageH)));
+  }
+
+  activate(i){
+    const p = this.pNow();
+    if (p > 0.985) return;
+    if (this.active === i) return;
+    this.engaged = true;
+    this.pauseDemo();
+    this.easeCan();
+    this.active = i;
+    this.applyZones();
+    this.paintHead();
+  }
+
+  applyZones(){
+    const a = this.active;
+    const WIDE = this.props.zoneWidth ?? 58, NARROW = (100 - WIDE) / 3;
+    this.zones.forEach((z, i) => {
+      const on = i === a;
+      if (this.deck){
+        z.style.opacity = on ? 1 : 0;
+        z.style.pointerEvents = on ? 'auto' : 'none';
+      } else {
+        const w = a === null ? 25 : (i === a ? WIDE : NARROW);
+        z.style.flex = '0 0 ' + w + '%';
+        z.style.background = on ? '#F7F3EC' : 'transparent';
+      }
+      z.querySelector('[data-vtitle]').style.opacity = on ? 0 : (a === null ? 1 : 0.5);
+      z.querySelector('[data-htitle]').style.opacity = on ? 1 : 0;
+      z.querySelector('[data-index]').style.opacity = on ? 0.75 : 0.45;
+      Array.from(z.querySelectorAll('[data-graphic],[data-graphic2]')).forEach(g => { g.style.opacity = on ? 1 : 0; });
+      if (this.flavorLayer) this.flavorLayer.style.opacity = a === null ? 0 : (this.vertical ? 0.75 : 1);
+      const il = z.querySelector('[data-illu]');
+      if (il){
+        il.style.opacity = on ? 1 : 0;
+        Array.from(il.querySelectorAll('[data-draw]')).forEach(p => { p.style.strokeDashoffset = on ? 0 : 1; });
+        Array.from(il.querySelectorAll('[data-fade]')).forEach(t => { t.style.opacity = on ? (t.dataset.op || 0.3) : 0; });
+        Array.from(il.querySelectorAll('[data-sweep]')).forEach(im => { im.style.maskPosition = on ? '0% 0' : '100% 0'; });
+      }
+      Array.from(z.querySelectorAll('[data-line]')).forEach(l => { l.style.transform = on ? 'translateY(0)' : 'translateY(115%)'; });
+    });
+    if (this.deck && this.modeBtns){
+      this.modeBtns.forEach((b, i) => {
+        const on = i === a;
+        b.style.background = on ? '#14100E' : 'transparent';
+        b.style.color = on ? '#FAEED4' : '#14100E';
+      });
+    }
+    this.apply();
+  }
+
+  applyParallax(){
+    const mx = this.mx || 0, my = this.my || 0, k = this.vertical ? 0.45 : 1;
+    this.zones.forEach(z => {
+      const g = z.querySelector('[data-illu]');
+      if (g) g.style.transform = 'translate3d(' + (mx * 13 * k).toFixed(1) + 'px,' + (my * 8 * k).toFixed(1) + 'px,0)';
+      Array.from(z.querySelectorAll('[data-graphic],[data-graphic2]')).forEach(el => {
+        el.style.transform = 'translate3d(' + (mx * 5 * k).toFixed(1) + 'px,' + (my * 3 * k).toFixed(1) + 'px,0)';
+      });
+    });
+    if (this.flavorLayer){
+      const dx = (this.lastDx || 0) * 0.985 + mx * 13 * k, dy = (this.lastDy || 0) * 0.95 + my * 10 * k;
+      this.flavorLayer.style.transform = 'translate(-50%,-50%) translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(' + ((this.lastScale || 1) * 1.04 * (this.vertical ? 0.8 : 1)).toFixed(3) + ')';
+    }
+    if (!this.dragging && !this.demoRaf && this.canWrap && this.lastDx !== undefined){
+      this.canPaint(this.lastDx + mx * 6 * k, this.lastDy + my * 4 * k, this.lastScale || 1);
+    }
+  }
+
+  canTransform(dx, dy, scale){
+    const enter = this.enterT === undefined ? 1 : this.enterT;
+    return 'translate(-50%,' + (-50 + (1 - enter) * 34).toFixed(2) + '%) translate3d(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
+  }
+
+  /* ── the can has exactly ONE writer ────────────────────────────────────
+     Every transform on the can goes through canPaint(). Scroll-driven frames
+     are written with NO css transition (a .78s ease chasing a per-frame target
+     is what made the can shake); only discrete state changes — a mode tapped,
+     a drag released — open a short easing window. */
+  canPaint(dx, dy, scale){
+    if (!this.canWrap) return;
+    const ease = !this.dragging && !this.demoRaf && (this.easeUntil || 0) > performance.now();
+    if (this.canEase !== ease){
+      this.canEase = ease;
+      this.canWrap.style.transition = ease ? 'transform .78s cubic-bezier(.16,1,.3,1)' : 'none';
+    }
+    const t = this.canTransform(dx, dy, scale);
+    if (t === this.canLast) return;
+    this.canLast = t;
+    this.canWrap.style.transform = t;
+  }
+
+  easeCan(ms){
+    this.easeUntil = performance.now() + (ms || 820);
+  }
+
+  apply(){
+    const sc = this.scroller;
+    if (!this.alive()) return;
+    if (this._applying) return;                  /* applyZones() calls back into apply() */
+    this._applying = true;
+    try { this.applyBody(sc); } finally { this._applying = false; }
+  }
+
+  applyBody(sc){
+    const vh = window.innerHeight;
+    const rTop = sc.getBoundingClientRect().top;
+    const stageH = this.stage.offsetHeight || vh;
+    const hd = this.hdH || 0;
+    const p = Math.max(0, Math.min(1, (hd - rTop) / Math.max(1, sc.offsetHeight - stageH)));
+    this.p = p;
+    const cl = t => Math.max(0, Math.min(1, t));
+    const io = t => 1 - Math.pow(1 - t, 2.2);
+
+    /* the statement is already alive while the panel is still rising, so the
+       hand-off never shows an empty beige viewport */
+    const appear = io(cl((vh - rTop) / (vh * 0.62)));
+
+    /* ENTER (0-10%) → HOLD (10-30%) → TRANSITION (30-38%) */
+    /* the statement OWNS the screen for the whole track while nothing is open —
+       only an opened mode clears it, plus a short tail so the panel does not hand
+       over to ГДЕ КУПИТЬ with type still on it */
+    const tail = cl((p - 0.90) / 0.10);
+    this.headBase = appear * (1 - tail);
+    this.headY = (1 - appear) * 60 - p * 14 - tail * 60;
+    this.paintHead();
+
+    /* the four modes belong to the section's FIRST visible state: they rise with
+       the statement as the panel enters, so nobody has to scroll to discover that
+       WORK / STUDY / DRIVE / GYM are the controls */
+    const zonesIn = appear;
+    this.zonesWrap.style.opacity = zonesIn.toFixed(3);
+    this.zonesWrap.style.pointerEvents = zonesIn > 0.6 ? 'auto' : 'none';
+    this.indices.forEach((el, i) => {
+      const t = io(cl((zonesIn - i * 0.13) / 0.55));
+      el.style.opacity = (0.45 * t).toFixed(3);
+      el.style.transform = 'translateY(' + ((1 - t) * 16).toFixed(1) + 'px)';
+    });
+
+    /* the can travels between modes — never fades, never respawns */
+    const enter = appear;
+    let dx = this.vertical ? 0 : this.stage.offsetWidth * 0.18, dy = 0, scale = 0.86 + 0.14 * enter;
+    if (this.active !== null && !this.vertical){
+      const WIDE = this.props.zoneWidth ?? 58, NARROW = (100 - WIDE) / 3;
+      const centerPct = this.active * NARROW + WIDE * 0.79;
+      dx = (centerPct - 50) / 100 * this.stage.offsetWidth;
+      dy = 4;
+    } else if (this.active !== null && this.vertical){
+      const r = this.zones[this.active].getBoundingClientRect(), s = this.stage.getBoundingClientRect();
+      dy = (r.top + r.height * 0.62) - (s.top + s.height * 0.56);
+      dx = this.stage.offsetWidth * 0.24;
+      scale *= 0.78;
+    }
+    if (this.deck){
+      /* the can holds the right half of the screen at full size; copy and
+         chips own the bottom, the scene illustration the left */
+      /* intro beat: statement holds, then WORK takes over. Untouched by the
+         reader it follows the scroll both ways; one tap locks the deck open. */
+      const intro = cl((p - 0.05) / 0.15);
+      this.introT = intro;
+      /* the can sits lower-right during the statement — clear of the headline at
+         every phone width — and travels to its WORK pose as the intro resolves */
+      const W = this.stage.offsetWidth, H = this.stage.offsetHeight;
+      dx = W * 0.28 + (W * 0.2 - W * 0.28) * intro;
+      dy = H * 0.055 + (-H * 0.03 - H * 0.055) * intro;
+      scale = 0.92 + 0.08 * enter;
+      if (!this.engaged){
+        const want = intro >= 1 ? 0 : null;
+        if (this.active !== want){ this.active = want; this.applyZones(); }
+      }
+      this.paintHead();
+      if (this.modes){
+        const on = appear > 0.12 && p < 0.995 && intro > 0.5;
+        this.modes.style.opacity = on ? 1 : 0;
+        this.modes.style.pointerEvents = on ? 'auto' : 'none';
+      }
+    }
+    this.enterT = enter;
+    this.lastDx = dx; this.lastDy = dy - p * 18; this.lastScale = scale;
+    if (!this.dragging && !this.demoRaf) this.canPaint(dx + (this.demo || 0), dy - p * 18, scale);
+
+    const railOn = !this.vertical && appear > 0.5 && p < 0.995;
+    if (this.rail) this.rail.style.opacity = railOn ? 1 : 0;
+    /* the swipe hint nudges the can ±38px — it must not run while the intro
+       statement owns the screen, or the composition shifts per device */
+    const introHold = this.deck && (this.introT || 0) < 1;
+    const swipeOn = this.vertical && appear > 0.5 && p < 0.995 && !introHold;
+    if (introHold && (this.demoTimer || this.demoRaf)) this.pauseDemo();
+    if (railOn || swipeOn) this.maybeDemo();
+    else if (this.demoTimer){ clearTimeout(this.demoTimer); this.demoTimer = null; }
+    this.applyParallax();
+  }
+
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

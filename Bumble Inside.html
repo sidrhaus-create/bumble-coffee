@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-400.woff2) format('woff2');font-weight:400;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-400.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-700.woff2) format('woff2');font-weight:700;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-700.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-cyrillic-800.woff2) format('woff2');font-weight:800;font-display:swap;unicode-range:U+0400-04FF,U+2116}
+@font-face{font-family:Unbounded;src:url(assets/fonts/unbounded-latin-800.woff2) format('woff2');font-weight:800;font-display:swap}
+@keyframes bmFizz{0%{transform:translateY(0) scale(.9);opacity:0}12%{opacity:.75}100%{transform:translateY(-78vh) scale(1.05);opacity:0}}
+</style>
+</helmet>
+
+<div style="font-family:Unbounded,system-ui,sans-serif;color:#14100E;background:#FAEED4">
+  <div data-inside-scroll style="position:relative;height:460vh">
+  <div data-inside data-screen-label="Inside · what is in Bumble" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#FAEED4">
+
+    <div data-band style="position:absolute;left:0;right:0;bottom:0;height:38%;background:#F23904;transform:scaleY(0);transform-origin:50% 100%;z-index:1"></div>
+
+    <img decoding="async" data-deep src="assets/phoenix.svg" alt="" style="position:absolute;left:52%;top:50%;height:152vh;width:auto;opacity:.055;z-index:2;transform:translate(-50%,-50%)"/>
+
+    <div data-ph="0,0.13,60,0.9" style="position:absolute;left:5.4%;top:14%;z-index:4;will-change:transform,opacity">
+      <div style="overflow:hidden"><div style="font-size:6.2vw;font-weight:800;line-height:.98;letter-spacing:-.035em">ЧТО ВНУТРИ</div></div>
+      <div style="overflow:hidden"><div style="font-size:6.2vw;font-weight:800;line-height:.98;letter-spacing:-.035em">BUMBLE?</div></div>
+      <div data-in-words style="margin-top:26px;max-width:64vw;font-size:.78vw;font-weight:700;letter-spacing:.28em;line-height:1.7">КОФЕ · ГАЗ · НОЛЬ САХАРА · СОК</div>
+    </div>
+
+    <div data-in-big data-m-fs="44" data-ph="0.15,0.35,90,1.25" style="position:absolute;left:-1.5vw;top:31%;z-index:3;white-space:nowrap;font-size:10.5vw;font-weight:800;letter-spacing:-.045em;line-height:.86;will-change:transform,opacity">ROBUSTA</div>
+    <div data-ph="0.17,0.34,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity">01 · КОФЕЙНАЯ БАЗА</div>
+
+    <div data-in-big data-m-fs="86" data-ph="0.37,0.57,110,1.35" style="position:absolute;left:4.6%;top:26%;z-index:3;white-space:nowrap;font-size:17.5vw;font-weight:800;letter-spacing:-.055em;line-height:.82;will-change:transform,opacity">125</div>
+    <div data-ph="0.39,0.56,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity">02 · МГ КОФЕИНА</div>
+
+    <div data-in-big data-m-fs="90" data-ph="0.59,0.78,110,1.3" style="position:absolute;left:4.2%;top:25%;z-index:3;font-size:20vw;font-weight:800;letter-spacing:-.06em;line-height:.8;will-change:transform,opacity">0%</div>
+        <div data-ph="0.61,0.77,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity"><span data-accent style="color:#F23904">03</span> · САХАРА</div>
+
+    <div data-in-big data-m-fs="42" data-ph="0.79,0.94,100,1.2" style="position:absolute;left:4.6%;top:30%;z-index:3;white-space:nowrap;font-size:8.6vw;font-weight:800;letter-spacing:-.05em;line-height:.84;will-change:transform,opacity">SPARKLING</div>
+    <div data-ph="0.81,0.93,50,0.6" style="position:absolute;left:5.4%;top:19%;z-index:6;font-size:.78vw;font-weight:700;letter-spacing:.3em;will-change:transform,opacity">04 · ЛЁГКАЯ ГАЗАЦИЯ</div>
+
+    <div data-fizz style="position:absolute;left:0;right:0;bottom:0;height:100%;z-index:5;opacity:0;pointer-events:none">
+      <span style="position:absolute;left:18%;bottom:-8vh;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.5),rgba(255,255,255,0) 62%);animation:bmFizz 9s linear .2s infinite"></span>
+      <span style="position:absolute;left:26%;bottom:-8vh;width:7px;height:7px;border-radius:50%;border:1px solid rgba(255,255,255,.5);animation:bmFizz 7.5s linear 1.4s infinite"></span>
+      <span style="position:absolute;left:34%;bottom:-8vh;width:22px;height:22px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:radial-gradient(circle at 30% 26%,rgba(255,255,255,.45),rgba(255,255,255,0) 60%);animation:bmFizz 12s linear 2.6s infinite"></span>
+      <span style="position:absolute;left:44%;bottom:-8vh;width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,.5);animation:bmFizz 8.4s linear .9s infinite"></span>
+      <span style="position:absolute;left:56%;bottom:-8vh;width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:radial-gradient(circle at 34% 26%,rgba(255,255,255,.4),rgba(255,255,255,0) 62%);animation:bmFizz 10.5s linear 3.4s infinite"></span>
+      <span style="position:absolute;left:63%;bottom:-8vh;width:6px;height:6px;border-radius:50%;border:1px solid rgba(255,255,255,.55);animation:bmFizz 6.8s linear 2s infinite"></span>
+      <span style="position:absolute;left:71%;bottom:-8vh;width:19px;height:19px;border-radius:50%;border:1px solid rgba(255,255,255,.42);background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.42),rgba(255,255,255,0) 60%);animation:bmFizz 11.5s linear .6s infinite"></span>
+      <span style="position:absolute;left:79%;bottom:-8vh;width:9px;height:9px;border-radius:50%;border:1px solid rgba(255,255,255,.5);animation:bmFizz 8s linear 4.2s infinite"></span>
+      <span style="position:absolute;left:87%;bottom:-8vh;width:13px;height:13px;border-radius:50%;border:1px solid rgba(255,255,255,.48);animation:bmFizz 9.6s linear 1.8s infinite"></span>
+      <span style="position:absolute;left:9%;bottom:-8vh;width:8px;height:8px;border-radius:50%;border:1px solid rgba(255,255,255,.5);animation:bmFizz 7.2s linear 3.1s infinite"></span>
+    </div>
+
+    <div data-can style="position:absolute;left:73%;top:52%;height:62vh;width:23vh;z-index:5;will-change:transform">
+      <img loading="lazy" decoding="async" width="620" height="1695" data-c0 src="assets/cans/orange.webp" alt="Bumble Coffee Orange" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;transform:translateX(-50%);transition:opacity .5s ease"/>
+      <img loading="lazy" decoding="async" width="620" height="1695" data-c1 src="assets/cans/cherry.webp" alt="Bumble Coffee Cherry" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+      <img loading="lazy" decoding="async" width="620" height="1695" data-c2 src="assets/cans/pomegranate.webp" alt="Bumble Coffee Pomegranate" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+      <img loading="lazy" decoding="async" width="620" height="1695" data-c3 src="assets/cans/raspberry.webp" alt="Bumble Coffee Raspberry" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+      <img loading="lazy" decoding="async" width="620" height="1695" data-c4 src="assets/cans/zero-cola.webp" alt="Bumble Coffee Zero Cola" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+      <img loading="lazy" decoding="async" width="620" height="1695" data-c5 src="assets/cans/wild-berries.webp" alt="Bumble Coffee Wild Berries" style="position:absolute;left:50%;bottom:0;height:100%;width:auto;opacity:0;transform:translateX(-50%);transition:opacity .5s ease"/>
+    </div>
+
+    <div data-in-spec data-ph="0.9,1.06,30,0.4" style="position:absolute;left:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;line-height:1;color:#F7F3EC;will-change:transform,opacity">ROBUSTA · 125 МГ · 0% САХАРА · СОК · SPARKLING</div>
+
+    <div data-in-slogan data-ph="0.93,1.08,70,0.75" style="position:absolute;left:5.4%;top:24%;z-index:6;font-weight:800;font-size:3.05vw;line-height:1.16;letter-spacing:-.03em;will-change:transform,opacity">
+      <div style="overflow:hidden"><div>БОДРИТ КАК КОФЕ.</div></div>
+      <div style="overflow:hidden"><div>ОСВЕЖАЕТ КАК ГАЗИРОВКА.</div></div>
+    </div>
+
+    <div data-in-spec data-ph="0.16,1.1,30,0.4" style="position:absolute;right:5.4%;bottom:12.5%;z-index:6;font-size:.82vw;font-weight:700;letter-spacing:.3em;line-height:1;margin-right:-.3em;color:#F7F3EC;will-change:transform,opacity">BUMBLE COFFEE</div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const COLORS = ['#F23904','#BB0D0A','#A21D11','#CA1181','#E60F13','#81377A'];
+
+class Component extends DCLogic {
+  componentDidMount(){ this.mount(); }
+  componentDidUpdate(){ this.mount(); }
+
+  mount(){
+    const stage = document.querySelector('[data-inside]');
+    if (!stage) return;
+    this.stage = stage;
+    this.scroller = document.querySelector('[data-inside-scroll]');
+    this.band = stage.querySelector('[data-band]');
+    this.deep = stage.querySelector('[data-deep]');
+    this.canWrap = stage.querySelector('[data-can]');
+    this.cans = [0,1,2,3,4,5].map(i => stage.querySelector('[data-c' + i + ']'));
+    this.phases = Array.from(stage.querySelectorAll('[data-ph]')).map(el => {
+      const v = el.dataset.ph.split(',').map(Number);
+      /* the band's ticker lines are pinned: no parallax drift, so left and
+         right hold exactly the same baseline */
+      return { el, a: v[0], b: v[1], rise: v[2], depth: v[3], pin: el.hasAttribute('data-in-spec') };
+    });
+    this.accents = Array.from(stage.querySelectorAll('[data-accent]'));
+    this.clipLayer = stage.querySelector('[data-clip]');
+
+    this.flavor = undefined;   /* fresh DOM: re-apply the can and colours */
+    this.setFlavor((window.BUMBLE_FLAVOR && window.BUMBLE_FLAVOR.index) || 0);
+    this.tuned = false;
+    this.mobileTune();
+
+    if (!this.wired){
+      this.wired = true;
+      this.onScroll = () => this.apply();
+      window.addEventListener('scroll', this.onScroll, { passive: true });
+      window.addEventListener('resize', () => { this.mobileTune(); this.apply(); });
+      document.addEventListener('bumble:flavor', e => this.setFlavor(e.detail.index));
+    }
+    this.apply();
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+  }
+
+  /* the poster is authored in vw — on a phone the small labels would land at
+     3px, so every vw font size below the display sizes gets a px value and the
+     can is re-proportioned for portrait. Desktop values are restored verbatim. */
+  mobileTune(){
+    const m = window.innerWidth <= 768;
+    const stage = this.stage;
+    if (!stage) return;
+    if (m === this.mob && this.tuned){ if (m){ this.bigType(true); this.fitSpec(true); } return; }
+    this.mob = m;
+    this.tuned = true;
+    Array.from(stage.querySelectorAll('*')).forEach(el => {
+      const cur = el.getAttribute('style') || '';
+      if (m){
+        if (el.dataset.vwOrig !== undefined) return;
+        const mt = /font-size:\s*([\d.]+)vw/.exec(cur);
+        if (!mt) return;
+        const v = +mt[1];
+        if (v >= 8) return;                       /* display numerals scale fine */
+        el.dataset.vwOrig = mt[1] + 'vw';
+        el.style.fontSize = v >= 5 ? '34px' : (v >= 2 ? '19px' : '10px');
+      } else if (el.dataset.vwOrig !== undefined){
+        el.style.fontSize = el.dataset.vwOrig;
+        delete el.dataset.vwOrig;
+      }
+    });
+    /* portrait closing screen: the statement takes the left column, the can
+       holds the right — an editorial split rather than a centred poster */
+    const slogan = stage.querySelector('[data-in-slogan]');
+    if (slogan){
+      slogan.style.left = m ? '24px' : '5.4%';
+      slogan.style.width = m ? '56vw' : '';
+      slogan.style.top = m ? '23%' : '24%';
+      slogan.style.fontSize = m ? '24px' : '3.05vw';
+      slogan.style.lineHeight = m ? '1.1' : '1.16';
+      slogan.style.zIndex = m ? '7' : '6';
+      if (m) delete slogan.dataset.vwOrig;
+    }
+    this.bigType(m);
+    /* the descriptor rides directly under the headline in both layouts —
+       one line on desktop, wrapping to at most two on a phone */
+    const words = stage.querySelector('[data-in-words]');
+    if (words){
+      words.style.marginTop = m ? '18px' : '26px';
+      words.style.fontSize = m ? '11px' : '.78vw';
+      words.style.letterSpacing = m ? '.13em' : '.28em';
+      words.style.lineHeight = m ? '1.75' : '1.7';
+      words.style.maxWidth = m ? '80vw' : '64vw';
+    }
+    /* the two micro-lines stack on a phone instead of colliding on one baseline,
+       and stay tucked just under the product */
+    Array.from(stage.querySelectorAll('[data-in-spec]')).forEach((el, i) => {
+      el.style.bottom = m ? (i === 0 ? '30px' : '58px') : '12.5%';
+      el.style.letterSpacing = m ? '.16em' : '.3em';
+      el.style.whiteSpace = m ? 'nowrap' : '';
+      if (i === 1) el.style.marginRight = m ? '-.16em' : '-.3em';
+    });
+    this.fitSpec(m);
+    if (this.band) this.band.style.height = m ? '46%' : '38%';
+    if (this.deep) this.deep.style.height = m ? '108svh' : '152vh';
+    if (this.canWrap){
+      /* portrait is a two-column relationship: type owns the left 60vw, the can
+         owns the right edge. Nothing important is ever behind it. */
+      this.canWrap.style.height = m ? '44svh' : '62vh';
+      this.canWrap.style.width = m ? '16svh' : '23vh';
+      this.canWrap.style.left = m ? '82%' : '73%';
+      this.canWrap.style.top = m ? '54%' : '52%';
+    }
+    if (this.scroller) this.scroller.style.height = m ? '392svh' : '460vh';
+    stage.style.height = m ? '100svh' : '100vh';
+  }
+
+  /* the descriptor gained СОК — on a phone the tracking gives way before the type
+     size does, so the line keeps one baseline and never overflows. Re-run once the
+     Unbounded webfont has actually swapped in, or the measurement is of fallback
+     metrics and the line grows past the edge afterwards. */
+  fitSpec(m){
+    const el = this.stage && this.stage.querySelector('[data-in-spec]');
+    if (!el) return;
+    if (!m){ el.style.letterSpacing = '.3em'; return; }
+    const room = this.stage.clientWidth - el.offsetLeft - 14;
+    let ls = 0.16;
+    el.style.letterSpacing = '.16em';
+    while (el.offsetWidth > room && ls > 0.02){
+      ls -= 0.01;
+      el.style.letterSpacing = ls.toFixed(2) + 'em';
+    }
+    if (!this.specWatch){
+      this.specWatch = true;
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.fitSpec(window.innerWidth <= 768));
+      [400, 1400, 3000].forEach(ms => setTimeout(() => this.fitSpec(window.innerWidth <= 768), ms));
+    }
+  }
+
+  /* the four display words are the one place type and can could collide.
+     On a phone they take a fixed left column, sit ABOVE the can in the stack
+     (one predictable z-index for the whole scroll, never traded mid-scroll)
+     and shrink until the complete word fits that column. */
+  bigType(m){
+    const maxW = window.innerWidth * 0.58;
+    Array.from(this.stage.querySelectorAll('[data-in-big]')).forEach(el => {
+      if (el.dataset.bigFs === undefined){
+        el.dataset.bigFs = el.style.fontSize;
+        el.dataset.bigLeft = el.style.left;
+        el.dataset.bigZ = el.style.zIndex || '';
+      }
+      if (!m){
+        el.style.fontSize = el.dataset.bigFs;
+        el.style.left = el.dataset.bigLeft;
+        el.style.zIndex = el.dataset.bigZ;
+        return;
+      }
+      el.style.left = '24px';
+      el.style.zIndex = '7';
+      let fs = parseFloat(el.dataset.mFs || '40');
+      el.style.fontSize = fs + 'px';
+      /* fractional measurement: offsetWidth rounds, and a rounded-down reading
+         let a word stay one step too wide once the real font was in */
+      const wide = () => el.getBoundingClientRect().width > maxW;
+      for (let n = 0; n < 24 && wide() && fs > 24; n++){
+        fs = Math.max(24, fs - Math.max(0.8, fs * 0.035));
+        el.style.fontSize = fs.toFixed(1) + 'px';
+      }
+    });
+    /* the first pass measures fallback metrics — Unbounded is wider, so the words
+       have to be re-fitted once it has actually swapped in (same guard as fitSpec) */
+    if (!this.bigWatch){
+      this.bigWatch = true;
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.bigType(window.innerWidth <= 768));
+      [400, 1400, 3000].forEach(ms => setTimeout(() => this.bigType(window.innerWidth <= 768), ms));
+    }
+  }
+
+  setFlavor(i){
+    if (this.flavor === i) return;
+    this.flavor = i;
+    const c = COLORS[i] || COLORS[0];
+    this.band.style.background = c;
+    this.cans.forEach((el, j) => { if (el) el.style.opacity = j === i ? 1 : 0; });
+    this.accents.forEach(el => { el.style.color = c; });
+  }
+
+  apply(){
+    const sc = this.scroller, vh = window.innerHeight;
+    const rect = sc.getBoundingClientRect();
+    const span = sc.offsetHeight - vh;
+    const p = Math.max(0, Math.min(1, -rect.top / span));
+    const io = t => 1 - Math.pow(1 - t, 2.2);
+    const cl = t => Math.max(0, Math.min(1, t));
+
+    /* the two horizontal worlds open up as the section takes over */
+    /* the entrance is driven by the section's approach, not by its own track:
+       the band and the can are already in place by the time it owns the screen,
+       so the outgoing panel never hands over to a blank stretch */
+    const ent = cl((vh - rect.top) / (vh * 0.78));
+    const entE = io(ent);
+    this.band.style.transform = 'scaleY(' + entE.toFixed(3) + ')';
+
+    /* deep layer: slowest of all */
+    this.deep.style.transform = 'translate(-50%,' + (-50 - p * 5).toFixed(2) + '%) scale(' + (1 + p * 0.06).toFixed(3) + ')';
+
+    /* selected can: enters from below, then moves less than everything else */
+    /* on a phone the can is in place almost immediately, so the screen is
+       never empty while the previous section has already let go */
+    const inT = entE;
+    const sc2 = 0.62 + 0.38 * inT;
+    const drift = -p * 26 - (p > 0.9 ? 0 : 0);
+    this.canWrap.style.transform = 'translate(-50%,' + (-50 + (1 - inT) * 46).toFixed(2) + '%) translateY(' + drift.toFixed(1) + 'px) scale(' + sc2.toFixed(3) + ')';
+
+    this.phases.forEach(ph => {
+      const tIn = ph.a === 0 ? ent : cl((p - ph.a) / 0.055);
+      const tOut = cl((p - (ph.b - 0.055)) / 0.055);
+      const o = io(tIn) * (1 - tOut);
+      const drift = ph.pin ? 0 : (p - ph.a) * 40 * ph.depth * (o > 0 ? 1 : 0);
+      const y = (1 - io(tIn)) * ph.rise - tOut * tOut * ph.rise * 1.5 - drift;
+      ph.el.style.opacity = o.toFixed(3);
+      ph.el.style.transform = 'translateY(' + y.toFixed(1) + 'px)';
+    });
+
+    /* the front copy of 0% is clipped to the can's right half, so the can
+       genuinely passes behind part of the glyph */
+    if (this.clipLayer){
+      const cr = this.canWrap.getBoundingClientRect(), w = this.stage.offsetWidth || 1;
+      const pct = Math.max(0, Math.min(100, (cr.left + cr.width * 0.46) / w * 100));
+      this.clipLayer.style.clipPath = 'inset(0 0 0 ' + pct.toFixed(2) + '%)';
+    }
+
+    /* carbonation only in the FIZZ movement */
+    const fizz = document.querySelector('[data-fizz]');
+    if (fizz) fizz.style.opacity = (cl((p - 0.78) / 0.06) * (1 - cl((p - 0.97) / 0.04))).toFixed(3);
+  }
+
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

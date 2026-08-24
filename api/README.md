@@ -1,49 +1,24 @@
-# Отправка заявок с формы «ПАРТНЁРАМ»
+# api/
 
-Статический сайт (GitHub Pages) **не может** отправлять почту сам — нужен один
-серверless-обработчик. Он лежит здесь: `api/partners.js`. Ключи живут только в
-переменных окружения хостинга, в браузер не попадает ничего секретного.
+**В этой сборке серверный код НЕ используется.**
 
-## 1. Почтовый провайдер
+Форма «ПАРТНЁРАМ» больше не обращается к бэкенду: она передаёт заявку родительской
+странице Tilda через `postMessage` и ждёт подтверждения.
 
-Заведите аккаунт в **Resend** (resend.com, бесплатный тариф — 3 000 писем/мес)
-и подтвердите домен `bumblephoenix.ru` (DNS-записи SPF/DKIM даёт панель Resend).
-Скопируйте API-ключ.
+* iframe → parent: `{ type: 'BUMBLE_PARTNERS_SUBMIT', data: { name, phone, email, subject } }`
+* parent → iframe: `{ type: 'BUMBLE_PARTNERS_RESULT', ok: true | false, error? }`
 
-Альтернативы без изменения кода фронтенда: SendGrid, Postmark, Brevo, SMTP через
-nodemailer — меняется только функция `sendMail` в `api/partners.js`.
+Экран «СПАСИБО. СВЯЖЕМСЯ С ВАМИ.» показывается только при `ok: true` с origin
+`https://bumblephoenix.ru`. Письмо отправляет нативная форма Tilda на
+info@bumblephoenix.ru.
 
-## 2. Деплой обработчика
+## Если в вашей старой папке `api/` лежали свои файлы
 
-**Vercel (проще всего)**
+Я их не видел и не могу восстановить. Перед заменой папки скопируйте старую `api/`
+в сторону: если хостинг (Vercel / Netlify Functions) до сих пор её вызывает, положите
+свои файлы обратно сюда. Сайт от этого не изменится — он в эту папку не обращается.
 
-1. Создайте пустой проект, положите файл как `api/partners.js`.
-2. Settings → Environment Variables:
-   - `RESEND_API_KEY` = ключ из Resend
-   - `MAIL_FROM` = `Bumble Coffee <site@bumblephoenix.ru>` (домен должен быть подтверждён)
-   - `MAIL_TO` = `info@bumblephoenix.ru`
-   - `ALLOW_ORIGIN` = адрес сайта, например `https://bumblephoenix.ru`
-3. Deploy → адрес функции: `https://<проект>.vercel.app/api/partners`
+## Если позже понадобится свой обработчик
 
-**Netlify** — тот же файл как `netlify/functions/partners.js`, те же переменные,
-адрес: `https://<сайт>.netlify.app/.netlify/functions/partners`.
-
-## 3. Подключение фронтенда
-
-В `Bumble Partners.dc.html` (и в копии внутри `tilda-build/`) свойство
-`endpoint` по умолчанию **пустое** — форма намеренно не показывает успех, пока
-адрес не задан. Впишите полный URL функции:
-
-```
-&quot;endpoint&quot;:{ ... &quot;default&quot;:&quot;https://<проект>.vercel.app/api/partners&quot; ... }
-```
-
-или задайте его в панели Tweaks (раздел «Отправка заявки»).
-
-## 4. Проверка
-
-Отправьте тестовую заявку. Экран «СПАСИБО. СВЯЖЕМСЯ С ВАМИ. / ЗАЯВКА ПРИНЯТА»
-появляется **только** после ответа 2xx от функции. При любой ошибке показывается
-«НЕ УДАЛОСЬ ОТПРАВИТЬ. ПОПРОБУЙТЕ ЕЩЁ РАЗ.», введённые данные остаются на месте,
-причина пишется в консоль. Письмо приходит на `info@bumblephoenix.ru` с темой
-«Новая заявка партнёра — Bumble Coffee» и полями Имя / Телефон / Почта / Тема обращения.
+Положите сюда serverless-функцию (например `partners.js` для Vercel) и в
+`Bumble Partners.html` замените мост `postMessage` на `fetch('/api/partners', …)`.
