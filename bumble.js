@@ -5,7 +5,7 @@ document.write('<script src="./bumble-core.js"><\/script>');
     if(document.getElementById('ch-family-widget-script')) return;
     var s=document.createElement('script');
     s.id='ch-family-widget-script';
-    s.src='./ch-family-widget.js?v=2';
+    s.src='./ch-family-widget.js?v=3';
     s.defer=true;
     document.head.appendChild(s);
   }
