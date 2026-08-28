@@ -1,310 +1,79 @@
-<style>
-  .ch-family-widget,
-  .ch-family-widget * {
-    box-sizing: border-box;
-  }
+/* Cider House family widget — Bumble Coffee */
+(function(){
+  'use strict';
 
-  .ch-family-widget {
-    --ch-bg: #f7f2ec;
-    --ch-text: #14100e;
-    --ch-accent: #7a3f8f;
-    --ch-accent-dark: #5d2f6a;
-    --ch-border: rgba(122, 63, 143, 0.22);
-    --ch-shadow: 0 18px 50px rgba(0, 0, 0, 0.14);
-    --ch-radius: 0px;
-    font-family: Arial, sans-serif;
-  }
+  function init(){
+    if(document.getElementById('ch-family-widget')) return;
 
-  .ch-family-tab {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 52px;
-    height: 176px;
-    background: rgba(247, 242, 236, 0.96);
-    border: 1px solid var(--ch-border);
-    border-right: none;
-    border-radius: 14px 0 0 14px;
-    box-shadow: var(--ch-shadow);
-    z-index: 9998;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 12px 8px 10px;
-    cursor: pointer;
-    transition: transform 0.25s ease, background 0.25s ease;
-    backdrop-filter: blur(8px);
-  }
+    var style=document.createElement('style');
+    style.id='ch-family-widget-style';
+    style.textContent=`
+#ch-family-widget{position:fixed;right:0;top:56%;transform:translateY(-50%);z-index:2147483000;font-family:Unbounded,system-ui,sans-serif;color:#14100E;pointer-events:none}
+#ch-family-widget *{box-sizing:border-box}
+#ch-family-widget .chfw-shell{position:relative;display:flex;align-items:stretch;pointer-events:auto;filter:drop-shadow(0 12px 28px rgba(20,16,14,.13))}
+#ch-family-widget .chfw-panel{position:absolute;right:46px;top:50%;width:310px;min-height:194px;background:#F7F2EC;border:1px solid rgba(93,47,106,.24);transform:translateY(-50%) translateX(18px);opacity:0;visibility:hidden;pointer-events:none;transition:transform .38s cubic-bezier(.16,1,.3,1),opacity .24s ease,visibility .24s ease;padding:26px 26px 24px;display:flex;flex-direction:column;justify-content:center}
+#ch-family-widget.is-open .chfw-panel{transform:translateY(-50%) translateX(0);opacity:1;visibility:visible;pointer-events:auto}
+#ch-family-widget .chfw-tab{width:46px;height:146px;border:1px solid rgba(93,47,106,.30);border-right:0;background:#F7F2EC;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;padding:10px 0;transition:background .25s ease,color .25s ease}
+#ch-family-widget .chfw-tab:hover{background:#F0E7DE}
+#ch-family-widget .chfw-mark{width:26px;height:26px;border:1px solid #5D2F6A;border-radius:50%;display:grid;place-items:center;background:#fff;overflow:hidden}
+#ch-family-widget .chfw-mark img{display:block;width:15px;height:18px;object-fit:contain}
+#ch-family-widget .chfw-vertical{writing-mode:vertical-rl;transform:rotate(180deg);font-size:8px;font-weight:700;letter-spacing:.24em;white-space:nowrap;color:#5D2F6A}
+#ch-family-widget .chfw-eyebrow{font-size:8px;font-weight:700;letter-spacing:.28em;color:#5D2F6A;margin:0 0 12px}
+#ch-family-widget .chfw-title{font-size:18px;line-height:1.12;font-weight:800;letter-spacing:-.02em;margin:0 0 12px;color:#14100E}
+#ch-family-widget .chfw-text{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:13px;line-height:1.5;color:rgba(20,16,14,.70);margin:0 0 18px}
+#ch-family-widget .chfw-link{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;width:100%;padding:13px 14px;background:#14100E;color:#F7F2EC!important;text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.12em;border:1px solid #14100E;transition:background .25s ease,color .25s ease,transform .25s ease}
+#ch-family-widget .chfw-link:hover{background:#5D2F6A;border-color:#5D2F6A;transform:translateY(-1px)}
+#ch-family-widget .chfw-link span:last-child{font-size:15px;line-height:1}
+#ch-family-widget .chfw-close{position:absolute;top:9px;right:9px;width:24px;height:24px;border:0;background:transparent;cursor:pointer;color:#5D2F6A;font-size:17px;line-height:1}
+@media(max-width:640px){
+  #ch-family-widget{top:48%}
+  #ch-family-widget .chfw-tab{width:38px;height:124px;gap:9px}
+  #ch-family-widget .chfw-mark{width:23px;height:23px}
+  #ch-family-widget .chfw-mark img{width:13px;height:16px}
+  #ch-family-widget .chfw-vertical{font-size:7px;letter-spacing:.20em}
+  #ch-family-widget .chfw-panel{right:38px;width:min(286px,calc(100vw - 50px));min-height:176px;padding:22px 20px 20px}
+  #ch-family-widget .chfw-title{font-size:16px}
+  #ch-family-widget .chfw-text{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){#ch-family-widget .chfw-panel,#ch-family-widget .chfw-link{transition:none}}
+`;
+    document.head.appendChild(style);
 
-  .ch-family-tab:hover {
-    transform: translateY(-50%) translateX(-4px);
-    background: rgba(247, 242, 236, 1);
-  }
+    var root=document.createElement('div');
+    root.id='ch-family-widget';
+    root.innerHTML=`
+      <div class="chfw-shell">
+        <div class="chfw-panel" aria-hidden="true">
+          <button class="chfw-close" type="button" aria-label="Закрыть">×</button>
+          <div class="chfw-eyebrow">CIDER HOUSE FAMILY</div>
+          <div class="chfw-title">ЧАСТЬ CIDER HOUSE</div>
+          <p class="chfw-text">Bumble Coffee входит в семейство брендов Cider House.</p>
+          <a class="chfw-link" href="https://ciderhouse.ru/" target="_blank" rel="noopener noreferrer" aria-label="Перейти на сайт Cider House"><span>ПЕРЕЙТИ НА CIDER HOUSE</span><span>→</span></a>
+        </div>
+        <button class="chfw-tab" type="button" aria-expanded="false" aria-label="Открыть Cider House family">
+          <span class="chfw-mark" aria-hidden="true"><img src="./assets/phoenix.svg" alt=""></span>
+          <span class="chfw-vertical">CIDER HOUSE</span>
+        </button>
+      </div>`;
+    document.body.appendChild(root);
 
-  .ch-family-tab-badge {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
-    border-radius: 50%;
-    border: 1px solid rgba(122, 63, 143, 0.45);
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
+    var tab=root.querySelector('.chfw-tab');
+    var close=root.querySelector('.chfw-close');
+    var panel=root.querySelector('.chfw-panel');
 
-  .ch-family-tab-badge img {
-    display: block;
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-  }
-
-  .ch-family-tab-label {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    font-size: 10px;
-    line-height: 1;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--ch-accent-dark);
-    font-weight: 700;
-    user-select: none;
-  }
-
-  .ch-family-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(20, 16, 14, 0.32);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-    z-index: 9996;
-  }
-
-  .ch-family-panel {
-    position: fixed;
-    right: 72px;
-    bottom: 32px;
-    width: 360px;
-    max-width: calc(100vw - 32px);
-    background: var(--ch-bg);
-    color: var(--ch-text);
-    border: 1px solid rgba(122, 63, 143, 0.28);
-    box-shadow: var(--ch-shadow);
-    z-index: 9997;
-    opacity: 0;
-    transform: translateY(18px);
-    pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-  }
-
-  .ch-family-panel-inner {
-    position: relative;
-    padding: 26px 26px 24px;
-  }
-
-  .ch-family-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: transparent;
-    color: var(--ch-accent-dark);
-    font-size: 20px;
-    line-height: 1;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .ch-family-kicker {
-    margin: 0 0 10px;
-    font-size: 11px;
-    line-height: 1;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--ch-accent-dark);
-    font-weight: 700;
-  }
-
-  .ch-family-title {
-    margin: 0 0 14px;
-    font-size: 22px;
-    line-height: 1.05;
-    font-weight: 800;
-    color: #14100e;
-  }
-
-  .ch-family-text {
-    margin: 0 0 22px;
-    font-size: 16px;
-    line-height: 1.45;
-    color: #3c312d;
-  }
-
-  .ch-family-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    width: 100%;
-    min-height: 44px;
-    padding: 14px 16px;
-    text-decoration: none;
-    background: #14100e;
-    color: #fff;
-    font-size: 14px;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 800;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-
-  .ch-family-btn:hover {
-    transform: translateY(-1px);
-    background: #000;
-  }
-
-  .ch-family-btn-arrow {
-    font-size: 16px;
-    line-height: 1;
-  }
-
-  .ch-family-widget.is-open .ch-family-overlay {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .ch-family-widget.is-open .ch-family-panel {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  @media (max-width: 767px) {
-    .ch-family-tab {
-      width: 46px;
-      height: 148px;
-      padding: 10px 6px 8px;
+    function setOpen(v){
+      root.classList.toggle('is-open',v);
+      tab.setAttribute('aria-expanded',v?'true':'false');
+      panel.setAttribute('aria-hidden',v?'false':'true');
     }
 
-    .ch-family-tab-badge {
-      width: 24px;
-      height: 24px;
-      margin-bottom: 10px;
-    }
-
-    .ch-family-tab-badge img {
-      width: 14px;
-      height: 14px;
-    }
-
-    .ch-family-tab-label {
-      font-size: 9px;
-      letter-spacing: 0.22em;
-    }
-
-    .ch-family-panel {
-      right: 12px;
-      left: 12px;
-      bottom: 12px;
-      width: auto;
-      max-width: none;
-    }
-
-    .ch-family-panel-inner {
-      padding: 22px 18px 18px;
-    }
-
-    .ch-family-title {
-      font-size: 20px;
-    }
-
-    .ch-family-text {
-      font-size: 15px;
-    }
+    tab.addEventListener('click',function(e){e.stopPropagation();setOpen(!root.classList.contains('is-open'))});
+    close.addEventListener('click',function(e){e.stopPropagation();setOpen(false)});
+    panel.addEventListener('click',function(e){e.stopPropagation()});
+    document.addEventListener('click',function(e){if(root.classList.contains('is-open')&&!root.contains(e.target))setOpen(false)});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')setOpen(false)});
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .ch-family-tab,
-    .ch-family-panel,
-    .ch-family-overlay,
-    .ch-family-btn {
-      transition: none;
-    }
-  }
-</style>
-
-<div class="ch-family-widget" id="chFamilyWidget">
-  <button class="ch-family-tab" id="chFamilyTab" type="button" aria-label="Открыть информацию о Cider House">
-    <span class="ch-family-tab-badge" aria-hidden="true">
-      <img src="https://static.tildacdn.com/tild3737-6430-4936-b339-366238613430/_32x.png" alt="">
-    </span>
-    <span class="ch-family-tab-label">Cider House</span>
-  </button>
-
-  <div class="ch-family-overlay" id="chFamilyOverlay"></div>
-
-  <div class="ch-family-panel" id="chFamilyPanel" role="dialog" aria-modal="true" aria-labelledby="chFamilyTitle">
-    <div class="ch-family-panel-inner">
-      <button class="ch-family-close" id="chFamilyClose" type="button" aria-label="Закрыть">×</button>
-
-      <p class="ch-family-kicker">CIDER HOUSE FAMILY</p>
-      <h3 class="ch-family-title" id="chFamilyTitle">Часть Cider House</h3>
-      <p class="ch-family-text">
-        Этот бренд входит в семейство продуктов Cider House.
-      </p>
-
-      <a class="ch-family-btn" href="https://ciderhouse.ru/" target="_blank" rel="noopener noreferrer">
-        <span>Перейти на Cider House</span>
-        <span class="ch-family-btn-arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </div>
-</div>
-
-<script>
-  (function () {
-    var root = document.getElementById('chFamilyWidget');
-    if (!root) return;
-
-    var tab = document.getElementById('chFamilyTab');
-    var panel = document.getElementById('chFamilyPanel');
-    var overlay = document.getElementById('chFamilyOverlay');
-    var closeBtn = document.getElementById('chFamilyClose');
-
-    function openPanel() {
-      root.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closePanel() {
-      root.classList.remove('is-open');
-      document.body.style.overflow = '';
-    }
-
-    tab.addEventListener('click', function () {
-      if (root.classList.contains('is-open')) {
-        closePanel();
-      } else {
-        openPanel();
-      }
-    });
-
-    overlay.addEventListener('click', closePanel);
-    closeBtn.addEventListener('click', closePanel);
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        closePanel();
-      }
-    });
-  })();
-</script>
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
