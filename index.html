@@ -28,6 +28,12 @@ body{margin:0;background:#F7F2EC;-webkit-font-smoothing:antialiased;max-width:10
 a{color:#14100E;text-decoration:none}
 a:hover{color:#14100E}
 @keyframes bmHdIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+[data-ozon-cta]{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:999px;background:#005BFF!important;color:#fff!important;font-size:11px;font-weight:800;letter-spacing:.12em;line-height:1;white-space:nowrap;box-shadow:0 8px 22px rgba(0,91,255,.18);transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s ease,background .28s ease}
+[data-ozon-cta]:hover{background:#074FD6!important;color:#fff!important;transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,91,255,.28)}
+[data-ozon-cta]:active{transform:translateY(0) scale(.985)}
+[data-ozon-short]{display:none}
+@media(max-width:1023px){[data-ozon-cta]{min-height:36px;padding:0 12px;font-size:10px;letter-spacing:.11em}[data-ozon-full]{display:none}[data-ozon-short]{display:inline}}
+@media(max-width:420px){[data-ozon-cta]{min-height:34px;padding:0 10px;font-size:9px;letter-spacing:.09em}}
 </style>
 </helmet>
 
@@ -51,6 +57,8 @@ a:hover{color:#14100E}
         <a data-hd-item data-target="buy" href="#buy" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ГДЕ КУПИТЬ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
         <a data-hd-item data-target="partners" href="#partners" style="position:relative;display:block;padding:6px 0;font-size:clamp(10px,.7vw,14px);font-weight:700;letter-spacing:.18em;white-space:nowrap">ПАРТНЁРАМ<span data-ln data-accent style="position:absolute;left:0;right:0;bottom:-2px;height:2px;background:#F23904;transform:scaleX(0);transform-origin:left center;transition:transform .34s cubic-bezier(.16,1,.3,1)"></span></a>
       </nav>
+
+      <a data-ozon-cta data-hd-ozon href="https://www.ozon.ru/category/energeticheskie-napitki-9473/black-phoenix-102140816/" target="_blank" rel="noopener noreferrer" aria-label="Купить Bumble Coffee на Ozon"><span data-ozon-full>КУПИТЬ НА OZON ↗</span><span data-ozon-short>OZON ↗</span></a>
 
       <button data-hd-burger type="button" aria-label="Меню" style="margin-left:2.6vw;width:30px;height:30px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px;background:none;border:0;padding:0;cursor:pointer">
         <i style="display:block;width:100%;height:2px;background:#14100E"></i>
@@ -382,7 +390,9 @@ class Component extends DCLogic {
        and stays whole at every width; only its scale changes */
     this.hdWord.style.display = 'block';
     const burger = document.querySelector('[data-hd-burger]');
-    burger.style.marginLeft = this.narrow ? 'auto' : '2.6vw';
+    const ozonCta = document.querySelector('[data-hd-ozon]');
+    if (ozonCta) ozonCta.style.marginLeft = this.narrow ? 'auto' : '0.4vw';
+    burger.style.marginLeft = this.narrow ? '12px' : '1.1vw';
     document.querySelector('[data-hd-inner]').style.height = this.narrow ? '64px' : '74px';
     const ovHead = document.querySelector('[data-ov]').firstElementChild;
     if (ovHead) ovHead.style.height = this.narrow ? '64px' : '74px';
