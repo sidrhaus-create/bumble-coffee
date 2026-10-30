@@ -12,8 +12,29 @@
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-cyrillic-800.woff2" crossorigin="anonymous"/>
 <link rel="preload" as="font" type="font/woff2" href="assets/fonts/unbounded-cyrillic-700.woff2" crossorigin="anonymous"/>
 <script src="./bumble.js"></script>
+
+<style id="bumble-intro-style">
+/* Isolated opening animation layer: does not change the underlying site. */
+html.bm-intro-lock,html.bm-intro-lock body{overflow:hidden!important;overscroll-behavior:none}
+#bumble-intro{position:fixed;inset:0;z-index:2147483000;overflow:hidden;background:#14100E;opacity:1;visibility:visible;transition:opacity .85s cubic-bezier(.2,.7,.2,1),visibility .85s;isolation:isolate}
+#bumble-intro.bm-intro-leaving{opacity:0;visibility:hidden;pointer-events:none}
+#bumble-intro-frame{display:block;position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none;background:#14100E}
+#bumble-intro-skip{position:absolute;z-index:3;top:calc(18px + env(safe-area-inset-top));right:calc(20px + env(safe-area-inset-right));display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border:1px solid rgba(247,207,110,.6);border-radius:2px;background:rgba(20,16,14,.55);color:#F7CF6E;font:700 11px Unbounded,system-ui,sans-serif;letter-spacing:.12em;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .25s,border-color .25s,color .25s}
+#bumble-intro-skip:hover,#bumble-intro-skip:focus-visible{background:#F7CF6E;border-color:#F7CF6E;color:#14100E}
+#bumble-intro-progress{position:absolute;z-index:2;bottom:0;left:0;width:100%;height:3px;background:rgba(247,207,110,.18);pointer-events:none}
+#bumble-intro-progress-bar{display:block;width:100%;height:100%;background:#F7CF6E;transform:scaleX(0);transform-origin:left center;animation:bmIntroProgress 13.85s linear both paused}
+@keyframes bmIntroProgress{to{transform:scaleX(1)}}
+@media(max-width:600px){#bumble-intro-skip{top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));font-size:10px;min-height:42px;padding:0 14px}}
+@media(prefers-reduced-motion:reduce){#bumble-intro{transition:none}}
+</style>
+<noscript><style>#bumble-intro{display:none!important}</style></noscript>
 </head>
 <body>
+<div id="bumble-intro" role="dialog" aria-modal="true" aria-label="Заставка Bumble Coffee">
+  <iframe id="bumble-intro-frame" src="./bumble-energy.html" title="Bumble Coffee — кофейный энергетик" loading="eager" tabindex="-1" aria-hidden="true"></iframe>
+  <button id="bumble-intro-skip" type="button" aria-label="Пропустить заставку и открыть сайт">ПРОПУСТИТЬ&nbsp; ↗</button>
+  <div id="bumble-intro-progress" aria-hidden="true"><span id="bumble-intro-progress-bar"></span></div>
+</div>
 <x-dc>
 <helmet>
 <link rel="preload" as="image" href="assets/phoenix.svg"/>
@@ -512,6 +533,58 @@ class Component extends DCLogic {
 
   renderVals(){ return {}; }
 }
+</script>
+
+<script id="bumble-intro-controller">
+(() => {
+  const intro = document.getElementById('bumble-intro');
+  const frame = document.getElementById('bumble-intro-frame');
+  const skip = document.getElementById('bumble-intro-skip');
+  const bar = document.getElementById('bumble-intro-progress-bar');
+  if (!intro || !frame || !skip) return;
+
+  let started = false, finished = false, timer = 0, watchdog = 0;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    window.clearTimeout(timer);
+    window.clearTimeout(watchdog);
+    window.removeEventListener('message', onMessage);
+    document.removeEventListener('keydown', onKeydown);
+    document.documentElement.classList.remove('bm-intro-lock');
+    intro.classList.add('bm-intro-leaving');
+    window.setTimeout(() => intro.remove(), 900);
+  };
+  const begin = () => {
+    if (started || finished) return;
+    started = true;
+    if (bar) bar.style.animationPlayState = 'running';
+    timer = window.setTimeout(finish, 13850);
+  };
+  function onMessage(event) {
+    if (event.source !== frame.contentWindow || event.origin !== window.location.origin) return;
+    if (event.data && event.data.type === 'bumble-energy:started') begin();
+  }
+  function onKeydown(event) {
+    if (event.key === 'Escape') finish();
+  }
+
+  skip.addEventListener('click', finish);
+  document.addEventListener('keydown', onKeydown);
+  window.addEventListener('message', onMessage);
+  document.documentElement.classList.add('bm-intro-lock');
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    finish();
+    return;
+  }
+
+  // A failed iframe load or a stalled animation must never trap visitors.
+  frame.addEventListener('load', () => {
+    window.setTimeout(() => { if (!started && !finished) finish(); }, 5000);
+  }, { once: true });
+  watchdog = window.setTimeout(finish, 20000);
+})();
 </script>
 </body>
 </html>
