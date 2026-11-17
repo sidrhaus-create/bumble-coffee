@@ -130,3 +130,36 @@ download those two files, put them next to `index.html`, and add before `bumble.
 The runtime skips the CDN when `window.React` / `window.ReactDOM` already exist.
 
 No debug UI, no editor panels, no localhost references are present in this build.
+
+## Ozon click tracking (Yandex Metrika)
+
+`index.html` loads `bumble-metrika.js`. It observes the existing Ozon links in the
+header (`data-hd-ozon`) and in the dynamically rendered purchase section
+(`data-buy-tile`). It leaves their destinations, appearance and navigation intact.
+
+Complete the setup on the **outer Tilda page**:
+
+1. Add the contents of `tilda-metrika-install.html` as a new T123 block and publish.
+   Do not replace the existing iframe or the partner-form bridge.
+2. In counter **112136110**, create target-event goals with an exact identifier:
+
+   | Name | Identifier |
+   | --- | --- |
+   | Ozon — шапка | `ozon_header` |
+   | Ozon — где купить | `ozon_where_to_buy` |
+
+The iframe sends `BUMBLE_METRIKA_GOAL` messages with `version: 1`, an event ID and
+an allowlisted goal. The parent validates both the GitHub origin and the exact
+`bumbleSite.contentWindow`, then calls the existing `ym` counter. The child sends
+only to the exact production parent origin. No additional counter or pageview is
+created, and no form data or destination URL is sent in these messages.
+
+Repeated delivery is acknowledged and deduplicated. The child retries for up to
+20 seconds if the parent script has not loaded. The parent buffers accepted clicks
+for up to 30 seconds while Tilda initializes Metrika. An acknowledgement confirms
+receipt into that queue, not acceptance by Yandex. Analytics blockers can still
+prevent collection.
+
+Validation: `node --test tests/metrika.test.cjs`. After both deployments and goal
+creation, open the production page, click each Ozon placement, and check the
+matching goals in Metrika's debugger and the Conversions report for today.
